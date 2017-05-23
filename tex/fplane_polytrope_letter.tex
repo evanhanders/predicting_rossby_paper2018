@@ -66,8 +66,8 @@ We evolve the Fully Compressible Navier-Stokes equations,
 	\label{eqn:continuity_eqn}
 \end{aligned}\\
 &\begin{aligned}
-\frac{\partial\bm{u}}{\partial t} + \grad T - 
-&\nu\grad\cdot\lilstressT - \lilstressT\cdot\grad\nu = \\
+\frac{\partial\bm{u}}{\partial t} + 2\bm{\Omega}&\times\bm{u} + \grad T - 
+\nu\grad\cdot\lilstressT - \lilstressT\cdot\grad\nu = \\
 &-\bm{u}\cdot\grad\bm{u} - T\grad\ln\rho + \bm{g} + 
 \nu\lilstressT\cdot\grad\ln\rho,
 \label{eqn:momentum_eqn}
