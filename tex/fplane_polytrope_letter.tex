@@ -1,0 +1,109 @@
+%\documentclass[iop]{emulateapj}
+\documentclass[aps, prl, twocolumn, nofootinbib, groupedaddress, amsfonts, amssymb, amsmath]{revtex4-1}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{natbib}
+%\usepackage[colorlinks=True, linkcolor=blue, citecolor=blue]{hyperref}
+%\usepackage[all]{hypcap}
+
+\bibliographystyle{apsrev}
+
+\newcommand{\Div}[1]{\ensuremath{\nabla\cdot\left( #1\right)}}
+\newcommand{\angles}[1]{\ensuremath{\left\langle #1 \right\rangle}}
+\newcommand{\grad}{\ensuremath{\nabla}}
+\newcommand{\RB}{Rayleigh-B\'{e}nard }
+\newcommand{\stressT}{\ensuremath{\bm{\bar{\bar{\Pi}}}}}
+\newcommand{\lilstressT}{\ensuremath{\bm{\bar{\bar{\sigma}}}}}
+\newcommand{\nrho}{\ensuremath{n_{\rho}}}
+\newcommand{\approptoinn}[2]{\mathrel{\vcenter{
+	\offinterlineskip\halign{\hfil$##$\cr
+	#1\propto\cr\noalign{\kern2pt}#1\sim\cr\noalign{\kern-2pt}}}}}
+
+\newcommand{\appropto}{\mathpalette\approptoinn\relax}
+
+\newcommand\mnras{{MNRAS}}%
+          % Monthly Notices of the RAS
+
+\begin{document}
+%%%%% Create nice title and abstract
+\author{Evan H. Anders}
+\affiliation{Department of Astrophysical \& Planetary Sciences, University of Colorado -- Boulder}
+\affiliation{Laboratory for Atmospheric and Space Physics, Boulder, CO}
+\author{Benjamin P. Brown}
+\affiliation{Department of Astrophysical \& Planetary Sciences, University of Colorado -- Boulder}
+\affiliation{Laboratory for Atmospheric and Space Physics, Boulder, CO}
+\title{Convective heat transport in stratified atmospheres at low and high Mach number}
+
+\begin{abstract}
+Abstract goes here
+\end{abstract}
+\maketitle
+
+
+%%%%% Body of the paper
+\section{Introduction}
+\refstepcounter{section}
+\label{sec:intro}
+Blah blah relevant background and other stuff
+
+\section{Experiment} 
+\refstepcounter{section}
+\label{sec:experiment}
+Here's a polytrope:
+\begin{equation}
+\begin{split}
+\rho_0(z) &= \rho_{t}(1 + L_z - z)^m, \\
+T_0(z)    &= T_{t}(1 + L_z - z),
+\label{eqn:polytrope}
+\end{split}
+\end{equation}
+
+We evolve the Fully Compressible Navier-Stokes equations,
+\begin{align}
+&\begin{aligned}
+&\frac{\partial \ln\rho}{\partial t} + \grad\cdot\bm{u} 
+    = -\bm{u}\cdot\grad\ln\rho,
+	\label{eqn:continuity_eqn}
+\end{aligned}\\
+&\begin{aligned}
+\frac{\partial\bm{u}}{\partial t} + \grad T - 
+&\nu\grad\cdot\lilstressT - \lilstressT\cdot\grad\nu = \\
+&-\bm{u}\cdot\grad\bm{u} - T\grad\ln\rho + \bm{g} + 
+\nu\lilstressT\cdot\grad\ln\rho,
+\label{eqn:momentum_eqn}
+\end{aligned}\\
+&\begin{aligned}
+\frac{\partial T}{\partial t} -\frac{1}{c_V}\left(\right.\chi&\left.
+    \grad^2 T + \grad T\cdot\grad\chi\right) = \\
+	&-\bm{u}\cdot\grad T - (\gamma-1)T\grad\cdot{\bm{u}} \\
+	&+ \frac{1}{c_V}\left(\chi\grad T \cdot\grad\ln\rho +
+	\nu\left[\lilstressT\cdot\nabla\right]\cdot\bm{u}\right), 
+	\label{eqn:energy_eqn}
+\end{aligned}
+\end{align}
+with the viscous stress tensor given by
+\begin{equation}
+\sigma_{ij} \equiv \left(\frac{\partial u_i}{\partial x_j} + 
+\frac{\partial u_j}{\partial x_i} - \frac{2}{3}\delta_{ij}\grad\cdot\bm{u}\right).
+	\label{eqn:stress_tensor}
+\end{equation}
+
+\section{Results \& Discussion}
+\refstepcounter{section}
+\label{sec:results}
+This is where figures go and other important things that we like to talk about.
+
+
+
+\subsection{acknowledgements}
+EHA acknowledges the support of the University of Colorado's George 
+Ellery Hale Graduate Student Fellowship.
+This work was additionally supported by  NASA LWS grant number NNX16AC92G.  
+Computations were conducted 
+with support by the NASA High End Computing (HEC) Program through the NASA 
+Advanced Supercomputing (NAS) Division at Ames Research Center on Pleiades
+with allocations GID s1647.
+We thank  Jeff Oishi for many useful discussions. 
+
+\bibliography{../biblio.bib}
+\end{document}
