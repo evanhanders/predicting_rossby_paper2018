@@ -1,15 +1,15 @@
-%\documentclass[iop]{emulateapj}
-\documentclass[aps, prl, twocolumn, nofootinbib, groupedaddress, amsfonts, amssymb, amsmath]{revtex4-1}
-\usepackage{graphicx}
+\documentclass[twocolumn, amsmath, amsfonts, amssymb]{aastex62}
+\usepackage{mathtools}
 \usepackage{bm}
-\usepackage{natbib}
-%\usepackage[colorlinks=True, linkcolor=blue, citecolor=blue]{hyperref}
-%\usepackage[all]{hypcap}
-
-\bibliographystyle{apsrev}
+\newcommand{\vdag}{(v)^\dagger}
+\newcommand\aastex{AAS\TeX}
+\newcommand\latex{La\TeX}
 
 \newcommand{\Div}[1]{\ensuremath{\nabla\cdot\left( #1\right)}}
+\newcommand{\DivU}{\ensuremath{\nabla\cdot\bm{u}}}
 \newcommand{\angles}[1]{\ensuremath{\left\langle #1 \right\rangle}}
+\newcommand{\KS}[1]{\ensuremath{\text{KS}(#1)}}
+\newcommand{\KSstat}[1]{\ensuremath{\overline{\text{KS}(#1)}}}
 \newcommand{\grad}{\ensuremath{\nabla}}
 \newcommand{\RB}{Rayleigh-B\'{e}nard }
 \newcommand{\stressT}{\ensuremath{\bm{\bar{\bar{\Pi}}}}}
@@ -21,29 +21,46 @@
 
 \newcommand{\appropto}{\mathpalette\approptoinn\relax}
 
-\newcommand\mnras{{MNRAS}}%
-          % Monthly Notices of the RAS
+
+
+%% Tells LaTeX to search for image files in the 
+%% current directory as well as in the figures/ folder.
+\graphicspath{{./}{figs/}}
+
+
+\received{\today}
+\revised{\today}
+\accepted{\today}
+\submitjournal{ApJ}
+
+\shorttitle{Small name}
+\shortauthors{Anders, Manduca, and Brown}
 
 \begin{document}
-%%%%% Create nice title and abstract
+
+\title{Controlling the rotational constraint in stratified, compressible convection}
+
+\correspondingauthor{Evan H. Anders}
+\email{evan.anders@colorado.edu}
+
 \author{Evan H. Anders}
-\affiliation{Department of Astrophysical \& Planetary Sciences, University of Colorado -- Boulder}
-\affiliation{Laboratory for Atmospheric and Space Physics, Boulder, CO}
+\affil{University of Colorado -- Boulder}
+\author{Katie Manduca}
+\affil{University of Colorado -- Boulder}
 \author{Benjamin P. Brown}
-\affiliation{Department of Astrophysical \& Planetary Sciences, University of Colorado -- Boulder}
-\affiliation{Laboratory for Atmospheric and Space Physics, Boulder, CO}
-\title{Convective properties of rotating, stratified atmospheres at low and high Mach number}
+\affil{University of Colorado -- Boulder}
+
 
 \begin{abstract}
-Abstract goes here.
 \end{abstract}
-\maketitle
 
+\keywords{convection --- happy caterpillars}
 
 %%%%% Body of the paper
 \section{Introduction}
-\refstepcounter{section}
 \label{sec:intro}
+Recent work by \cite{featherstone&hindman2016} needs to be talked about.
+Rotating dynamo stuff \cite{busse2002, brown&all2008, brown&all2010, brown&all2011} 
 Papers on rotating RB convection that might matter:
 \cite{hathaway&somerville1983, julien&all1996, zhong&all2009, julien&all2012, stellmach&all2014}.
 Papers on rotating stratified f-planes that might matter:
@@ -51,31 +68,38 @@ Papers on rotating stratified f-planes that might matter:
 seem to avoid simplicities (like the f-plane) as though they were the plague.
 
 \section{Experiment} 
-\refstepcounter{section}
 \label{sec:experiment}
-We study a plane-parallel atmosphere whose initial stratification is polytropic,
+We study fully compressible, stratified 
+convection as we previously did in \cite{anders&brown2017}, with 
+the inclusion of rotation. We study an ideal gas whose
+equation of state is $P = R \rho T$ and with an adiabatic
+index $\gamma = 5/3$. We nondimensionalize the atmosphere such that
+$R = 1$ and $P = \rho = T = 1$ at the top of the domain.
+The initial stratification is polytropic, such that
 \begin{equation}
 \begin{split}
-\rho_0(z) &= \rho_{t}(1 + L_z - z)^m, \\
-T_0(z)    &= T_{t}(1 + L_z - z),
+\rho_0(z) &= (1 + L_z - z)^m, \\
+T_0(z)    &= (1 + L_z - z),
 \label{eqn:polytrope}
 \end{split}
 \end{equation}
+where $m$ is the polytropic index,
+$z$ increases upwards in the range $z = [0, L_z]$, and
+$L_z \equiv e^{n_\rho/m} - 1$ is the depth of the atmosphere,
+where $n_\rho$ specifies the number of density scale heights that the
+atmosphere spans. We specify the instability of the atmosphere
+through the superadiabatic excess, $\epsilon = m - m_{ad}$, where
+$m_{ad} = (\gamma-1)^{-1}$ is the adiabatic polytropic index, and
+$\epsilon$ controls the Mach number of the flows \citep{anders&brown2017}.
+The domain is a 3D cartesian box whose horizontal extent is in the range
+$x, y = [0, AL_z]$, where $A$ is the aspect ratio of the domain.
+As has been studied previously by e.g., \cite{julien&all1996, brummell&all1996}, 
+we study a domain in which the
+gravity and rotational vector are antiparallel, $\bm{g} = -g\hat{z}$,
+and $\bm{\Omega} = \Omega \hat{z}$.
 
-We utilize a localized f-plane model in which the domain
-is subject to a constant, unidirectional rotation, 
-$\bm{\Omega} = (0, \Omega_0 \sin\theta, \Omega_0\cos\theta)$.
-This is similar to the approached used in \cite{brummell&all1996}, and
-implies that the domain represents an area of relatively small extent near
-the surface of a planet or star, such that the rotation vector does not
-change appreciably over the domain.  This assumption means that
-the centripetal force, 
-$\bm{F}_{\text{cent}} \propto \bm{\Omega}\times(\bm{\Omega}\times\bm{r})$,
-is uniform across any given slice of the atmosphere, and thus it only modifies the
-initial pressure profile.  If $\theta \neq 0$, then the upwards component of the
-centripetal force acts to weaken the effects of gravity.
-
-We evolve the Fully Compressible Navier-Stokes equations,
+We evolve the velocity ($\bm{u}$), temperature, and log density according to the
+Fully Compressible Navier-Stokes equations,
 \begin{align}
 &\begin{aligned}
 &\frac{\partial \ln\rho}{\partial t} + \grad\cdot\bm{u} 
@@ -105,22 +129,78 @@ with the viscous stress tensor given by
 	\label{eqn:stress_tensor}
 \end{equation}
 
-We have previously shown that the superadiabaticity of a polytropic atmosphere, $\epsilon$,
-is the primary control parameter of the Mach number of the evolved atmosphere.  Here we study
-two values of $\epsilon = (10^{-4}, 0.5)$ in order to study low at high Mach number flows.  We
-study the behavior of convection near onset and with a supercriticality parameter up to $10^3$.
-We examine three different values of the Convective Rossby number
-(Ro$_c = (0.1, 1, 10)$) in order to understand the behavior of atmospheres in which convective
-driving dominates over rotation, in which those forces are equal, and in which the rotation
-dominates over convective driving.
+The kinematic viscosity, $\nu$, thermal diffusivity, $\chi$, and strength of
+rotation $\Omega$ are set at the top of the domain by the Rayleigh number
+(Ra), Prandtl number (Pr), and Taylor number (Ta),
+\begin{equation}
+\text{Ra} = \frac{g L_z^3 \Delta S / c_P}{\nu \chi}, \,\,\,
+\text{Pr} = \frac{\nu}{\chi}, \,\,\,
+\text{Ta} = \left(\frac{2 \Omega L_z^2}{\nu}\right)^2,
+\end{equation}
+where $\Delta S = \epsilon n_\rho / m$ is the specific entropy difference between
+$z = 0$ and $z = L_z$, and the specific heat at constant pressure is $c_P$.
+
+
+
 
 We measure the resulting Rossby number, Nusselt number, and Reynolds number of all flows in order to
 understand the various regimes of convection which are open to us.
 
+\begin{figure}[h]
+%\includegraphics[width=\textwidth]{./figs/parameter_space.png}
+\caption{(a) The critical Rayleigh number, as a function of the Taylor number, 
+is plotted as a solid black line. Paths of constant Convective Rossby Number
+(red dashed line), constant supercriticality (orange dashed line), and 
+COPRIME (blue solid line) are shown through parameter space. (b) Evolved
+Rossby number is plotted vs. Taylor number along multiple constant COPRIME
+paths, such as the solid blue line in (a). 
+After a sharp increase at low Ta, the evolved Rossby number flattens
+out and stays nearly constant across orders of magnitude of Ta.
+\label{fig:parameter_space} }
+\end{figure}
+
+
+
 \section{Results \& Discussion}
-\refstepcounter{section}
 \label{sec:results}
 This is where figures go and other important things that we like to talk about.
+
+
+\begin{figure}[h]
+%\includegraphics[width=\textwidth]{./figs/parameter_space.png}
+\caption{(a) Evolved Nusselt number vs. Rayleigh number / Ra\_crit along constant
+COPRIME paths. A classic scaling law of $Nu \propto Ra^{2/7}$ is observed.
+(b) Evolved Reynolds number vs. Rayleigh number / Ra\_crit along constant COPRIME paths.
+A classic scaling law of $Re \propto Ra^{1/2}$ is observed. These laws are
+reminiscent of standard scaling laws of Re and Nu in non-rotational convection
+(SOURCES SOURCES SOURCES). This suggests that at fixed Rossby number on
+a constant COPRIME path (Fig. \ref{fig:parameter_space}), varying the Rayleigh
+number affects the evolved dynamics in a manner similar to a nonrotating fluid.
+\label{fig:nu_and_re} }
+\end{figure}
+
+\begin{figure}[h]
+%\includegraphics[width=\textwidth]{./figs/parameter_space.png}
+\caption{ Here's some pretty plots, we'll figure out what we plot later.
+\label{fig:pretty_convection} }
+\end{figure}
+
+\begin{figure}[h]
+%\includegraphics[width=\textwidth]{./figs/parameter_space.png}
+\caption{(a) Horizontally-averaged profiles of the Rossby number are shown
+vs. z for a constant COPRIME = X. (b) Horizontally-averaged profiles of 
+the entropy gradient are shown vs. z for a constant COPRIME = X.
+(c) Vorticity boundary layer thickness normalized by entropy boundary layer
+thickness as a function of Ta/Ta\_crit for multiple COPRIME paths.
+When this measure is $\gg 1$, we expect the flows to be buoyancy dominated,
+when it is $\ll 1$, we expect the flows to be rotationally dominated,
+and when it is $\sim 1$, we anticipate that both effects are very important.
+\label{fig:profiles_and_bls} }
+\end{figure}
+
+
+
+
 
 
 
