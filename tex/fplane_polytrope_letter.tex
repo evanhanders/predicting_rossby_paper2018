@@ -59,34 +59,67 @@
 %%%%% Body of the paper
 \section{Introduction}
 \label{sec:intro}
-\begin{enumerate}
-\item There's lots of research on rotating convection. Stratified and boussinesq.
-Laboratory experiments and numerics. Cylindrical, spherical, and cartesian.
-\item Often in astrophysics, global rotating convection simulations aim to gain
-insight into the solar dynamo.
-\item Recent observations, the convective conundrum, have called into question
-our understanding of deep convective motions in the Sun. Recent work
-by \cite{featherstone&hindman2016} show that if the convection there is
-rotationally constrained, it could suppress deep convections and line up with
-observations better.
-\item We find no explanation in the literature for how to set the rotational
-constraint of convection (Ro) while changing the Reynolds number to study more
-rotationally constrained convection. If rotational constraints are primary 
-drivers of the nature of convection in the natural object of interest (e.g, Sun),
-then it will be very important to fix the Ro of convective motions while
-varying other parameters.
-\item Much work has focused on how Nu scales with Ra at fixed Ta. In this work,
-we show how to study convection at a fixed rossby number in the laminar and 
-turbulent regimes, much as we learned how to study low and high Mach number
-convection in AB17.
-\end{enumerate}
-Recent work by \cite{featherstone&hindman2016} needs to be talked about.
-Rotating dynamo stuff \cite{busse2002, brown&all2008, brown&all2010, brown&all2011} 
-Papers on rotating RB convection that might matter:
-\cite{hathaway&somerville1983, julien&all1996, zhong&all2009, julien&all2012, stellmach&all2014}.
-Papers on rotating stratified f-planes that might matter:
-\cite{brummell&all1996, brummell&all1998, calkins&all2015a}.  Honestly, most stratified, rotating sims
-seem to avoid simplicities (like the f-plane) as though they were the plague.
+Convection under the influence of rotation has been studied in great detail in
+recent decades. In the incompressible boussinesq case, numerous authors have
+studied rotating convection in both laboratory and numerical settings. The
+behavior of the heat transport in these systems has been the focus of many
+of these studies, particularly the difference of behavior of heat transport
+in rotationally-constrained and unconstrained regimes 
+\citep{king&all2009, zhong&all2009, stevens&all2009, julien&all2012}. 
+Studies of both laboratory (cite, cite) and numerical (cite, cite) experiments
+coincide well in these regimes.
+
+More complicated experiments of rotational convection are often conducted
+using numerical tools in spherical geometries. Often these studies aim to
+gain insight into the solar dynamo \citep{glatzmaier&gilman1982, busse2002, brown&all2008,
+brown&all2010, brown&all2011, augustson&all2012, guerrero&all2013, kapyla&all2014}.
+Numerous interesting phenomenological discoveries have been made in such studies,
+but they often employ very different degrees of rotational constraint, but their
+basic system behavior often differs significantly from the sun. For example, 
+dynamo simulations often produce antisolar differential rotation profiles at
+nominally solar values of rotational constraint.
+
+In recent years, helioseismic imaging of flows in the Sun have suggested that
+power in large-scale convective motions is much lower than convective simulations
+and mixing length theory predict \citep{hanasoge&all2012, greer&all2015L}.
+This suggests that either convection is not driven deep in the solar convection
+zone or its motions are masked before they reach the surface by some process.
+A number of possible mechanisms have been suggested as culprits for this behavior,
+including entropy rain \citep{brandenburg2016}. One other possibility is that the
+interior convection zone is rotationally constrained, and that this behavior is
+reducing low wavenumber power at the surface. The recent work of
+\cite{featherstone&hindman2016} suggests that this is a strong possibility,
+and the observations of \cite{greer&all2016} suggest that flows in the deep solar
+convection zone are rotationally constrained. The degree of rotational constraint
+under which convective flows occur can greatly change the character of the
+resultant situation, and so in the case of astrophysical contexts (solar studies
+such as those mentioned above and also planetary studies such as e.g., 
+\cite{soderlund&all2015}), it is important to study convection in the same
+rotational regime as the astrophysical object of interest in order to meaningfully
+understand results.
+
+One difficulty in studying rotational convection is that it is often unclear
+from input parameters whether or not the resulting convective state will be rotationally
+constrained. In \cite{anders&brown2017} (hereafter AB17), we studied non-rotating, hydrodynamic, 
+compressible convection. We showed how the evolved Reynolds number, Peclet number
+(Re and Pe, two measures of turbulence in the evolved state), and Mach number
+(Ma, the ratio of flow speed to the local sound speed) of the convective solution
+can be specified through a properly constructed reference atmosphere. Upon the inclusion
+of rotation, a fourth dynamical measure of the solution becomes meaningful: the
+Rossby number (Ro, the ratio of advective dynamics to rotational constraint). Low
+Ro flows are rotationally constrained, while high Ro flows are not. While the literature
+contains a wealth of information regarding how the magnitude of rotation affects the
+heat transport characteristics of convection, we find no work which simply links
+the rotational constraint of evolved solutions with input parameters.
+
+In this work, we extend the study of AB17 to rotationally-influenced, $f$-plane
+polytropic atmospheres, as have been previously studied by e.g.,
+\cite{brummell&all1996, brummell&all1998, calkins&all2015a}. Our goal is to determine
+how the input parameters which we studied previously couple with a new input
+parameter, the Taylor number (Ta, \cite{julien&all1996}), which sets the magnitude of the
+rotational vector. In section  \ref{sec:experiment}, we describe our atmosphere, numerical
+experiment, and paths through parameter space. In section \ref{sec:results}, we present
+the results of our experiments and we offer concluding remarks.
 
 \section{Experiment} 
 \label{sec:experiment}
