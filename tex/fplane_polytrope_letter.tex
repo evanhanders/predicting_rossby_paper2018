@@ -44,11 +44,13 @@
 \email{evan.anders@colorado.edu}
 
 \author{Evan H. Anders}
-\affil{University of Colorado -- Boulder}
-\author{Katie Manduca}
-\affil{University of Colorado -- Boulder}
+\affil{Dept. Astrophysical \& Planetary Sciences, University of Colorado -- Boulder, Boulder, CO 80309, USA}
+\affil{Laboratory for Atmospheric and Space Physics, Boulder, CO 80303, USA}
+\author{Cathryn M. Manduca}
+\affil{Laboratory for Atmospheric and Space Physics, Boulder, CO 80303, USA}
 \author{Benjamin P. Brown}
-\affil{University of Colorado -- Boulder}
+\affil{Dept. Astrophysical \& Planetary Sciences, University of Colorado -- Boulder, Boulder, CO 80309, USA}
+\affil{Laboratory for Atmospheric and Space Physics, Boulder, CO 80303, USA}
 
 
 \begin{abstract}
@@ -194,19 +196,46 @@ rotation $\Omega$ are set at the top of the domain by the Rayleigh number
 where $\Delta S = \epsilon n_\rho / m$ is the specific entropy difference between
 $z = 0$ and $z = L_z$, and the specific heat at constant pressure is $c_P$.
 
+As Ta increases, the critical value of Ra at which convection onsets,
+Ra$_{\text{crit}}$, also increases. The linked nature of these crucial
+control parameters makes it difficult to predict the regime of the evolved
+fluid flows for a given set of input parameters. In this work, we will
+explore commonly-chosen paths through Ra-Ta space, as well as an additional
+experimentally-determined path. These three paths are defined as
+\begin{equation}
+\text{Ra} = 
+\begin{cases}
+(1 + \sigma)\text{Ra}_\text{crit}(\text{Ta}), \\
+\text{Co}^2\text{Pr Ta}, \\
+\mathcal{C}^2 \text{Pr Ta}^{3/4}.
+\end{cases}
+\label{eqn:paths}
+\end{equation}
+Here, $(1 + \sigma)$ is the supercriticality, and the first path through
+this parameter space is at constant supercriticality and Co is the classic
+``Convective Rossby number,'' which has been used frequently over the past
+two decades, and is intended to predict the rotational constraint of the
+evolved solution \citep{julien&all1996, brummell&all1996}. Paths through parameter
+space at constant $\mathcal{C}$, which we call the Predictive Rossby Number,
+are along countours of Ta$^{3/4}$ are a new path
+through parameter space that we explore in this work. An example of each of these paths
+can be seen in Fig. \ref{fig:parameter_space}a.  Our goal is to find a path
+along which the Rossby number,
+\begin{equation}
+\text{Ro} = \frac{|\grad\times \bm{u}|}{2 \Omega},
+\label{eqn:ro}
+\end{equation}
+and thus the rotational constraint of the flows, is constant.
 
 
-
-We measure the resulting Rossby number, Nusselt number, and Reynolds number of all flows in order to
-understand the various regimes of convection which are open to us.
 
 \begin{figure}[h]
 %\includegraphics[width=\textwidth]{./figs/parameter_space.png}
 \caption{(a) The critical Rayleigh number, as a function of the Taylor number, 
 is plotted as a solid black line. Paths of constant Convective Rossby Number
 (red dashed line), constant supercriticality (orange dashed line), and 
-COPRIME (blue solid line) are shown through parameter space. (b) Evolved
-Rossby number is plotted vs. Taylor number along multiple constant COPRIME
+$\mathcal{C}$ (blue solid line) are shown through parameter space. (b) Evolved
+Rossby number is plotted vs. Taylor number along multiple constant $\mathcal{C}$
 paths, such as the solid blue line in (a). 
 After a sharp increase at low Ta, the evolved Rossby number flattens
 out and stays nearly constant across orders of magnitude of Ta.
@@ -217,21 +246,53 @@ out and stays nearly constant across orders of magnitude of Ta.
 
 \section{Results \& Discussion}
 \label{sec:results}
-This is where figures go and other important things that we like to talk about.
+In Fig. \ref{fig:parameter_space}a, we display the value of the critical Rayleigh number 
+(Ra$_{\text{crit}}$) as a function of the Taylor number (Ta). We found these critical
+values through the use of a linear instability analysis. We plot sample paths through
+this parameter space at $\sigma = 1$, Co = 1, and $\mathcal{C} = 0.957$, as defined in 
+Eqn. \ref{eqn:paths}. In Fig. \ref{fig:parameter_space}b, we show that along paths of
+constant $\sigma$, the Rossby number, as defined in Eqn. \ref{eqn:ro},
+decreases weakly as a function of Ra and Ta. Along paths of constant Co, Ro increases
+sharply with increasing Ra and Ta. However, along paths of constant $\mathcal{C}$, 
+after an increase at low Ra, the evolved value of Ro levels off and stays roughly constant
+as a function of Ra. By interpolating between the slopes of constant $\sigma$ and
+constant Co lines, we arrived at the scaling of Ra $\propto$ Ta$^{3/4}$ along constant
+$\mathcal{C}$ lines, and holding $\mathcal{C}$ constant seems to predict Ro relatively
+well from our experimental trials here. In Fig. \ref{fig:parameter_space}c, we
+show how the Predictive Rossby Number, $\mathcal{C}$, relates to the evolved Rossby
+number for a series of runs which are all at the same supercriticality.
 
 
 \begin{figure}[h]
 %\includegraphics[width=\textwidth]{./figs/parameter_space.png}
 \caption{(a) Evolved Nusselt number vs. Rayleigh number / Ra\_crit along constant
-COPRIME paths. A classic scaling law of $Nu \propto Ra^{2/7}$ is observed.
-(b) Evolved Reynolds number vs. Rayleigh number / Ra\_crit along constant COPRIME paths.
+$\mathcal{C}$ paths. A classic scaling law of $Nu \propto Ra^{2/7}$ is observed.
+(b) Evolved Reynolds number vs. Rayleigh number / Ra\_crit along constant $\mathcal{C}$ paths.
 A classic scaling law of $Re \propto Ra^{1/2}$ is observed. These laws are
 reminiscent of standard scaling laws of Re and Nu in non-rotational convection
 (SOURCES SOURCES SOURCES). This suggests that at fixed Rossby number on
-a constant COPRIME path (Fig. \ref{fig:parameter_space}), varying the Rayleigh
+a constant $\mathcal{C}$ path (Fig. \ref{fig:parameter_space}), varying the Rayleigh
 number affects the evolved dynamics in a manner similar to a nonrotating fluid.
 \label{fig:nu_and_re} }
 \end{figure}
+
+We define the Nusselt number (Nu) as we did previously in AB17,
+\begin{equation}
+\text{Nu} \equiv \frac{\langle F_{\text{conv,z}} + F_{\text{cond,z}} - F_{\text{A}}\rangle}
+{\langle F_{\text{cond,z}} - F_{\text{A}}\rangle},
+\label{eqn:nusselt}
+\end{equation}
+where $F_{\text{conv,z}}$ is the vertical convective flux, $F_{\text{cond,z}}$ is the
+vertical conductive flux, and $F_{\text{A}}$ is the adiabatic conductive flux. We refer
+the reader to AB17 for a more thorough definition of these fluxes.
+In Fig. \ref{fig:nu_and_re}a, we show the scaling of the Nusselt number as a function
+of Ra at fixed $\mathcal{C}$. We find that when $\mathcal{C}$ is held constant and
+Ra is increased, we find a scaling of $\text{Nu} \propto \text{Ra}^{2/7}$ [note:
+insert true scaling], reminiscent of classical scaling laws in non-rotating theory as
+Ra increases. Furthermore, in Fig. \ref{fig:nu_and_re}b, we plot the RMS Reynold's
+number (Re $= |u| L_z / \nu$) as a function of Ra, and find that 
+$\text{Re} \propto \text{Ra}^{1/2}$, which is reminiscent of how the Reynold's
+number scales with increasing Ra in non-rotating convection.
 
 \begin{figure}[h]
 %\includegraphics[width=\textwidth]{./figs/parameter_space.png}
@@ -239,18 +300,49 @@ number affects the evolved dynamics in a manner similar to a nonrotating fluid.
 \label{fig:pretty_convection} }
 \end{figure}
 
+In Fig. \ref{fig:pretty_convection}, we show sample snapshots of the convective flows in
+our domain. I'll need to talk about them once I get there.
+
 \begin{figure}[h]
 %\includegraphics[width=\textwidth]{./figs/parameter_space.png}
 \caption{(a) Horizontally-averaged profiles of the Rossby number are shown
-vs. z for a constant COPRIME = X. (b) Horizontally-averaged profiles of 
-the entropy gradient are shown vs. z for a constant COPRIME = X.
+vs. z for a constant $\mathcal{C}$ = X. (b) Horizontally-averaged profiles of 
+the entropy gradient are shown vs. z for a constant $\mathcal{C}$ = X.
 (c) Vorticity boundary layer thickness normalized by entropy boundary layer
-thickness as a function of Ta/Ta\_crit for multiple COPRIME paths.
+thickness as a function of Ta/Ta\_crit for multiple $\mathcal{C}$ paths.
 When this measure is $\gg 1$, we expect the flows to be buoyancy dominated,
 when it is $\ll 1$, we expect the flows to be rotationally dominated,
 and when it is $\sim 1$, we anticipate that both effects are very important.
 \label{fig:profiles_and_bls} }
 \end{figure}
+
+In Fig. \ref{fig:profiles_and_bls}, we show time- and horizontally-averaged profiles of
+the rossby number and the entropy gradient. As Ra increases at a constant value of
+$\mathcal{C}$, both the entropy and rotational boundary layers shrink. We measure the
+upper boundary layer thicknesses of both profiles. We measure the boundary layer thickness
+of the Rossby number as the distance from the upper boundary to the point at which Ro
+is maximized. We measure the boundary layer thickness of the entropy profile by fitting
+a line to the upper 10 points in the domain, and assuming that the boundary layer extends to
+the point at which that line crosses through zero. We plot $\delta_S/\delta_{\text{Ro}}$
+as a function of Ra for our $\mathcal{C}$ paths in Fig. \ref{fig:profiles_and_bls}b. We find
+that the ratio of these boundary layers is relatively constant as a fucntion of Ra, which
+implies that the rotational constraint across Ra is roughly constant.
+[NOTE: NEED TO TALK ABOUT MAGNITUDE OF RO IN BOUNDARY LAYER]
+
+\section{Discussion}
+\label{section:discussion}
+In this letter, we studied rotating, stratified, compressible convection at low Mach 
+number. We studied traditional paths through Ra-Ta space, as well as a new path,
+in which the Predictive Rossby number $\mathcal{C}$ is held constant, and
+$\text{Ra} = \mathcal{C} \text{Ta}^{3/4}$. Along these paths, we find that the evolved
+rotational constraint, as measured by the Rossby number (Ro), is roughly constant as
+Ra increases. Furthermore, the heat transport, measured by the Nusselt number (Nu), and the
+level of turbulence, as measured by the Reynolds number (Re), vary according to traditional 
+scaling laws as Ra increases. Together, these phenomena suggest that experimenters in
+stratified convection can specify the degree of rotational constraint in their evolved
+solutions by choosing $\mathcal{C}$, and then increase Ra in a manner analogous to 
+unrotating convection (e.g., AB17) to increase the efficiency and turbulent nature of the
+convective dynamics in question.
 
 
 
