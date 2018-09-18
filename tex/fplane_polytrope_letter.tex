@@ -1,9 +1,11 @@
 \documentclass[twocolumn, amsmath, amsfonts, amssymb]{aastex62}
 \usepackage{mathtools}
+\usepackage{natbib}
 \usepackage{bm}
 \newcommand{\vdag}{(v)^\dagger}
 \newcommand\aastex{AAS\TeX}
 \newcommand\latex{La\TeX}
+
 
 \newcommand{\Div}[1]{\ensuremath{\nabla\cdot\left( #1\right)}}
 \newcommand{\DivU}{\ensuremath{\nabla\cdot\bm{u}}}
@@ -20,7 +22,7 @@
 	#1\propto\cr\noalign{\kern2pt}#1\sim\cr\noalign{\kern-2pt}}}}}
 
 \newcommand{\appropto}{\mathpalette\approptoinn\relax}
-
+\newcommand{\pro}{\ensuremath{\mathcal{P}_{\text{Ro}}}}
 
 
 %% Tells LaTeX to search for image files in the 
@@ -37,6 +39,8 @@
 \shortauthors{Anders, Manduca, and Brown}
 
 \begin{document}
+\defcitealias{anders&brown2017}{AB17}
+\newcommand{\AB}{\citetalias{anders&brown2017}}
 
 \title{Controlling the rotational constraint in stratified, compressible convection}
 
@@ -102,7 +106,7 @@ understand results.
 
 One difficulty in studying rotational convection is that it is often unclear
 from input parameters whether or not the resulting convective state will be rotationally
-constrained. In \cite{anders&brown2017} (hereafter AB17), we studied non-rotating, hydrodynamic, 
+constrained. In \cite{anders&brown2017} (hereafter \AB), we studied non-rotating, hydrodynamic, 
 compressible convection. We showed how the evolved Reynolds number, Peclet number
 (Re and Pe, two measures of turbulence in the evolved state), and Mach number
 (Ma, the ratio of flow speed to the local sound speed) of the convective solution
@@ -114,7 +118,7 @@ contains a wealth of information regarding how the magnitude of rotation affects
 heat transport characteristics of convection, we find no work which simply links
 the rotational constraint of evolved solutions with input parameters.
 
-In this work, we extend the study of AB17 to rotationally-influenced, $f$-plane
+In this work, we extend the study of \AB17 to rotationally-influenced, $f$-plane
 polytropic atmospheres, as have been previously studied by e.g.,
 \cite{brummell&all1996, brummell&all1998, calkins&all2015a}. Our goal is to determine
 how the input parameters which we studied previously couple with a new input
@@ -126,7 +130,7 @@ the results of our experiments and we offer concluding remarks.
 \section{Experiment} 
 \label{sec:experiment}
 We study fully compressible, stratified 
-convection as we previously did in \cite{anders&brown2017}, with 
+convection as we previously did in \AB, with 
 the inclusion of rotation. We study an ideal gas whose
 equation of state is $P = R \rho T$ and with an adiabatic
 index $\gamma = 5/3$. We nondimensionalize the atmosphere such that
@@ -154,7 +158,7 @@ we study a domain in which the
 gravity and rotational vector are antiparallel, $\bm{g} = -g\hat{z}$,
 and $\bm{\Omega} = \Omega \hat{z}$.
 
-We evolve the velocity ($\bm{u}$), temperature, and log density according to the
+We evolve the velocity ($\bm{u}$), temperature ($T$), and log density ($\ln\rho$) according to the
 Fully Compressible Navier-Stokes equations,
 \begin{align}
 &\begin{aligned}
@@ -191,16 +195,16 @@ with the viscous stress tensor given by
 \caption{(a) The critical Rayleigh number, as a function of the Taylor number, 
 is plotted as a solid black line. Paths of constant Convective Rossby Number
 (red dashed line), constant supercriticality (orange dashed line), and 
-$\mathcal{C}$ (blue solid line) are shown through parameter space. (b) Evolved
-Rossby number is plotted vs. Taylor number along multiple constant $\mathcal{C}$
+\pro (blue solid line) are shown through parameter space. (b) Evolved
+Rossby number is plotted vs. Taylor number along multiple constant \pro
 paths, such as the solid blue line in (a). 
 After a sharp increase at low Ta, the evolved Rossby number flattens
 out and stays nearly constant across orders of magnitude of Ta.
 \label{fig:parameter_space} }
 \end{figure*}
 
-The kinematic viscosity, $\nu$, thermal diffusivity, $\chi$, and strength of
-rotation $\Omega$ are set at the top of the domain by the Rayleigh number
+The kinematic viscosity ($\nu$), thermal diffusivity ($\chi$), and strength of
+rotation ($\Omega$) are set at the top of the domain by the Rayleigh number
 (Ra), Prandtl number (Pr), and Taylor number (Ta),
 \begin{equation}
 \text{Ra} = \frac{g L_z^3 \Delta S / c_P}{\nu \chi}, \,\,\,
@@ -212,34 +216,39 @@ $z = 0$ and $z = L_z$, and the specific heat at constant pressure is $c_P$.
 
 As Ta increases, the critical value of Ra at which convection onsets,
 Ra$_{\text{crit}}$, also increases. The linked nature of these crucial
-control parameters makes it difficult to predict the regime of the evolved
+control parameters makes it difficult to predict the rotational constraint of the evolved
 fluid flows for a given set of input parameters. In this work, we will
-explore commonly-chosen paths through Ra-Ta space, as well as an additional
-experimentally-determined path. These three paths are defined as
+explore three paths through Ra-Ta space:
 \begin{equation}
 \text{Ra} = 
 \begin{cases}
-(1 + \sigma)\text{Ra}_\text{crit}(\text{Ta}), \\
-\text{Co}^2\text{Pr Ta}, \\
-\mathcal{C}^2 \text{Pr Ta}^{3/4}.
+\mathcal{S}\,\text{Ra}_\text{crit}(\text{Ta}), & (\text{I})\\
+\text{Co}^2\text{Pr Ta}, & (\text{II}) \\
+\pro^2 \text{Pr Ta}^{3/4} & (\text{III}).
 \end{cases}
 \label{eqn:paths}
 \end{equation}
-Here, $(1 + \sigma)$ is the supercriticality, and the first path through
-this parameter space is at constant supercriticality and Co is the classic
-``Convective Rossby number,'' which has been used frequently over the past
+Paths on constraint I are at constant supercriticality, $\mathcal{S}$.
+Paths on constraint II are at a constant value of the classic
+``Convective Rossby number'' (Co), which has been used frequently over the past
 two decades, and is intended to predict the rotational constraint of the
-evolved solution \citep{julien&all1996, brummell&all1996}. Paths through parameter
-space at constant $\mathcal{C}$, which we call the Predictive Rossby Number,
-are along countours of Ta$^{3/4}$ are a new path
-through parameter space that we explore in this work. An example of each of these paths
-can be seen in Fig. \ref{fig:parameter_space}a.  Our goal is to find a path
-along which the Rossby number,
+evolved solution \citep{julien&all1996, brummell&all1996}. Paths on constraint
+III set constant a ratiow hich we call the ``Predictive Rossby Number'' (\pro).
+These paths follow contours of Ta$^{3/4}$, and to our knowledge have not been
+well-explored in the literature. An example of each of these paths
+can be seen in Fig. \ref{fig:parameter_space}a.  
+
+In this work, our goal is to study the nature of rotational constraint
+along each path defined in Eqn. \ref{eqn:paths}. We will quantify rotational
+constraint using the Rossby number,
 \begin{equation}
-\text{Ro} = \frac{|\grad\times \bm{u}|}{2 \Omega},
+\text{Ro} = \frac{|\grad\times \bm{u}|}{2 \Omega}.
 \label{eqn:ro}
 \end{equation}
-and thus the rotational constraint of the flows, is constant.
+
+We evolve our simulations using the Dedalus\footnote{\url{http://dedalus-project.org/}} 
+pseudospectral framework, and our numerical methods are identical to those presented
+in \AB.
 
 
 

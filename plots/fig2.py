@@ -28,11 +28,11 @@ new_c = np.genfromtxt('../data/ra_ta0.75_AR4_alldata.csv', skip_header=1, delimi
 c957 = new_c[:,0] == 0.957
 c158 = new_c[:,0] == 1.58
 lines, labels = [], []
-lines += ax1.plot(new_c[c957, 1], new_c[c957, 3], c='orange', lw=2, label=r'$\mathcal{C} = 0.96$')
-lines += ax1.plot(new_c[c158, 1], new_c[c158, 3], c='blue', lw=2, label=r'$\mathcal{C} = 1.58$')
+lines += ax1.plot(new_c[c957, 1], new_c[c957, 3], c='orange', lw=2, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
+lines += ax1.plot(new_c[c158, 1], new_c[c158, 3], c='blue', lw=2, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
 
-labels += [r'$\mathcal{C} = 0.96$']
-labels += [r'$\mathcal{C} = 1.58$']
+labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
+labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
 
 
 p = np.polyfit(np.log10(new_c[c158,1]), np.log10(new_c[c158, 3]), deg=1)
@@ -58,12 +58,12 @@ ax1.set_ylabel('Nu')
 
 lines, labels = [], []
 #PLOT 2
-lines += ax2.plot(new_c[c957, 1], new_c[c957, 4], c='orange', lw=2, label=r'$\mathcal{C} = 0.96$')
-lines += ax2.plot(new_c[c158, 1], new_c[c158, 4], c='blue', lw=2, label=r'$\mathcal{C} = 1.58$')
+lines += ax2.plot(new_c[c957, 1], new_c[c957, 4], c='orange', lw=2, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
+lines += ax2.plot(new_c[c158, 1], new_c[c158, 4], c='blue', lw=2, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
 ax2.legend(loc='upper left', frameon=False)
 
-labels += [r'$\mathcal{C} = 0.96$']
-labels += [r'$\mathcal{C} = 1.58$']
+labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
+labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
 
 p = np.polyfit(np.log10(new_c[c158,1]), np.log10(new_c[c158, 4]), deg=1)
 label_str = 'Re' + r'$ \propto $'
