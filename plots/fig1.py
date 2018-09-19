@@ -26,7 +26,7 @@ ax1.plot(x, y, c='r', ls='--', lw=2, label='Co = 1')
 sigma = np.genfromtxt('../data/coprime_data_sigma_runs.csv', skip_header=1, delimiter=',', usecols=(2,4,5,6)) #ra, ro, sigma, ta
 sig1 = sigma[:,2] == 2
 
-ax1.plot(sigma[sig1, 3], sigma[sig1, 0], c='orange', dashes=(4,1,2,1), lw=2, label=r'$\sigma=2$')
+ax1.plot(sigma[sig1, 3], sigma[sig1, 0], c='orange', dashes=(4,1,2,1), lw=2, label=r'$\mathcal{S}=3$')
 
 new_c = np.genfromtxt('../data/ra_ta0.75_AR4_alldata.csv', skip_header=1, delimiter=',', usecols=(0,1,2,5)) #sigma, ra, ta, ro
 c957 = new_c[:,0] == 0.957
