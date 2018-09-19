@@ -6,9 +6,9 @@ import matplotlib.gridspec as gridspec
 import h5py
 
 
-fig = plt.figure(figsize=(3, 6))
+fig = plt.figure(figsize=(8, 3))
 gs     = gridspec.GridSpec(*(1000,1000))
-gs_info = (((0,50), 335, 900), ((335, 50), 335, 900), ((670, 50), 330, 900))
+gs_info = (((50, 0), 900, 335), ((50, 335), 900, 335), ((50, 670),900, 330))
 ax1 = plt.subplot(gs.new_subplotspec(*gs_info[0]))
 ax2 = plt.subplot(gs.new_subplotspec(*gs_info[1]))
 ax3 = plt.subplot(gs.new_subplotspec(*gs_info[2]))

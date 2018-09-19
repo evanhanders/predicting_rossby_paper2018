@@ -93,10 +93,15 @@ c_sig = np.sqrt(sigma[sig2, 0]/sigma[sig2, 3]**(3/4))
 c_sig_1 = np.sqrt(sigma[sig1_1, 0]/sigma[sig1_1, 3]**(3/4))
 ax3.plot(c_sig, sigma[sig2, 1], marker='X', lw=0, c='plum', ms=5, label='$\mathcal{S} = 3$')
 ax3.plot(c_sig_1, sigma[sig1_1, 1], marker='X', lw=0, c='plum', ms=4, label='$\mathcal{S} = 2$')
-p = np.polyfit(np.log10(c_sig), np.log10(sigma[sig2, 1]), deg=1)
-label_str = 'Ro' + r'$ \propto $'
-str2 = '$\mathcal{P}__{\mathrm{Ro}}^{' + '{:.2f}'.format(p[0]) + '}$'
-#ax3.plot(c_sig, 10**(p[1])*c_sig**(p[0]), label=label_str+r'{:s}'.format(str2))
+
+#p = np.polyfit(np.log10(c_sig[sigma[sig2,1] <= 0.3]), np.log10(sigma[sig2, 1][sigma[sig2,1] < 0.3]), deg=1)
+#p2 = np.polyfit(np.log10(c_sig_1[sigma[sig1_1,1] <= 0.3]), np.log10(sigma[sig1_1, 1][sigma[sig1_1,1] < 0.3]), deg=1)
+#label_str = 'Ro' + r'$ \propto $'
+#str2 = '$\mathcal{P}__{\mathrm{Ro}}^{' + '{:.2f}'.format(p[0]) + '}$'
+#print('{:.4g}p^({:.4g})'.format(10**p[1], p[0]))
+#print('{:.4g}p^({:.4g})'.format(10**p2[1], p2[0]))
+#ax3.plot(c_sig, 10**(p[1])*c_sig**(p[0]))#, label=label_str+r'{:s}'.format(str2))
+#ax3.plot(c_sig_1, 10**(p2[1])*c_sig_1**(p2[0]))#, label=label_str+r'{:s}'.format(str2))
 
 ax3.set_yscale('log')
 ax3.set_xscale('log')

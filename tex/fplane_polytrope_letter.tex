@@ -36,7 +36,7 @@
 \submitjournal{ApJ}
 
 \shorttitle{Predicting convective rotational constraint}
-\shortauthors{Anders, Manduca, and Brown}
+\shortauthors{Anders et al.}
 
 \begin{document}
 \defcitealias{anders&brown2017}{AB17}
@@ -107,9 +107,24 @@ support this hypothesis.  The degree of rotational constraint
 under which convective flows occur can greatly change the character of the
 resultant situation, and so in the case of astrophysical contexts (solar studies
 such as those mentioned above and also planetary studies such as e.g., 
-\cite{soderlund&all2015}), it is important to study convection in the same
+\cite{soderlund&all2015, aurnou&king2017}), it is important to study convection in the same
 rotational regime as the astrophysical object of interest in order to meaningfully
 understand results.
+
+\begin{figure*}[t!]
+\includegraphics[width=\textwidth]{./figs/parameter_space.png}
+\caption{(a) The critical Rayleigh number, as a function of the Taylor number, 
+is plotted as a solid black line. Paths of constant Convective Rossby Number
+(red dashed line), constant supercriticality (orange dashed line), and 
+\pro (blue solid line) are shown through parameter space. (b) Evolved
+Ro is plotted vs. Ra along multiple constant \pro
+paths and the constant Co and $\mathcal{S}$ path shown in (a).
+After a sharp increase at low Ta, the evolved Rossby number flattens
+out and stays nearly constant across orders of magnitude of Ta.
+(c) At low Ro, we find that $\text{Ro} \propto \pro^X$.
+\label{fig:parameter_space} }
+\end{figure*}
+
 
 One difficulty in studying rotational convection is that it is often unclear
 from input parameters whether or not the resulting convective state will be rotationally
@@ -136,81 +151,30 @@ the results of our experiments and in section \ref{sec:discussion} we offer conc
 
 \section{Experiment} 
 \label{sec:experiment}
+
+
 We study fully compressible, stratified 
-convection as we previously did in \AB, with 
-the inclusion of rotation. We study an ideal gas whose
-equation of state is $P = R \rho T$ and with an adiabatic
-index $\gamma = 5/3$. We nondimensionalize the atmosphere such that
-$R = 1$ and $P = \rho = T = 1$ at the top of the domain.
-The initial stratification is polytropic, such that
-\begin{equation}
-\begin{split}
-\rho_0(z) &= (1 + L_z - z)^m, \\
-T_0(z)    &= (1 + L_z - z),
-\label{eqn:polytrope}
-\end{split}
-\end{equation}
-where $m$ is the polytropic index,
-$z$ increases upwards in the range $z = [0, L_z]$, and
-$L_z \equiv e^{n_\rho/m} - 1$ is the depth of the atmosphere,
-where $n_\rho$ specifies the number of density scale heights that the
-atmosphere spans. We specify the instability of the atmosphere
-through the superadiabatic excess, $\epsilon = m - m_{ad} = 10^{-4}$, where
-$m_{ad} = (\gamma-1)^{-1}$ is the adiabatic polytropic index, and
-the low magnitude of $\epsilon$ ensures that we are studying 
-low Mach number flows \citepalias{anders&brown2017}.
-The domain is a 3D cartesian box whose horizontal extent is in the range
-$x, y = [0, AL_z]$, where $A$ is the aspect ratio of the domain.
+convection under precisely the same atmospheric model
+as we previously did in \AB, but here
+we have included rotation. We study polytropic atmospheres
+with $n_\rho = 3$ density scale heights and a superadiabatic
+excess of $\epsilon = 10^{-4}$ such that flows are at low Mach number.
 As in previous work \citep{julien&all1996, brummell&all1996}, 
 we study a domain in which the
 gravity, $\bm{g} = -g\hat{z}$, and rotational vector, $\bm{\Omega} = \Omega \hat{z}$, 
 are antiparallel.
 
 We evolve the velocity ($\bm{u}$), temperature ($T$), and log density ($\ln\rho$) according to the
-Fully Compressible Navier-Stokes equations,
-\begin{align}
-&\begin{aligned}
-&\frac{\partial \ln\rho}{\partial t} + \grad\cdot\bm{u} 
-    = -\bm{u}\cdot\grad\ln\rho,
-	\label{eqn:continuity_eqn}
-\end{aligned}\\
-&\begin{aligned}
-\frac{\partial\bm{u}}{\partial t} + 2\bm{\Omega}&\times\bm{u} + \grad T - 
-\nu\grad\cdot\lilstressT - \lilstressT\cdot\grad\nu = \\
-&-\bm{u}\cdot\grad\bm{u} - T\grad\ln\rho + \bm{g} + 
-\nu\lilstressT\cdot\grad\ln\rho,
-\label{eqn:momentum_eqn}
-\end{aligned}\\
-&\begin{aligned}
-\frac{\partial T}{\partial t} -\frac{1}{c_V}\left(\right.\chi&\left.
-    \grad^2 T + \grad T\cdot\grad\chi\right) = \\
-	&-\bm{u}\cdot\grad T - (\gamma-1)T\grad\cdot{\bm{u}} \\
-	&+ \frac{1}{c_V}\left(\chi\grad T \cdot\grad\ln\rho +
-	\nu\left[\lilstressT\cdot\nabla\right]\cdot\bm{u}\right), 
-	\label{eqn:energy_eqn}
-\end{aligned}
-\end{align}
-with the viscous stress tensor given by
-\begin{equation}
-\sigma_{ij} \equiv \left(\frac{\partial u_i}{\partial x_j} + 
-\frac{\partial u_j}{\partial x_i} - \frac{2}{3}\delta_{ij}\grad\cdot\bm{u}\right).
-	\label{eqn:stress_tensor}
-\end{equation}
-
+Fully Compressible Navier-Stokes equations in the same form presented in \AB, with the
+addition of the Coriolis term, $2\bm{\Omega}\times\bm{u}$, to the left-hand side
+of the momentum equation.
 
 \begin{figure*}[t!]
-\includegraphics[width=\textwidth]{./figs/parameter_space.png}
-\caption{(a) The critical Rayleigh number, as a function of the Taylor number, 
-is plotted as a solid black line. Paths of constant Convective Rossby Number
-(red dashed line), constant supercriticality (orange dashed line), and 
-\pro (blue solid line) are shown through parameter space. (b) Evolved
-Ro is plotted vs. Ra along multiple constant \pro
-paths and the constant Co and $\mathcal{S}$ path shown in (a).
-After a sharp increase at low Ta, the evolved Rossby number flattens
-out and stays nearly constant across orders of magnitude of Ta.
-(c) At low Ro, we find that $\text{Ro} \propto \pro^X$.
-\label{fig:parameter_space} }
+\includegraphics[width=\textwidth]{./figs/dynamics_plot.png}
+\caption{ Here's some pretty plots, we'll figure out what we plot later.
+\label{fig:pretty_convection} }
 \end{figure*}
+
 
 The kinematic viscosity ($\nu$), thermal diffusivity ($\chi$), and strength of
 rotation ($\Omega$) are set at the top of the domain by the Rayleigh number
@@ -220,7 +184,8 @@ rotation ($\Omega$) are set at the top of the domain by the Rayleigh number
 \text{Pr} = \frac{\nu}{\chi}, \,\,\,
 \text{Ta} = \left(\frac{2 \Omega L_z^2}{\nu}\right)^2,
 \end{equation}
-where $\Delta S = \epsilon n_\rho / m$ is the specific entropy difference between
+where $L_z$ is the depth of the domain, 
+$\Delta S = \epsilon n_\rho / m$ is the specific entropy difference between
 $z = 0$ and $z = L_z$, and the specific heat at constant pressure is $c_P$.
 Throughout this work we set Pr = 1.
 
@@ -250,6 +215,9 @@ III set constant a ratio which we call the ``Predictive Rossby Number'' (\pro).
 These paths follow contours of Ta$^{3/4}$, and to our knowledge have not been
 well-explored in the literature (blue solid line in Fig. \ref{fig:parameter_space}a).  
 
+
+
+
 In this work, our goal is to study the magnitude of the rotational constraint
 along each path defined in Eqn. \ref{eqn:paths}. We will quantify rotational
 constraint using the Rossby number,
@@ -258,6 +226,9 @@ constraint using the Rossby number,
 \label{eqn:ro}
 \end{equation}
 
+As Ta increases, the wavenumber of convective onset, $k_{\text{crit}}$, also increases. 
+We study 3D cartesian convective domains with horizontal extents of
+$x, y = [0, 4(2\pi/k_{\text{crit}})]$. 
 We evolve our simulations using the Dedalus\footnote{\url{http://dedalus-project.org/}} 
 pseudospectral framework, and our numerical methods are identical to those presented
 in \AB.
@@ -265,6 +236,7 @@ in \AB.
 
 
 \section{Results \& Discussion}
+
 \label{sec:results}
 In Fig. \ref{fig:parameter_space}a, we display the value of the critical Rayleigh number 
 (Ra$_{\text{crit}}$) as a function of the Taylor number (Ta). We found these critical
@@ -310,17 +282,12 @@ number (Re $= |u| L_z / \nu$) as a function of Ra, and find that
 $\text{Re} \propto \text{Ra}^{1/2}$, which is precisely the scaling we found
 in the non-rotating regime in \AB.
 
-\begin{figure}[h]
-%\includegraphics[width=\textwidth]{./figs/parameter_space.png}
-\caption{ Here's some pretty plots, we'll figure out what we plot later.
-\label{fig:pretty_convection} }
-\end{figure}
 
 In Fig. \ref{fig:pretty_convection}, we show sample snapshots of the convective flows in
 our domain. I'll need to talk about them once I get there.
 
-\begin{figure}[h]
-%\includegraphics[width=\textwidth]{./figs/parameter_space.png}
+\begin{figure*}[h]
+\includegraphics[width=\textwidth]{./figs/boundary_layers.png}
 \caption{(a) Horizontally-averaged profiles of the Rossby number are shown
 vs. z for a constant \pro$\,$ = X. (b) Horizontally-averaged profiles of 
 the entropy gradient are shown vs. z for a constant \pro$\,$ = X.
@@ -330,7 +297,7 @@ When this measure is $\gg 1$, we expect the flows to be buoyancy dominated,
 when it is $\ll 1$, we expect the flows to be rotationally dominated,
 and when it is $\sim 1$, we anticipate that both effects are very important.
 \label{fig:profiles_and_bls} }
-\end{figure}
+\end{figure*}
 
 In Fig. \ref{fig:profiles_and_bls}, we show time- and horizontally-averaged profiles of
 the rossby number and the entropy gradient. As Ra increases at a constant value of
