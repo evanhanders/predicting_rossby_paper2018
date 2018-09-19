@@ -28,23 +28,21 @@ new_c = np.genfromtxt('../data/ra_ta0.75_AR4_alldata.csv', skip_header=1, delimi
 c957 = new_c[:,0] == 0.957
 c158 = new_c[:,0] == 1.58
 lines, labels = [], []
-lines += ax1.plot(new_c[c957, 1], new_c[c957, 3], c='orange', lw=2, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax1.plot(new_c[c158, 1], new_c[c158, 3], c='blue', lw=2, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
+lines += ax1.plot(new_c[c957, 1], new_c[c957, 3], c='orange', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
+lines += ax1.plot(new_c[c158, 1], new_c[c158, 3], c='blue', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
 
 labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
 labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
 
 
 p = np.polyfit(np.log10(new_c[c158,1]), np.log10(new_c[c158, 3]), deg=1)
-label_str = 'Nu' + r'$ \propto $'
 str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
-labels += [label_str+r'{:s}'.format(str2)]
-lines += ax1.plot(new_c[c158, 1], 10**(p[1])*new_c[c158, 1]**(p[0]), label=label_str+r'{:s}'.format(str2), color='blue', alpha=0.4)
+labels += [r'{:s}'.format(str2)]
+lines += ax1.plot(new_c[c158, 1], 10**(p[1])*new_c[c158, 1]**(p[0]), label=r'{:s}'.format(str2), color='blue', alpha=0.4)
 p = np.polyfit(np.log10(new_c[c957,1]), np.log10(new_c[c957, 3]), deg=1)
-label_str = 'Nu' + r'$ \propto $'
 str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
-labels += [label_str+r'{:s}'.format(str2)]
-lines += ax1.plot(new_c[c957, 1], 10**(p[1])*new_c[c957, 1]**(p[0]), label=label_str+r'{:s}'.format(str2), color='orange', alpha=0.4)
+labels += [r'{:s}'.format(str2)]
+lines += ax1.plot(new_c[c957, 1], 10**(p[1])*new_c[c957, 1]**(p[0]), label=r'{:s}'.format(str2), color='orange', alpha=0.4)
 
 ax1.legend(lines[:2], labels[:2], loc='upper left', frameon=False)
 from matplotlib.legend import Legend
@@ -58,23 +56,21 @@ ax1.set_ylabel('Nu')
 
 lines, labels = [], []
 #PLOT 2
-lines += ax2.plot(new_c[c957, 1], new_c[c957, 4], c='orange', lw=2, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax2.plot(new_c[c158, 1], new_c[c158, 4], c='blue', lw=2, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
+lines += ax2.plot(new_c[c957, 1], new_c[c957, 4], c='orange', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
+lines += ax2.plot(new_c[c158, 1], new_c[c158, 4], c='blue', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
 ax2.legend(loc='upper left', frameon=False)
 
 labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
 labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
 
 p = np.polyfit(np.log10(new_c[c158,1]), np.log10(new_c[c158, 4]), deg=1)
-label_str = 'Re' + r'$ \propto $'
 str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
-labels += [label_str+r'{:s}'.format(str2)]
-lines += ax2.plot(new_c[c158, 1], 10**(p[1])*new_c[c158, 1]**(p[0]), label=label_str+r'{:s}'.format(str2), color='blue', alpha=0.4)
+labels += [r'{:s}'.format(str2)]
+lines += ax2.plot(new_c[c158, 1], 10**(p[1])*new_c[c158, 1]**(p[0]), label=r'{:s}'.format(str2), color='blue', alpha=0.4)
 p = np.polyfit(np.log10(new_c[c957,1]), np.log10(new_c[c957, 4]), deg=1)
-label_str = 'Re' + r'$ \propto $'
 str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
-labels += [label_str+r'{:s}'.format(str2)]
-lines += ax2.plot(new_c[c957, 1], 10**(p[1])*new_c[c957, 1]**(p[0]), label=label_str+r'{:s}'.format(str2), color='orange', alpha=0.4)
+labels += [r'{:s}'.format(str2)]
+lines += ax2.plot(new_c[c957, 1], 10**(p[1])*new_c[c957, 1]**(p[0]), label=r'{:s}'.format(str2), color='orange', alpha=0.4)
 
 ax2.legend(lines[:2], labels[:2], loc='upper left', frameon=False)
 from matplotlib.legend import Legend
