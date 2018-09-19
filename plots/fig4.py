@@ -8,7 +8,7 @@ import h5py
 
 Lz = np.exp(3/(1.5-1e-4)) - 1
 
-cmap = 'GnBu'
+cmap = 'summer_r'
 
 entropy_gradients = dict()
 rossby_profiles   = dict()
@@ -68,8 +68,8 @@ for key in rossby_profiles.keys():
     ax1_2.plot(z[key], rossby_profiles[key], c=sm.to_rgba(np.log10(ta)))
   
     n_pts = int(len(z[key])*5/100)
-    good_zs = z[key][z[key] <= 0.99*Lz]
-    good_grads = entropy_gradients[key][z[key] <= 0.99*Lz]
+    good_zs = z[key][z[key] <= 0.998*Lz]
+    good_grads = entropy_gradients[key][z[key] <= 0.998*Lz]
     fit = np.polyfit(good_zs[-n_pts:], good_grads[-n_pts:], deg=1)
 #    ax1_1.plot(z[key], fit[0]*z[key] + fit[1], c=sm.to_rgba(np.log10(ta)))
     z0  = -fit[1]/fit[0]
@@ -121,8 +121,8 @@ for key in rossby_profiles.keys():
     ax2_2.plot(z[key], rossby_profiles[key], c=sm.to_rgba(np.log10(ta)))
 
     n_pts = int(len(z[key])*5/100)
-    good_zs = z[key][z[key] <= 0.99*Lz]
-    good_grads = entropy_gradients[key][z[key] <= 0.99*Lz]
+    good_zs = z[key][z[key] <= 0.998*Lz]
+    good_grads = entropy_gradients[key][z[key] <= 0.998*Lz]
     fit = np.polyfit(good_zs[-n_pts:], good_grads[-n_pts:], deg=1)
 #    ax2_1.plot(z[key], fit[0]*z[key] + fit[1], c=sm.to_rgba(np.log10(ta)))
 #    ax2_1.axvline(Lz*0.99)
