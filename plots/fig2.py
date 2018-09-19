@@ -8,7 +8,7 @@ import matplotlib.gridspec as gridspec
 
 fig = plt.figure(figsize=(3, 5))
 gs     = gridspec.GridSpec(*(1000,1000))
-gs_info = (((50,50), 400, 900), ((550, 50), 400, 900))
+gs_info = (((50,50), 450, 900), ((500, 50), 450, 900))
 ax1 = plt.subplot(gs.new_subplotspec(*gs_info[0]))
 ax2 = plt.subplot(gs.new_subplotspec(*gs_info[1]))
 
@@ -33,6 +33,10 @@ lines += ax1.plot(new_c[c158, 1], new_c[c158, 3], c='blue', lw=0, marker='o', ms
 
 labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
 labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
+
+for xlabel_i in ax1.get_xticklabels():
+    xlabel_i.set_visible(False)
+    xlabel_i.set_fontsize(0.0)
 
 
 p = np.polyfit(np.log10(new_c[c158,1]), np.log10(new_c[c158, 3]), deg=1)

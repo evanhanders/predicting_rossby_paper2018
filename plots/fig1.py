@@ -8,7 +8,7 @@ import matplotlib.gridspec as gridspec
 
 fig = plt.figure(figsize=(8.5, 3))
 gs     = gridspec.GridSpec(*(1000,1000))
-gs_info = (((50,0), 950, 250), ((50, 370), 900, 250), ((50, 750), 900, 250))
+gs_info = (((50,0), 950, 250), ((50, 370), 950, 250), ((50, 750), 950, 250))
 ax1 = plt.subplot(gs.new_subplotspec(*gs_info[0]))
 ax2 = plt.subplot(gs.new_subplotspec(*gs_info[1]))
 ax3 = plt.subplot(gs.new_subplotspec(*gs_info[2]))
