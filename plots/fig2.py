@@ -42,6 +42,7 @@ for f, ax in zip( [lowF, highF, coF], [ax3, ax2, ax1] ):
         
 
     s = f['tasks']['s near top'][0,:,:,0]
+    s -= s.mean()
     s_field.set_scales(base_scale, keep_data=False)
     s_field['g'] = s
 
@@ -61,10 +62,12 @@ for f, ax in zip( [lowF, highF, coF], [ax3, ax2, ax1] ):
     mn_str, mn_pre, mn_e = nice_exp(mn)
     mx_str, mx_pre, mx_e = nice_exp(mx)
     if count == 1:
-        mx_pre = '13.4'
+        mn_pre = -13.1
+    elif count == 2:
+        mn_pre = -19.4
     ax.annotate(r'$(S_{\mathrm{min}}, S_{\mathrm{max}}) = $' \
               + r'$({}, {})$'.format(mn_pre, mx_pre) \
-              + r'$\times {}$'.format(mn_e),
+              + r'$\times {}$'.format(mx_e),
               xy=(0.03, -0.07), fontsize=8, annotation_clip=False)
     count += 1
 

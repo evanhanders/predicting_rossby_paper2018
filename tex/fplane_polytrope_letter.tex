@@ -74,42 +74,40 @@ across orders of magnitude of Ra when \pro is fixed.
 %%%%% Body of the paper
 \section{Introduction}
 \label{sec:intro}
-Convection under the influence of rotation has been studied in great detail in
-recent decades. In the incompressible boussinesq case, numerous authors have
-studied rotating convection in both laboratory and numerical settings. The
-behavior of the heat transport in these systems has been the focus of many
-of these studies, particularly the difference of behavior of heat transport
-in rotationally-constrained and unconstrained regimes 
-\citep{king&all2009, zhong&all2009, stevens&all2009, julien&all2012}. 
-Studies of both laboratory (cite, cite) and numerical (cite, cite) experiments
-coincide well in these regimes.
+Convective flows in stars and planets are influenced by rotation. 
+Rotating convection has been studied in great detail in
+recent decades in both laboratory and numerical settings. The
+properties of convection in the regime in which rotational forces are
+insignificant are now well understood \citep{king&all2009, zhong&all2009, 
+cheng&all2015}. Boussinesq convective theory is also robust
+in the rapidly rotating regime \citep{julien&all2012, stellmach&all2014,
+gastine&all2016}. We are not, however, aware of any well-developed
+procedure for specifying the degree of rotational constraint
+in a convective experiment \emph{a priori}. Rather, the rotational
+constraint, measured by the evolved Rossby number
+(Ro, the ratio of advective dynamics to rotational constraint), is a complex
+combination of input parameters, such as convective driving and the
+magnitude of the rotation vector.
 
-More complicated experiments of rotational convection are often conducted
-using numerical tools in spherical geometries. Often these studies aim to
-gain insight into the solar dynamo \citep{glatzmaier&gilman1982, busse2002, brown&all2008,
+A vast number of studies of rotating convection have been conducted in the astrophysical context.
+Often these studies focus on questions inspired by the solar dynamo
+\citep{glatzmaier&gilman1982, busse2002, brown&all2008,
 brown&all2010, brown&all2011, augustson&all2012, guerrero&all2013, kapyla&all2014}.
-Numerous interesting phenomenological discoveries have been made in such studies,
-but they often employ very different degrees of rotational constraint, and their
-basic system behavior often differs significantly from the Sun. For example, 
-dynamo simulations often produce antisolar differential rotation profiles at
-nominally solar values of rotational constraint.
+Even when these simulations appear to be rotating at a rate similar to the Sun,
+they can produce vastly different dynamics (such as anti-solar differential rotation).
+These strange results may be the result of these systems having different evolved
+values of the Rossby number than the Sun. Recent simulations and experiments are predicting
+that the Rossby number of the deep interior of the Sun is low, and that this drastically
+affects the behavior of the dynamics of the solar convection zone
+\citep{featherstone&hindman2016, greer&all2016}.
 
-In recent years, helioseismic imaging of flows in the Sun have suggested that
-power in large-scale convective motions is much lower than convective simulations
-and mixing length theory predict \citep{hanasoge&all2012, greer&all2015L}.
-This suggests that either convection is not driven deep in the solar convection
-zone or its motions are masked before they reach the surface by some process.
-It has been suggested that the
-interior convection zone is rotationally constrained, and that this behavior is
-reducing low wavenumber power at the surface. The recent simulations of
-\cite{featherstone&hindman2016} and the observations of \cite{greer&all2016} 
-support this hypothesis.  The degree of rotational constraint
-under which convective flows occur can greatly change the character of the
-resultant situation, and so in the case of astrophysical contexts (solar studies
-such as those mentioned above and also planetary studies such as e.g., 
-\cite{soderlund&all2015, aurnou&king2017}), it is important to study convection in the same
-rotational regime as the astrophysical object of interest in order to meaningfully
-understand results.
+In addition to it being very important to study the correct Rossby number
+regime in solar convection studies, it also seems to be very important in
+studies of planetary dynamos. For example, the balance between Lorentz forces
+and rotational forces likely creates the observed differences between ice
+giant and gas giant dynamos in our solar system \citep{soderlund&all2015}.
+Furthermore, \cite{aurnou&king2017} suggest that many studies in planetary systems
+have likely over-emphasized the importance of magnetism compared to rotation.
 
 \begin{figure*}[t!]
 \includegraphics[width=\textwidth]{./figs/parameter_space.png}
@@ -126,26 +124,21 @@ out and stays nearly constant across orders of magnitude of Ta.
 \end{figure*}
 
 
-One difficulty in studying rotational convection is that it is often unclear
-from input parameters whether or not the resulting convective state will be rotationally
-constrained. In \cite{anders&brown2017} (hereafter \AB), we studied non-rotating, hydrodynamic, 
-compressible convection. We showed how the evolved Reynolds number, Peclet number
-(Re and Pe, two measures of turbulence in the evolved state), and Mach number
-(Ma, the ratio of flow speed to the local sound speed) of the convective solution
-can be specified through a properly constructed reference atmosphere. Upon the inclusion
-of rotation, a fourth dynamical measure of the solution becomes meaningful: the
-Rossby number (Ro, the ratio of advective dynamics to rotational constraint). Low
-Ro flows are rotationally constrained, while high Ro flows are not. While the literature
-contains a wealth of information regarding how the magnitude of rotation affects the
-heat transport characteristics of convection, we find no work which links
-the rotational constraint of evolved solutions with input parameters.
-
+It is clear that in studying astrophysical objects, the experimenter must 
+study the proper Rossby number regime, and thus the proper degree of rotational
+constraint.  In this work, our goal is to find a way of specifying the Rossby number
+of convection in a simplified system through changing the input parameters.
+In \cite{anders&brown2017} (hereafter \AB), we studied non-rotating, hydrodynamic, 
+compressible convection in polytropic atmospheres. 
 In this work, we extend the study of \AB$\,$ to rotationally-influenced, $f$-plane
-polytropic atmospheres, as have been previously studied by e.g.,
+atmospheres, as have been previously studied by e.g.,
 \cite{brummell&all1996, brummell&all1998, calkins&all2015a}. Our goal is to determine
-how the input parameters which we studied previously couple with a new input
+how the input parameters which we studied previously (which control the Mach number and
+Reynolds number of the evolved flows) couple with a new input
 parameter, the Taylor number (Ta, \cite{julien&all1996}), which sets the magnitude of the
-rotational vector. In section  \ref{sec:experiment}, we describe our atmosphere, numerical
+rotational vector. 
+
+In section  \ref{sec:experiment}, we describe our atmosphere, numerical
 experiment, and paths through parameter space. In section \ref{sec:results}, we present
 the results of our experiments and in section \ref{sec:discussion} we offer concluding remarks.
 
@@ -171,7 +164,15 @@ of the momentum equation.
 
 \begin{figure*}[t!]
 \includegraphics[width=\textwidth]{./figs/dynamics_plot.png}
-\caption{ Here's some pretty plots, we'll figure out what we plot later.
+\caption{ A horizontal slice of the evolved entropy field is plotted at $z = 0.95L_z$
+for select simulations. The mean value of entropy at this height has been removed in all
+cases. All runs displayed here have an evolved volume-averaged Ro$\,\sim\,200$. 
+As Ro decreases O(1) on the left to O(0.1) on the right, and thus the rotational
+constraint on the flow increases, significant changes in flow morphology are observed.
+At Ro = 2.01, convective dynamics are not hugely dissimilar from the non-rotating
+case where there are large upflows and narrow, fast downflow lanes (see e.g., \AB).
+As the rotational constraint increases, the granular convective pattern gives way
+to vortical columns, as seen at Ro = 0.13.
 \label{fig:pretty_convection} }
 \end{figure*}
 
@@ -238,7 +239,7 @@ in \AB.
 \section{Results \& Discussion}
 
 \label{sec:results}
-In Fig. \ref{fig:parameter_space}a, we display the value of the critical Rayleigh number 
+In Fig.~\ref{fig:parameter_space}a, we display the value of the critical Rayleigh number 
 (Ra$_{\text{crit}}$) as a function of the Taylor number (Ta). We found these critical
 values through the use of a linear instability analysis. We plot a sample path for
 each criterion in Eqn. \ref{eqn:paths} through
@@ -257,13 +258,22 @@ leveling off seen at higher Ro and higher \pro is likely influenced by the
 curvature of the supercriticality curve at low Ra and Ta (see Fig. \ref{fig:parameter_space}a).
 
 
+In Fig.~\ref{fig:pretty_convection}, we show sample snapshots of the evolved entropy field
+near the top of the domain. The cases displayed have evolved Ro spanning roughly an order
+of magnitude. As we study the increasingly rotationally constrained regime, we see the
+classic granular structure of convection (see e.g., Fig.~2 in \AB) give way to vortical
+columns of convection, as seen in rapidly rotating \RB convection \citep{stellmach&all2014}.
+All cases displayed in Fig.~\ref{fig:pretty_convection} have an evolved volume-averaged
+Re of roughly 200.
+
+
 \begin{figure}[h]
 \includegraphics{./figs/nu_and_re.png}
 \caption{(a) Evolved Nu vs. Ra along constant
-\pro$\,$ paths. A scaling law of $Nu \propto Ra^{0.27}$ is observed, which
+\pro$\,$ paths. A scaling law of Nu$\,\propto\,$Ra$^{0.27}$ is observed, which
 is very similar to classic scaling laws.
 (b) Evolved Re vs. Ra along constant \pro$\,$ paths.
-A classic scaling law of $Re \propto Ra^{1/2}$ is observed. The
+A classic scaling law of Re$\,\propto\,$Ra$^{1/2}$ is observed. The
 similarity between these laws and
 classical laws in \RB convection suggests that at fixed \pro, varying Ra
 affects the evolved dynamics in a manner similar to a nonrotating fluid.
@@ -282,9 +292,6 @@ number (Re $= |u| L_z / \nu$) as a function of Ra, and find that
 $\text{Re} \propto \text{Ra}^{1/2}$, which is precisely the scaling we found
 in the non-rotating regime in \AB.
 
-
-In Fig. \ref{fig:pretty_convection}, we show sample snapshots of the convective flows in
-our domain. I'll need to talk about them once I get there.
 
 \begin{figure*}[h]
 \includegraphics[width=\textwidth]{./figs/boundary_layers.png}
