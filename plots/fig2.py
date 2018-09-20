@@ -3,93 +3,82 @@ import matplotlib
 #matplotlib settings
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+import h5py
+
+import dedalus.public as de
+
+def nice_exp(number):
+    string = '{:.2e}'.format(number)
+    pre, exp = string.split('e')
+    if exp[0] == '+': exp = exp[1:]
+    exp = str(int(exp))
+    full = '{} \\times 10^'.format(pre) + '{' + '{}'.format(exp) + '}'
+    e_str = full.split('\\times ')[-1]
+    return full, pre, e_str
+    
 
 
-
-fig = plt.figure(figsize=(3, 5))
+fig = plt.figure(figsize=(8, 2.7))
 gs     = gridspec.GridSpec(*(1000,1000))
-gs_info = (((50,50), 450, 900), ((500, 50), 450, 900))
+gs_info = (((100, 0), 900, 320), ((100, 340), 900, 320), ((100, 680),900, 320))
 ax1 = plt.subplot(gs.new_subplotspec(*gs_info[0]))
 ax2 = plt.subplot(gs.new_subplotspec(*gs_info[1]))
+ax3 = plt.subplot(gs.new_subplotspec(*gs_info[2]))
+
+lowF = h5py.File('../data/slices/pro0.96_ra9.16e5_ta1e8_slices_s60.h5', 'r')
+highF = h5py.File('../data/slices/pro1.58_ra2.49e5_ta4.64e6_slices_s60.h5', 'r')
+coF = h5py.File('../data/slices/co1_ta1e5.h5', 'r')
+
+count = 0
+for f, ax in zip( [lowF, highF, coF], [ax3, ax2, ax1] ):
+    x, y = f['scales']['x']['1.0'], f['scales']['y']['1.0']
+    x_basis = de.Fourier(  'x', len(x), interval=[0., 1], dealias=3/2)
+    y_basis = de.Fourier(  'y', len(y), interval=[0., 1], dealias=3/2)
+    bases = [x_basis, y_basis]
+    domain = de.Domain(bases, grid_dtype=np.float64)
+    base_scale=1
+    big_scale=10
+    s_field = domain.new_field()
+        
+
+    s = f['tasks']['s near top'][0,:,:,0]
+    s_field.set_scales(base_scale, keep_data=False)
+    s_field['g'] = s
+
+    big_x, big_y = domain.grid(0, scales=big_scale), domain.grid(1, scales=big_scale)
+    s_field.set_scales(big_scale, keep_data=True)
+    big_s = s_field['g']
+    
+    yy, xx = np.meshgrid(big_y, big_x)
+    c = ax.pcolormesh(xx, yy, big_s, cmap='RdBu_r')
+
+    ax.set_xticklabels(())
+    ax.set_yticklabels(())
+    ax.set_xticks(())
+    ax.set_yticks(())
+
+    mn, mx = big_s.min(), big_s.max()
+    mn_str, mn_pre, mn_e = nice_exp(mn)
+    mx_str, mx_pre, mx_e = nice_exp(mx)
+    if count == 1:
+        mx_pre = '13.4'
+    ax.annotate(r'$(S_{\mathrm{min}}, S_{\mathrm{max}}) = $' \
+              + r'$({}, {})$'.format(mn_pre, mx_pre) \
+              + r'$\times {}$'.format(mn_e),
+              xy=(0.03, -0.07), fontsize=8, annotation_clip=False)
+    count += 1
+
+cax = plt.subplot(gs.new_subplotspec((0, 350), 75, 300))
+bar = plt.colorbar(c, cax=cax, orientation='horizontal')
+cax.set_xticklabels(())
+bar.set_ticks(())
+cax.annotate(r'$S_{\mathrm{min}}$', fontsize=8,  xy=(-0.14, 0.3), annotation_clip=False)
+cax.annotate(r'$S_{\mathrm{max}}$', fontsize=8,  xy=(1.02, 0.3), annotation_clip=False)
+
+bbox_props = dict(boxstyle="round", fc="w", ec="0.5", alpha=0.9)
+ax3.text(0.17, 0.93, "Ro = 0.13", ha="center", va="center", size=8, bbox=bbox_props)
+ax2.text(0.17, 0.93, "Ro = 0.42", ha="center", va="center", size=8, bbox=bbox_props)
+ax1.text(0.17, 0.93, "Ro = 2.01", ha="center", va="center", size=8, bbox=bbox_props)
 
 
-#READ DATA, PLOT 1
-onset_data = np.genfromtxt('../data/eps1e-4_onsets.csv', skip_header=1, delimiter=',', usecols=(0,3))
-
-original_co = np.genfromtxt('../data/coprime_data_original_co_runs.csv', skip_header=1, delimiter=',', usecols=(2,4,6)) #ra, ro, ta
-co1 = original_co[:,0]/original_co[:,2] == 1
-x, y = original_co[co1, 0], original_co[co1, 2]
-
-sigma = np.genfromtxt('../data/coprime_data_sigma_runs.csv', skip_header=1, delimiter=',', usecols=(2,4,5,6)) #ra, ro, sigma, ta
-sig1 = sigma[:,2] == 2
-
-new_c = np.genfromtxt('../data/ra_ta0.75_AR4_alldata.csv', skip_header=1, delimiter=',') 
-#co, ra, ta, nu, re, ro
-c957 = new_c[:,0] == 0.957
-c158 = new_c[:,0] == 1.58
-lines, labels = [], []
-lines += ax1.plot(new_c[c957, 1], new_c[c957, 3], c='orange', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax1.plot(new_c[c158, 1], new_c[c158, 3], c='blue', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
-
-labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
-labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
-
-for xlabel_i in ax1.get_xticklabels():
-    xlabel_i.set_visible(False)
-    xlabel_i.set_fontsize(0.0)
-
-
-p = np.polyfit(np.log10(new_c[c158,1]), np.log10(new_c[c158, 3]), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
-labels += [r'{:s}'.format(str2)]
-lines += ax1.plot(new_c[c158, 1], 10**(p[1])*new_c[c158, 1]**(p[0]), label=r'{:s}'.format(str2), color='blue', alpha=0.4)
-p = np.polyfit(np.log10(new_c[c957,1]), np.log10(new_c[c957, 3]), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
-labels += [r'{:s}'.format(str2)]
-lines += ax1.plot(new_c[c957, 1], 10**(p[1])*new_c[c957, 1]**(p[0]), label=r'{:s}'.format(str2), color='orange', alpha=0.4)
-
-ax1.legend(lines[:2], labels[:2], loc='upper left', frameon=False)
-from matplotlib.legend import Legend
-leg = Legend(ax1, lines[2:], labels[2:],
-             loc='lower right', frameon=False)
-ax1.add_artist(leg)
-ax1.set_xscale('log')
-ax1.set_yscale('log')
-ax1.set_ylabel('Nu')
-
-
-lines, labels = [], []
-#PLOT 2
-lines += ax2.plot(new_c[c957, 1], new_c[c957, 4], c='orange', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax2.plot(new_c[c158, 1], new_c[c158, 4], c='blue', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
-ax2.legend(loc='upper left', frameon=False)
-
-labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
-labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
-
-p = np.polyfit(np.log10(new_c[c158,1]), np.log10(new_c[c158, 4]), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
-labels += [r'{:s}'.format(str2)]
-lines += ax2.plot(new_c[c158, 1], 10**(p[1])*new_c[c158, 1]**(p[0]), label=r'{:s}'.format(str2), color='blue', alpha=0.4)
-p = np.polyfit(np.log10(new_c[c957,1]), np.log10(new_c[c957, 4]), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
-labels += [r'{:s}'.format(str2)]
-lines += ax2.plot(new_c[c957, 1], 10**(p[1])*new_c[c957, 1]**(p[0]), label=r'{:s}'.format(str2), color='orange', alpha=0.4)
-
-ax2.legend(lines[:2], labels[:2], loc='upper left', frameon=False)
-from matplotlib.legend import Legend
-leg = Legend(ax2, lines[2:], labels[2:],
-             loc='lower right', frameon=False)
-ax2.add_artist(leg)
-
-
-
-ax2.set_xscale('log')
-ax2.set_yscale('log')
-ax2.set_xlabel('Ra')
-ax2.set_ylabel('Re')
-
-
-#PLOT 2
-
-fig.savefig('../tex/figs/nu_and_re.png', dpi=300, bbox_inches='tight')
+fig.savefig('../tex/figs/dynamics_plot.png', dpi=300, bbox_inches='tight')
