@@ -37,10 +37,14 @@ x, y = original_co[co1, 2], original_co[co1, 0]
 x, y = zip(*sorted(zip(x, y)))
 ax1.plot(x, y, c=Co_color, lw=2, label='Co = 1', dashes=(3,1))
 
-sigma = np.genfromtxt('../data/coprime_data_sigma_runs.csv', skip_header=1, delimiter=',', usecols=(2,4,5,6)) #ra, ro, sigma, ta
-print(sigma[:,2])
-sig2 = sigma[:,2] == 2
-sig1_1 = sigma[:,2] == 1
+#sigma = np.genfromtxt('../data/coprime_data_sigma_runs.csv', skip_header=1, delimiter=',', usecols=(2,4,5,6)) #ra, ro, sigma, ta
+#print(sigma[:,2])
+#sig2 = sigma[:,2] == 2
+#sig1_1 = sigma[:,2] == 1
+sigma = np.genfromtxt('../data/constant_supercriticality.csv', skip_header=1, delimiter=',', usecols=(2,4,5,6)) #ra, ro, supercrit, ta
+sig2 = sigma[:,2] == 3
+sig1_1 = sigma[:,2] == 2
+
 
 ax1.plot(sigma[sig2, 3], sigma[sig2, 0], c=S_color, dashes=(3,0.5,0.5,0.5), lw=2, label=r'$\mathcal{S}=3$')
 
