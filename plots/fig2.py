@@ -4,6 +4,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import h5py
+matplotlib.rcParams['font.family'] = 'serif'
 
 import dedalus.public as de
 
@@ -29,6 +30,8 @@ lowF = h5py.File('../data/slices/pro0.96_ra9.16e5_ta1e8_slices_s60.h5', 'r')
 highF = h5py.File('../data/slices/pro1.58_ra2.49e5_ta4.64e6_slices_s60.h5', 'r')
 coF = h5py.File('../data/slices/co1_ta1e5.h5', 'r')
 
+highres_n = 1024
+
 count = 0
 for f, ax in zip( [lowF, highF, coF], [ax3, ax2, ax1] ):
     x, y = f['scales']['x']['1.0'], f['scales']['y']['1.0']
@@ -37,7 +40,7 @@ for f, ax in zip( [lowF, highF, coF], [ax3, ax2, ax1] ):
     bases = [x_basis, y_basis]
     domain = de.Domain(bases, grid_dtype=np.float64)
     base_scale=1
-    big_scale=10
+    big_scale=int(highres_n/len(x))
     s_field = domain.new_field()
         
 
@@ -66,17 +69,16 @@ for f, ax in zip( [lowF, highF, coF], [ax3, ax2, ax1] ):
     elif count == 2:
         mn_pre = -19.4
     ax.annotate(r'$(S_{\mathrm{min}}, S_{\mathrm{max}}) = $' \
-              + r'$({}, {})$'.format(mn_pre, mx_pre) \
-              + r'$\times {}$'.format(mx_e),
-              xy=(0.03, -0.07), fontsize=8, annotation_clip=False)
+              + r'$({}, {})$'.format(mn_pre, mx_pre), 
+              xy=(0.13, -0.07), fontsize=8, annotation_clip=False)
     count += 1
 
 cax = plt.subplot(gs.new_subplotspec((0, 350), 75, 300))
 bar = plt.colorbar(c, cax=cax, orientation='horizontal')
 cax.set_xticklabels(())
 bar.set_ticks(())
-cax.annotate(r'$S_{\mathrm{min}}$', fontsize=8,  xy=(-0.14, 0.3), annotation_clip=False)
-cax.annotate(r'$S_{\mathrm{max}}$', fontsize=8,  xy=(1.02, 0.3), annotation_clip=False)
+cax.annotate(r'$S_{\mathrm{min}} \times 10^{-5}$', fontsize=8,  xy=(-0.35, 0.3), annotation_clip=False)
+cax.annotate(r'$S_{\mathrm{max}} \times 10^{-5}$', fontsize=8,  xy=(1.02, 0.3), annotation_clip=False)
 
 bbox_props = dict(boxstyle="round", fc="w", ec="0.5", alpha=0.9)
 ax3.text(0.17, 0.93, "Ro = 0.13", ha="center", va="center", size=8, bbox=bbox_props)

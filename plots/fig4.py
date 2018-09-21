@@ -5,10 +5,13 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import glob
 import h5py
+from scipy.optimize import fmin
+from scipy.interpolate import interp1d
+matplotlib.rcParams['font.family'] = 'serif'
 
 Lz = np.exp(3/(1.5-1e-4)) - 1
 
-cmap = 'summer_r'
+cmap = 'viridis_r'
 
 entropy_gradients = dict()
 rossby_profiles   = dict()
@@ -35,13 +38,16 @@ for key in rossby_profiles.keys():
 cos = np.array(cos)
 tas = np.array(tas)
 
+fig_trash = plt.figure()
+ax_trash  = fig_trash.add_subplot(1,1,1)
+
 
 
 fig = plt.figure(figsize=(8.5, 3))
 gs     = gridspec.GridSpec(*(1000,1000))
 gs_info = (((0,0), 50, 250), ((50,0), 450, 250), ((500, 0), 450, 250), 
            ((0,370), 50, 250), ((50, 370), 450, 250), ((500, 370), 450, 250),
-           ((50, 750), 900, 250))
+           ((0, 750), 900, 250))
 
 ax3 = plt.subplot(gs.new_subplotspec(*gs_info[-1]))
 
@@ -66,29 +72,60 @@ for key in rossby_profiles.keys():
         continue
     ax1_1.plot(z[key], entropy_gradients[key], c=sm.to_rgba(np.log10(ta)))
     ax1_2.plot(z[key], rossby_profiles[key], c=sm.to_rgba(np.log10(ta)))
-  
-    n_pts = int(len(z[key])*5/100)
-    good_zs = z[key][z[key] <= 0.998*Lz]
-    good_grads = entropy_gradients[key][z[key] <= 0.998*Lz]
+
+    if ta < 1e7:
+        n_pts = 12#int(len(z[key])*5/100)
+        frac = 0.985
+    else:
+        n_pts = 12
+        frac = 0.99
+    good_zs = z[key][z[key] <= frac*Lz]
+    good_grads = entropy_gradients[key][z[key] <= frac*Lz]
     fit = np.polyfit(good_zs[-n_pts:], good_grads[-n_pts:], deg=1)
-#    ax1_1.plot(z[key], fit[0]*z[key] + fit[1], c=sm.to_rgba(np.log10(ta)))
-    z0  = -fit[1]/fit[0]
+    y_fit = np.zeros_like(z[key])
+    for i, f in enumerate(fit):
+        y_fit += f*z[key]**(len(fit)-1-i)
+ 
+
+    fit_f = interp1d(y_fit, z[key])
+    z0  = fit_f(0)
     s_bl = Lz - z0
     s_bls.append(s_bl)
     
-    ro_bl = np.argmax(rossby_profiles[key][int(len(rossby_profiles[key])/2):])
-    ro_bl = Lz - z[key][int(len(z[key])/2+ro_bl)]
+    ax_trash.plot(z[key], entropy_gradients[key])
+    ax_trash.plot(z[key], y_fit, c=sm.to_rgba(np.log10(ta)))
+    ax_trash.axhline(0)
+    ax_trash.set_ylim(-np.max(np.abs(entropy_gradients[key])), np.max(np.abs(entropy_gradients[key])))
+    fig_trash.savefig('{:s}.png'.format(key))
+    ax_trash.cla()
+    
+
+    half_z = z[key][int(len(z[key])/2):]
+    half_ro = rossby_profiles[key][int(len(rossby_profiles[key])    /2):] 
+    ro = interp1d(half_z, half_ro, fill_value='extrapolate')
+    big_z = np.linspace(Lz/2, Lz, 1e4)
+    big_ro = ro(big_z)
+
+    ro_bl_guess_i = np.argmax(big_ro)
+    ro_bl = Lz - big_z[ro_bl_guess_i]
     ro_bls.append(ro_bl)
     taylors.append(ta)
+
+
+  
 ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
  
 ax3.plot(taylors, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$', marker='o', lw=0)
 ax3.set_xscale('log')
 
+ax1_1.annotate(r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$', xy=(0.05, -7e-4), fontsize=12)
 ax1_2.set_xlabel('z')
 ax1_2.set_ylabel('Ro')
-ax1_1.set_ylabel(r'$\nabla s$')
+ax1_1.set_ylabel(r'$\nabla s \times 10^{-4}$')
+ax1_1.set_xticks(())
+ax1_1.set_yticks((0, -0.00025, -0.0005))
+ax1_1.set_yticklabels(('0', r'$-$2.5', r'$-$5.0'))
     
 
 plt.colorbar(sm, cax=cax1, orientation='horizontal')
@@ -120,30 +157,57 @@ for key in rossby_profiles.keys():
     ax2_1.plot(z[key], entropy_gradients[key], c=sm.to_rgba(np.log10(ta)))
     ax2_2.plot(z[key], rossby_profiles[key], c=sm.to_rgba(np.log10(ta)))
 
-    n_pts = int(len(z[key])*5/100)
-    good_zs = z[key][z[key] <= 0.998*Lz]
-    good_grads = entropy_gradients[key][z[key] <= 0.998*Lz]
+    if ta < 1e6:
+        n_pts = 12#int(len(z[key])*5/100)
+        frac = 0.985
+    else:
+        n_pts = 12
+        frac = 0.995
+    good_zs = z[key][z[key] <= frac*Lz]
+    good_grads = entropy_gradients[key][z[key] <= frac*Lz]
     fit = np.polyfit(good_zs[-n_pts:], good_grads[-n_pts:], deg=1)
-#    ax2_1.plot(z[key], fit[0]*z[key] + fit[1], c=sm.to_rgba(np.log10(ta)))
-#    ax2_1.axvline(Lz*0.99)
-    z0  = -fit[1]/fit[0]
+    y_fit = np.zeros_like(z[key])
+    for i, f in enumerate(fit):
+        y_fit += f*z[key]**(len(fit)-1-i)
+ 
+
+    fit_f = interp1d(y_fit, z[key])
+    z0  = fit_f(0)
     s_bl = Lz - z0
     s_bls.append(s_bl)
     
-    ro_bl = np.argmax(rossby_profiles[key][int(len(rossby_profiles[key])/2):])
-    ro_bl = Lz - z[key][int(len(z[key])/2+ro_bl)]
+    ax_trash.plot(z[key], entropy_gradients[key])
+    ax_trash.plot(z[key], y_fit, c=sm.to_rgba(np.log10(ta)))
+    ax_trash.axhline(0)
+    ax_trash.set_ylim(-np.max(np.abs(entropy_gradients[key])), np.max(np.abs(entropy_gradients[key])))
+    fig_trash.savefig('{:s}.png'.format(key))
+    ax_trash.cla()
+    
+
+    half_z = z[key][int(len(z[key])/2):]
+    half_ro = rossby_profiles[key][int(len(rossby_profiles[key])    /2):] 
+    ro = interp1d(half_z, half_ro, fill_value='extrapolate')
+    big_z = np.linspace(Lz/2, Lz, 1e4)
+    big_ro = ro(big_z)
+
+    ro_bl_guess_i = np.argmax(big_ro)
+    ro_bl = Lz - big_z[ro_bl_guess_i]
     ro_bls.append(ro_bl)
     taylors.append(ta)
 ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
  
-ax3.plot(taylors, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.6$', marker='o', lw=0)
+ax3.plot(taylors, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$', marker='o', lw=0)
 ax3.set_xlabel('Ta')
 ax3.set_ylabel(r'$\delta_{\mathrm{Ro}}/\delta_{\mathrm{\nabla s}}$')
 
+ax2_1.annotate(r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$', xy=(0.05, -2.3e-3), fontsize=12)
 ax2_2.set_xlabel('z')
 ax2_2.set_ylabel('Ro')
-ax2_1.set_ylabel(r'$\nabla s$')
+ax2_1.set_ylabel(r'$\nabla s \times 10^{-3}$')
+ax2_1.set_xticks(())
+ax2_1.set_yticks((0, -0.001, -0.002))
+ax2_1.set_yticklabels(('0', r'$-$1', r'$-$2'))
 
 
 ax3.legend(loc='upper right', frameon=False, borderpad=0.2, handletextpad=0.2, fontsize=8)
