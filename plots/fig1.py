@@ -11,8 +11,8 @@ Co_color = [0.85882353, 0.85882353, 0.55294118]
 S_color  = [0.68235294, 0.78039216, 0.90980392]
 
 Pro_marker = 'o'
-Co_marker  = 'X'
-S_marker   = 'h'
+Co_marker  = 'v'
+S_marker   = 's'
 
 
 
@@ -67,14 +67,14 @@ ax1.set_ylabel('Ra')
 
 #PLOT 2
 
-ax2.plot(original_co[co1, 0], original_co[co1, 1], marker=Co_marker, color=Co_color, lw=0, ms=8)
-ax2.plot(original_co[co03, 0], original_co[co03, 1], marker=Co_marker, color=Co_color, lw=0, ms=6.5)
-ax2.plot(original_co[co01, 0], original_co[co01, 1], marker=Co_marker, color=Co_color, lw=0, ms=4)
-ax2.plot(sigma[sig2, 0], sigma[sig2, 1], marker=S_marker, color=S_color, lw=0, ms=8)
-ax2.plot(sigma[sig1_1, 0], sigma[sig1_1, 1], marker=S_marker, color=S_color, lw=0, ms=5)
+ax2.plot(original_co[co1, 0], original_co[co1, 1], marker=Co_marker, color=(*Co_color, 0.3), lw=0, ms=4.5, markeredgecolor=(*Co_color, 1))
+ax2.plot(original_co[co03, 0], original_co[co03, 1], marker=Co_marker, color=(*Co_color, 0.3), lw=0, ms=3.5, markeredgecolor=(*Co_color, 1))
+ax2.plot(original_co[co01, 0], original_co[co01, 1], marker=Co_marker, color=(*Co_color, 0.3), lw=0, ms=2.5, markeredgecolor=(*Co_color, 1))
+ax2.plot(sigma[sig2, 0], sigma[sig2, 1], marker=S_marker, color=(*S_color, 0.3), lw=0, ms=4.5, markeredgecolor=(*S_color, 1))
+ax2.plot(sigma[sig1_1, 0], sigma[sig1_1, 1], marker=S_marker, color=(*S_color, 0.3), lw=0, ms=2.5, markeredgecolor=(*S_color, 1))
 ax2.plot(new_c[c158, 1], new_c[c158, 3], marker=Pro_marker, color=Pro_color, lw=0, ms=4.5, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
 ax2.plot(new_c[c957, 1], new_c[c957, 3], marker=Pro_marker, color=Pro_color, lw=0, ms=2.5, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-ax2.legend(loc='upper left', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0)
+ax2.legend(loc='upper middle', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0)
 
 lines, labels = [], []
 co1_ra = original_co[co1, 0][original_co[co1, 0] >= 1e3]
@@ -96,8 +96,8 @@ ax2.set_ylabel('Ro')
 print(sigma[sig2,3], sigma[sig2,0]/sigma[sig2,3]**(3/4))
 c_sig = np.sqrt(sigma[sig2, 0]/sigma[sig2, 3]**(3/4))
 c_sig_1 = np.sqrt(sigma[sig1_1, 0]/sigma[sig1_1, 3]**(3/4))
-ax3.plot(c_sig, sigma[sig2, 1], marker='o', lw=0, c=S_color, ms=8, label='$\mathcal{S} = 3$')
-ax3.plot(c_sig_1, sigma[sig1_1, 1], marker='o', lw=0, c=S_color, ms=5, label='$\mathcal{S} = 2$')
+ax3.plot(c_sig, sigma[sig2, 1], marker='o', lw=0, c=(*S_color, 0.3), ms=4.5, label='$\mathcal{S} = 3$', markeredgecolor=(*S_color, 1))
+ax3.plot(c_sig_1, sigma[sig1_1, 1], marker='o', lw=0, c=(*S_color, 0.3), ms=2.5, label='$\mathcal{S} = 2$', markeredgecolor=(*S_color, 1))
 
 #p = np.polyfit(np.log10(c_sig[sigma[sig2,1] <= 0.3]), np.log10(sigma[sig2, 1][sigma[sig2,1] < 0.3]), deg=1)
 #p2 = np.polyfit(np.log10(c_sig_1[sigma[sig1_1,1] <= 0.3]), np.log10(sigma[sig1_1, 1][sigma[sig1_1,1] < 0.3]), deg=1)

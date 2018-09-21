@@ -47,7 +47,7 @@ fig = plt.figure(figsize=(8.5, 3))
 gs     = gridspec.GridSpec(*(1000,1000))
 gs_info = (((0,0), 50, 250), ((50,0), 450, 250), ((500, 0), 450, 250), 
            ((0,370), 50, 250), ((50, 370), 450, 250), ((500, 370), 450, 250),
-           ((0, 750), 900, 250))
+           ((0, 750), 950, 250))
 
 ax3 = plt.subplot(gs.new_subplotspec(*gs_info[-1]))
 
@@ -126,6 +126,8 @@ ax1_1.set_ylabel(r'$\nabla s \times 10^{-4}$')
 ax1_1.set_xticks(())
 ax1_1.set_yticks((0, -0.00025, -0.0005))
 ax1_1.set_yticklabels(('0', r'$-$2.5', r'$-$5.0'))
+ax1_1.set_xlim(0, Lz)
+ax1_2.set_xlim(0, Lz)
     
 
 plt.colorbar(sm, cax=cax1, orientation='horizontal')
@@ -208,6 +210,8 @@ ax2_1.set_ylabel(r'$\nabla s \times 10^{-3}$')
 ax2_1.set_xticks(())
 ax2_1.set_yticks((0, -0.001, -0.002))
 ax2_1.set_yticklabels(('0', r'$-$1', r'$-$2'))
+ax2_1.set_xlim(0, Lz)
+ax2_2.set_xlim(0, Lz)
 
 
 ax3.legend(loc='upper right', frameon=False, borderpad=0.2, handletextpad=0.2, fontsize=8)
