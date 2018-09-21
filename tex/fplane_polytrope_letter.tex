@@ -244,6 +244,7 @@ experiments along that path.
 
 \section{Results \& Discussion}
 
+
 \label{sec:results}
 In Fig.~\ref{fig:parameter_space}a, the value of Ra$_{\text{crit}}$
 is shown as a function of Ta, as
@@ -260,6 +261,32 @@ At low Ro and \pro, in the rotationally constrained regime, the two parameters
 are related according to the power law [INSERT HERE ONCE MORE DATA].
 At higher Ro in the rotationally unconstrained regime, this scaling breaks down
 to a [INSERT SCALING], with some offset at different values of $\mathcal{S}$.
+\begin{figure}[t!]
+\includegraphics{./figs/nu_and_re.png}
+\caption{(a) Evolved Nu vs. Ra along constant
+\pro$\,$ paths. A scaling law of Nu$\,\propto\,$Ra$^{0.27}$ is observed, which
+is very similar to classic scaling laws.
+(b) Evolved Re vs. Ra along constant \pro$\,$ paths.
+A classic scaling law of Re$\,\propto\,$Ra$^{1/2}$ is observed. The
+similarity between these laws and
+classical laws in \RB convection suggests that at fixed \pro, varying Ra
+affects the evolved dynamics in a manner similar to a nonrotating fluid.
+\label{fig:nu_and_re} }
+\end{figure}
+
+\begin{figure*}[ht!]
+\includegraphics[width=\textwidth]{./figs/boundary_layers.png}
+\caption{Horizontally-averaged profiles of the entropy gradient ($\grad s$, a)
+and Rossby number (Ro, b) are shown vs. height for $\pro = 0.96$. 
+Similar profiles are shown in (c) and (d) for $\pro = 1.58$. 
+(c) The ratio of the sizes of the Ro boundary layer and $\grad s$ boundary layer are
+shown. We find that for increasingly rotationally constrained flows, the Ro boundary layer
+is increasingly thinner than the thermal boundary layer.
+\label{fig:profiles_and_bls} }
+\end{figure*}
+
+
+
 
 
 In Fig.~\ref{fig:pretty_convection}, sample horizontal snapshots of the evolved entropy field
@@ -273,18 +300,8 @@ columns of convection, as seen in rapidly rotating \RB convection \citep{stellma
 The select cases displayed in Fig.~\ref{fig:pretty_convection} have an evolved volume-averaged
 Re$\,\sim\,$200.
 
-\begin{figure}[h]
-\includegraphics{./figs/nu_and_re.png}
-\caption{(a) Evolved Nu vs. Ra along constant
-\pro$\,$ paths. A scaling law of Nu$\,\propto\,$Ra$^{0.27}$ is observed, which
-is very similar to classic scaling laws.
-(b) Evolved Re vs. Ra along constant \pro$\,$ paths.
-A classic scaling law of Re$\,\propto\,$Ra$^{1/2}$ is observed. The
-similarity between these laws and
-classical laws in \RB convection suggests that at fixed \pro, varying Ra
-affects the evolved dynamics in a manner similar to a nonrotating fluid.
-\label{fig:nu_and_re} }
-\end{figure}
+
+
 
 We measure the Nusselt number (Nu, which quantifies heat transport in a convective
 solution) as we did in \AB.
@@ -301,16 +318,6 @@ $\text{Re} \propto \text{Ra}^{0.47} \sim \text{Ra}^{1/2}$ in the rotationally co
 which directly parallels the non-rotating regime in \AB.
 
 
-\begin{figure*}[h]
-\includegraphics[width=\textwidth]{./figs/boundary_layers.png}
-\caption{Horizontally-averaged profiles of the entropy gradient ($\grad s$, a)
-and Rossby number (Ro, b) are shown vs. height for $\pro = 0.96$. 
-Similar profiles are shown in (c) and (d) for $\pro = 1.58$. 
-(c) The ratio of the sizes of the Ro boundary layer and $\grad s$ boundary layer are
-shown. We find that for increasingly rotationally constrained flows, the Ro boundary layer
-is increasingly thinner than the thermal boundary layer.
-\label{fig:profiles_and_bls} }
-\end{figure*}
 
 In Fig. \ref{fig:profiles_and_bls}, we show time- and horizontally-averaged profiles of
 Ro and the entropy gradient ($\grad s$). As Ra increases at a constant value of
@@ -356,5 +363,6 @@ with support by the NASA High End Computing (HEC) Program through the NASA
 Advanced Supercomputing (NAS) Division at Ames Research Center on Pleiades
 with allocations GID s1647.
 
+\newpage
 \bibliography{biblio.bib}
 \end{document}

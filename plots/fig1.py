@@ -115,7 +115,7 @@ ax3.set_xlabel(r'$\mathcal{P}_{\mathrm{Ro}}$')
 ax3.set_ylabel('Ro')
 ax3.legend(loc='lower right', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0)
 
-ax3.set_xticks((1,2,3))
+ax3.set_xticks((1,3,10))
 ax3.get_xaxis().set_major_formatter(matplotlib.ticker.FormatStrFormatter('%.1f'))
 ax3.tick_params(axis='x', which='minor', labelsize=0)
 

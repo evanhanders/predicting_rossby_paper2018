@@ -7,7 +7,7 @@ matplotlib.rcParams['font.family'] = 'serif'
 
 
 
-fig = plt.figure(figsize=(3, 4))
+fig = plt.figure(figsize=(3, 3.5))
 gs     = gridspec.GridSpec(*(1000,1000))
 gs_info = (((50,50), 450, 900), ((500, 50), 450, 900))
 ax1 = plt.subplot(gs.new_subplotspec(*gs_info[0]))
