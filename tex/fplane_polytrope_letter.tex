@@ -110,16 +110,22 @@ Furthermore, \cite{aurnou&king2017} suggest that many studies in planetary syste
 have likely over-emphasized the importance of magnetism compared to rotation.
 
 \begin{figure*}[t!]
-\includegraphics[width=\textwidth]{./figs/parameter_space.png}
+\includegraphics[width=\textwidth]{parameter_space.png}
 \caption{(a) The critical Rayleigh number, as a function of the Taylor number, 
 is plotted as a solid black line. Paths of constant Convective Rossby Number
-(red dashed line), constant supercriticality (orange dashed line), and 
-\pro (blue solid line) are shown through parameter space. (b) Evolved
+(Co, green dashed line), constant supercriticality ($\mathcal{S}$, blue dash-dot line), and 
+\pro (orange solid line) are shown through parameter space. (b) Evolved
 Ro is plotted vs. Ra along multiple constant \pro
-paths and the constant Co and $\mathcal{S}$ path shown in (a).
-After a sharp increase at low Ta, the evolved Rossby number flattens
-out and stays nearly constant across orders of magnitude of Ta.
-(c) At low Ro, we find that $\text{Ro} \propto \pro^X$.
+paths. For comparison, paths of constant $\mathcal{S}$ (blue squares; $\mathcal{S} = 3$ for
+big squares and $\mathcal{S} = 2$ for small squares)
+and constant Co (green triangles; Co = 1 for big triangles, Co = 0.3 for medium triangles,
+and Co = 0.1 for small triangles) are shown.
+Ro is roughly constant for a constant \pro, but changes drastically at constant Co and 
+$\mathcal{S}$.
+(c) The scaling of Ro with \pro is shown for $\mathcal{S} = (2,3)$.
+At low Ro, both supercriticalities collapse onto a common scaling law of [NEED LAW].
+At higher Ro, a different scaling law of [NEED LAW] is seen, and different supercriticalities
+shift Ro.
 \label{fig:parameter_space} }
 \end{figure*}
 
@@ -163,11 +169,11 @@ of the momentum equation. We impose impenetrable, stress-free, fixed-temperature
 conditions at the top and bottom of the domain.
 
 \begin{figure*}[t!]
-\includegraphics[width=\textwidth]{./figs/dynamics_plot.png}
+\includegraphics[width=\textwidth]{dynamics_plot.png}
 \caption{ A horizontal slice of the evolved entropy field is plotted at $z = 0.95L_z$
 for select simulations. The mean value of entropy at this height has been removed in all
-cases. All runs displayed here have an evolved volume-averaged Ro$\,\sim\,200$. 
-As Ro decreases O(1) on the left to O(0.1) on the right, and thus the rotational
+cases. All runs displayed here have an evolved volume-averaged Re$\,\sim\,200$. 
+As Ro decreases from O(1) on the left to O(0.1) on the right, and thus the rotational
 constraint on the flow increases, significant changes in flow morphology are observed.
 At Ro = 2.01, convective dynamics are not hugely dissimilar from the non-rotating
 case where there are large upflows and narrow, fast downflow lanes (see e.g., \AB).
@@ -261,16 +267,15 @@ At low Ro and \pro, in the rotationally constrained regime, the two parameters
 are related according to the power law [INSERT HERE ONCE MORE DATA].
 At higher Ro in the rotationally unconstrained regime, this scaling breaks down
 to a [INSERT SCALING], with some offset at different values of $\mathcal{S}$.
+
 \begin{figure}[t!]
 \includegraphics{./figs/nu_and_re.png}
-\caption{(a) Evolved Nu vs. Ra along constant
-\pro$\,$ paths. A scaling law of Nu$\,\propto\,$Ra$^{0.27}$ is observed, which
-is very similar to classic scaling laws.
-(b) Evolved Re vs. Ra along constant \pro$\,$ paths.
-A classic scaling law of Re$\,\propto\,$Ra$^{1/2}$ is observed. The
-similarity between these laws and
-classical laws in \RB convection suggests that at fixed \pro, varying Ra
-affects the evolved dynamics in a manner similar to a nonrotating fluid.
+\caption{Scaling laws for paths at $\pro = 1.58$ (Ro $\sim$ 0.4) and
+$\pro = 0.96$ (Ro $\sim$ 0.1) are shown. 
+(a) Evolved Nu vs. Ra. The scaling laws here are very reminiscent of classic \RB convection
+theory \citep{ahlers&all2009}.
+(b) Evolved Re vs. Ra.
+The scaling seen here is nearly identical to scalings in nonrotating convection.
 \label{fig:nu_and_re} }
 \end{figure}
 
