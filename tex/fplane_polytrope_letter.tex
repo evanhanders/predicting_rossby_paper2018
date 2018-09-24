@@ -64,7 +64,8 @@
 \begin{abstract}
 In this letter we study numerical simulations of stratified, compressible convection in a
 rotational $f$-plane geometry. We define a new quantity, the Predictive Rossby number
-(\pro), and show that it specifies the evolved Rossby number (Ro) of a convective simulation.
+(\pro), and show that it specifies the evolved rotational constraint of simulation as
+measured by the Rossby number (Ro).
 We examine the scaling of traditional fluid numbers and boundary layers along paths of constant
 \pro.
 \end{abstract}
@@ -74,39 +75,42 @@ We examine the scaling of traditional fluid numbers and boundary layers along pa
 %%%%% Body of the paper
 \section{Introduction}
 \label{sec:intro}
-Convective flows in stars and planets are influenced by rotation. 
-Rotating convection has been studied in great detail in
-recent decades in both laboratory and numerical settings. The
-properties of convection in the regime in which rotational forces are
-insignificant are now well understood \citep{king&all2009, zhong&all2009, 
-cheng&all2015}. Boussinesq convective theory is also robust
-in the rapidly rotating regime \citep{julien&all2012, stellmach&all2014,
-gastine&all2016}. We are not, however, aware of any well-developed
-procedure for specifying the degree of rotational constraint
-in a convective experiment \emph{a priori}. Rather, the rotational
-constraint, measured by the evolved Rossby number
-(Ro, the ratio of advective dynamics to rotational constraint), is a complex
-combination of input parameters, such as convective driving and the
-magnitude of the rotation vector.
+Rotation influences the dynamics of convective flows in
+stellar and planetary atmospheres.
+An abundance of studies into the fundamental nature of
+rotating convection in both laboratory and numerical settings
+have provided great insight into the properties of convection 
+in both the rapidly rotating regime 
+\citep{julien&all2012, stellmach&all2014, gastine&all2016}
+and the rotationally unconstrained regime \citep{king&all2009, zhong&all2009, 
+cheng&all2015}. The scaling behavior of heat transport, the nature of convective flow
+structures, and the importance of boundary layers in driving dynamics are well known,
+and yet we authors are not aware of a well-developed
+procedure for specifying the significance of rotation on the evolved
+convective flows in the experimental initial conditions.
+The importance of rotation on convective dynamics,
+measured by the evolved Rossby number
+(Ro, the ratio of convective to rotational vorticity),
+is in general not held constant in parameter space studies and is often not even
+reported.
 
-A vast number of studies of rotating convection have been conducted in the astrophysical context.
-Often these studies focus on questions inspired by the solar dynamo
+In the astrophysical context,
+many studies of rotating convection have investigated questions inspired by the solar dynamo
 \citep{glatzmaier&gilman1982, busse2002, brown&all2008,
 brown&all2010, brown&all2011, augustson&all2012, guerrero&all2013, kapyla&all2014}.
-Even when these simulations appear to be rotating at a rate similar to the Sun,
-they can produce vastly different dynamics (such as anti-solar differential rotation).
-These strange results may be the result of these systems having different evolved
-values of the Rossby number than the Sun. Recent simulations and experiments are predicting
-that the Rossby number of the deep interior of the Sun is low, and that this drastically
-affects the behavior of the dynamics of the solar convection zone
+Even when these simulations nominally rotate at the solar rate,
+they frequently produce distinctly different behaviors than the true Sun,
+such as anti-solar differential rotation profiles.
+These unphysical results may arise from the fact that Ro in these simulations differs from
+its value the Sun. Recent simulations and experiments predict
+that Ro in the deep solar interior is very small, implying that deep solar convection
+is highly rotationally constrained, and this likely drastically
+affects the behavior of solar convection
 \citep{featherstone&hindman2016, greer&all2016}.
-
-In addition to it being very important to study the correct Rossby number
-regime in solar convection studies, it also seems to be very important in
-studies of planetary dynamos. For example, the balance between Lorentz forces
-and rotational forces likely creates the observed differences between ice
+In the planetary context, the balance between Lorentz
+and rotational forces likely leads to the observed differences between ice
 giant and gas giant dynamos in our solar system \citep{soderlund&all2015}.
-Furthermore, \cite{aurnou&king2017} suggest that many studies in planetary systems
+\cite{aurnou&king2017} suggest that many studies in planetary systems
 have likely over-emphasized the importance of magnetism compared to rotation.
 
 \begin{figure*}[t!]
@@ -130,10 +134,11 @@ shift Ro.
 \end{figure*}
 
 
-It is clear that in studying astrophysical objects, the experimenter must 
-study the proper Rossby number regime, and thus the proper degree of rotational
-constraint.  In this work, our goal is to find a way of specifying the Rossby number
-of convection in a simplified system through changing the input parameters.
+In short, simulations must have flows
+at the proper Rossby number if they are to have any hope of explaining the behavior of
+astrophysical objects.
+In this letter, our goal is to experimentally explore methods of specifying the Rossby number
+of convection in a simplified system.
 In \cite{anders&brown2017} (hereafter \AB), we studied non-rotating, hydrodynamic, 
 compressible convection in polytropic atmospheres. 
 In this work, we extend the study of \AB$\,$ to rotationally-influenced, $f$-plane
@@ -144,15 +149,15 @@ Reynolds number of the evolved flows) couple with a new input
 parameter, the Taylor number (Ta, \cite{julien&all1996}), which sets the magnitude of the
 rotational vector. 
 
-In section  \ref{sec:experiment}, we describe our atmosphere, numerical
-experiment, and paths through parameter space. In section \ref{sec:results}, we present
+In section  \ref{sec:experiment}, we describe our experiment and paths through parameter space. 
+In section \ref{sec:results}, we present
 the results of our experiments and in section \ref{sec:discussion} we offer concluding remarks.
 
 \section{Experiment} 
 \label{sec:experiment}
 We study fully compressible, stratified 
 convection under precisely the same atmospheric model
-as we previously did in \AB, and here
+as we previously did in \AB, but here
 we have included rotation. We study polytropic atmospheres
 with $n_\rho = 3$ density scale heights and a superadiabatic
 excess of $\epsilon = 10^{-4}$ such that flows are at low Mach number.
@@ -167,20 +172,6 @@ Fully Compressible Navier-Stokes equations in the same form presented in \AB, wi
 addition of the Coriolis term, $2\bm{\Omega}\times\bm{u}$, to the left-hand side
 of the momentum equation. We impose impenetrable, stress-free, fixed-temperature boundary
 conditions at the top and bottom of the domain.
-
-\begin{figure*}[t!]
-\includegraphics[width=\textwidth]{dynamics_plot.png}
-\caption{ A horizontal slice of the evolved entropy field is plotted at $z = 0.95L_z$
-for select simulations. The mean value of entropy at this height has been removed in all
-cases. All runs displayed here have an evolved volume-averaged Re$\,\sim\,200$. 
-As Ro decreases from O(1) on the left to O(0.1) on the right, and thus the rotational
-constraint on the flow increases, significant changes in flow morphology are observed.
-At Ro = 2.01, convective dynamics are not hugely dissimilar from the non-rotating
-case where there are large upflows and narrow, fast downflow lanes (see e.g., \AB).
-As the rotational constraint increases, the granular convective pattern gives way
-to vortical columns, as seen at Ro = 0.13.
-\label{fig:pretty_convection} }
-\end{figure*}
 
 
 The kinematic viscosity ($\nu$), thermal diffusivity ($\chi$), and strength of
@@ -197,12 +188,28 @@ $z = 0$ and $z = L_z$, and the specific heat at constant pressure is $c_P$.
 Throughout this work we set Pr = 1.
 
 As Ta increases, the wavenumber of convective onset, $k_{\text{crit}}$, also increases
-\citep{calkins&all2015}. 
+\citep{calkins&all2015a}. 
 We study 3D cartesian convective domains with horizontal extents of
 $x, y = [0, 4(2\pi/k_{\text{crit}})]$. 
 We evolve our simulations using the Dedalus\footnote{\url{http://dedalus-project.org/}} 
 pseudospectral framework, and our numerical methods are identical to those presented
 in \AB.
+
+
+\begin{figure*}[t]
+\includegraphics[width=\textwidth]{dynamics_plot.png}
+\caption{ A horizontal slice of the evolved entropy field is plotted at $z = 0.95L_z$
+for select simulations. The mean value of entropy at this height has been removed in all
+cases. All runs displayed here have an evolved volume-averaged Re$\,\sim\,200$. 
+As Ro decreases from O(1) on the left to O(0.1) on the right, and thus the rotational
+constraint on the flow increases, significant changes in flow morphology are observed.
+At Ro = 2.01, convective dynamics are not hugely dissimilar from the non-rotating
+case where there are large upflows and narrow, fast downflow lanes (see e.g., \AB).
+As the rotational constraint increases, the granular convective pattern gives way
+to vortical columns, as seen at Ro = 0.13.
+\label{fig:pretty_convection} }
+\end{figure*}
+
 
 
 
@@ -225,26 +232,26 @@ Paths on constraint I are at constant supercriticality,
 $\mathcal{S} \equiv \text{Ra}/\text{Ra}_{\text{crit}}$
 (blue dash-dot line in Fig. \ref{fig:parameter_space}a).
 Paths on constraint II are at a constant value of the classic
-``Convective Rossby number'' (Co = Ra / [Pr Ta]), which has been used frequently 
-in past work, and is intended to predict the rotational constraint of the
+``Convective Rossby number'' (Co$^2$ = Ra / [Pr Ta]), which has been used frequently 
+in past work, and is intended to predict the Rossby number of the
 evolved solution (green dashed line in Fig. \ref{fig:parameter_space}a; 
 \citet{julien&all1996, brummell&all1996}). Paths on constraint
 III set constant a ratio which we call the ``Predictive Rossby Number,'' 
 $\pro^2 = \text{Ra}/(\text{Pr}\text{Ta}^{3/4})$, 
 (e.g., orange solid line in Fig. \ref{fig:parameter_space}a).
-To our knowledge, these paths have not been
+To our knowledge, these paths have not been explored
 in the literature.
 
+
+
 For each path defined in Eqn.~\ref{eqn:paths}, 
-our goal is to study the magnitude of the rotational constraint
-as quantified by the Rossby number,
+our goal is to study the magnitude, and variation as
+a function of Ta, of the Rossby number,
 \begin{equation}
-\text{Ro} = \frac{|\grad\times \bm{u}|}{2 \Omega}.
+\text{Ro} = \frac{|\grad\times \bm{u}|}{2 \Omega},
 \label{eqn:ro}
 \end{equation}
-If Ro remains constant over a large range of Ra along one of these paths,
-then studies in which the magnitude of Ro is important should conduct
-experiments along that path.
+which quantifies the degree to which the fluid is rotationally constrained.
 
 
 
@@ -291,14 +298,10 @@ is increasingly thinner than the thermal boundary layer.
 \end{figure*}
 
 
-
-
-
-In Fig.~\ref{fig:pretty_convection}, sample horizontal snapshots of the evolved entropy field
-near the top of the domain are shown. 
-In Fig.~\ref{fig:pretty_convection}a, a rotationally uncontrained flow at moderately high
-Ro is shown. In Figs.~\ref{fig:pretty_convection}b\&c, increasingly rotationally constrained
-convection is shown.
+In Fig.~\ref{fig:pretty_convection}, sample snapshots
+of the evolved entropy field in the $x-y$ plane near the top of the domain are shown. 
+In the left panel is a rotationally unconstrained flow at moderately high
+Ro, and Ro decreases into the rotationally constrained regime from left to right.
 As Ro decreases, the
 classic granular structure of convection (see e.g., Fig.~2 in \AB) gives way to vortical
 columns of convection, as seen in rapidly rotating \RB convection \citep{stellmach&all2014}.
@@ -306,15 +309,12 @@ The select cases displayed in Fig.~\ref{fig:pretty_convection} have an evolved v
 Re$\,\sim\,$200.
 
 
-
-
 We measure the Nusselt number (Nu, which quantifies heat transport in a convective
 solution) as we did in \AB.
 In Fig.~\ref{fig:nu_and_re}a, we show how Nu scales as a function
-of Ra at fixed \pro. For constant \pro,
-we find a scaling of $\text{Nu} \propto \text{Ra}^{0.27}$ in
-the rotationally constrained regime. This is reminiscent of
-classic scaling laws in non-rotating \RB convection \citep{ahlers&all2009}.
+of Ra at fixed \pro. When Ro$\,\sim\,$0.1,
+we find a scaling of $\text{Nu} \propto \text{Ra}^{0.27}$. This is reminiscent of
+classic scaling laws (e.g., Ra$^{2/7}$) in non-rotating \RB convection \citep{ahlers&all2009}.
 This suggests that changes in heat transport at constant \pro are driven by
 changes in the boundary layer structure with increasing Ra.
 In Fig. \ref{fig:nu_and_re}b, we plot the RMS Reynold's
@@ -322,20 +322,20 @@ number (Re $= |u| L_z / \nu$) as a function of Ra at fixed \pro, and find that
 $\text{Re} \propto \text{Ra}^{0.47} \sim \text{Ra}^{1/2}$ in the rotationally constrained regime,
 which directly parallels the non-rotating regime in \AB.
 
-
-
 In Fig. \ref{fig:profiles_and_bls}, we show time- and horizontally-averaged profiles of
 Ro and the entropy gradient ($\grad s$). As Ra increases at a constant value of
-\pro, both the entropy and rotational boundary layers become thinner. We measure the
+\pro, both the $\grad s$ and Ro boundary layers become thinner. We measure the
 thickness of the entropy boundary layer ($\delta_{\grad s}$) at the top of the domain by 
-fitting a line within the boundary layer and finding when that line crosses zero. We measure
+measuring where a linear fit within the boundary layer crosses through $\grad s = 0$.
+We ensure by-eye for each profile that this is a reasonable measure of the boundary
+layer thickness. We measure
 the thickness of the Ro boundary layer ($\delta_{\text{Ro}}$) 
-as the height of the peak value of Ro within 
+as the height of the peak value of Ro within the
 upper half of the domain.
 In Fig. \ref{fig:profiles_and_bls}e, we plot $\delta_{\text{Ro}}/\delta_{\grad s}$, the ratio
 of these two boundary layers. As anticipated, the dynamical boundary layer ($\delta_{\text{Ro}}$)
 becomes relatively thinner with respect to the thermal boundary layer ($\delta_{\grad s}$)
-as Ro decreases. [Need a sentence saying what this means]
+as Ro and \pro$\,$ decrease. [need a sentence saying what this means?]
 
 \section{Discussion}
 \label{sec:discussion}
@@ -343,20 +343,19 @@ In this letter, we studied low-Mach-number, stratified, compressible convection
 under the influence of rotation.
 We examined three paths through Ra-Ta space, and showed that in the low-Ro, rotationally
 constrained regime, the newly-defined 
-Predictive Rossby number, $\pro = \text{Ra}/\text{Ta}^{3/4}$, determines the value of
-the evolved Rossby number (Ro). While increasing Ra and holding \pro$\,$ constant,
+Predictive Rossby number, $\pro = \text{Ra}/(\text{Pr }\text{Ta}^{3/4})$, determines the value of
+the evolved Ro. While increasing Ra and holding \pro$\,$ constant,
 we find scaling laws of heat transport (Nu) and turbulence (Re) that are nearly identical
 to scaling laws seen in nonrotational convection.
 
 Our results here suggest that experimenters can
 can achieve whatever degree of rotational constraint they desire in their evolved solution
 by choosing the proper value of \pro. Once that value is chosen, traditional experiments
-in which the turbulent nature of the solutions is increased by increasing the Ra can be 
-straightforwardly achieved. Preliminary results in 3D spherical convective systems suggest
-that the results presented here are broadly applicable to rotational convection 
-(Brown et al. 2019 in prep), even when the rotational vector is not every antiparallel to the
-gravity vector.
-
+in which the turbulent nature of the solutions is increased by increasing Ra can be 
+straightforwardly achieved. While here we studied a simple cartesian geometry with antiparallel
+gravity and rotation, preliminary results in 3D spherical convective systems suggest
+that the results presented here are broadly applicable to rotational convection in
+complex geometries (Brown et al. 2019 in prep).
 
 \subsection{acknowledgements}
 EHA acknowledges the support of NASA NESSF (insert fellowship number)
