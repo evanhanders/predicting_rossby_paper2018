@@ -119,7 +119,6 @@ s_bls = np.array(s_bls)
 ax3.plot(taylors, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$', marker='o', lw=0)
 ax3.set_xscale('log')
 
-ax1_1.annotate(r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$', xy=(0.05, -7e-4), fontsize=12)
 ax1_2.set_xlabel('z')
 ax1_2.set_ylabel('Ro')
 ax1_1.set_ylabel(r'$\nabla s \times 10^{-4}$')
@@ -128,6 +127,10 @@ ax1_1.set_yticks((0, -0.00025, -0.0005))
 ax1_1.set_yticklabels(('0', r'$-$2.5', r'$-$5.0'))
 ax1_1.set_xlim(0, Lz)
 ax1_2.set_xlim(0, Lz)
+
+ax1_1.text(2.2, -7e-4, r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$', ha='center', va='center')
+ax1_1.text(0.4, -7e-4, "(a)", ha="center", va="center", size=8)
+ax1_2.text(0.4, 0.03, "(b)", ha="center", va="center", size=8)
     
 
 plt.colorbar(sm, cax=cax1, orientation='horizontal')
@@ -203,7 +206,6 @@ ax3.plot(taylors, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$', mar
 ax3.set_xlabel('Ta')
 ax3.set_ylabel(r'$\delta_{\mathrm{Ro}}/\delta_{\mathrm{\nabla s}}$')
 
-ax2_1.annotate(r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$', xy=(0.05, -2.3e-3), fontsize=12)
 ax2_2.set_xlabel('z')
 ax2_2.set_ylabel('Ro')
 ax2_1.set_ylabel(r'$\nabla s \times 10^{-3}$')
@@ -212,8 +214,12 @@ ax2_1.set_yticks((0, -0.001, -0.002))
 ax2_1.set_yticklabels(('0', r'$-$1', r'$-$2'))
 ax2_1.set_xlim(0, Lz)
 ax2_2.set_xlim(0, Lz)
+ax2_1.text(2.2, -2.22e-3, r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$', ha='center', va='center')
+ax2_1.text(0.4, -2.22e-3, "(c)", ha="center", va="center", size=8)
+ax2_2.text(0.4, 0.125, "(d)", ha="center", va="center", size=8)
 
 
+ax3.text(1.4e2, 0.54, "(e)", ha="center", va="center", size=8)
 ax3.legend(loc='upper right', frameon=False, borderpad=0.2, handletextpad=0.2, fontsize=8)
  
 

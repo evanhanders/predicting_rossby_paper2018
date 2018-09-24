@@ -63,6 +63,7 @@ ax1.legend(loc='lower right', fontsize=8, frameon=False, borderpad=0.1, handlete
 
 ax1.set_xlabel('Ta')
 ax1.set_ylabel('Ra')
+ax1.text(3e1, 6e5, "(a)", ha="center", va="center", size=8)
 
 
 #PLOT 2
@@ -89,6 +90,7 @@ ax2.set_yscale('log')
 ax2.set_xscale('log')
 ax2.set_xlabel('Ra')
 ax2.set_ylabel('Ro')
+ax2.text(3e1, 5e-2, "(b)", ha="center", va="center", size=8)
 
 
 
@@ -118,6 +120,7 @@ ax3.legend(loc='lower right', fontsize=8, frameon=False, borderpad=0.1, handlete
 ax3.set_xticks((1,3,10))
 ax3.get_xaxis().set_major_formatter(matplotlib.ticker.FormatStrFormatter('%.1f'))
 ax3.tick_params(axis='x', which='minor', labelsize=0)
+ax3.text(9e-1, 4.5e0, "(c)", ha="center", va="center", size=8)
 
 
 

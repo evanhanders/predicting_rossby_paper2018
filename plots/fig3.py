@@ -63,6 +63,7 @@ ax1.add_artist(leg)
 ax1.set_xscale('log')
 ax1.set_yscale('log')
 ax1.set_ylabel('Nu')
+ax1.text(2.5e1, 2.5e1, "(a)", ha="center", va="center", size=8)
 
 
 lines, labels = [], []
@@ -106,6 +107,7 @@ ax2.set_xscale('log')
 ax2.set_yscale('log')
 ax2.set_xlabel('Ra')
 ax2.set_ylabel('Re')
+ax2.text(2.5e1, 6e2, "(b)", ha="center", va="center", size=8)
 
 
 #PLOT 2
