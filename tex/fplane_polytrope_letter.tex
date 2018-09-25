@@ -31,10 +31,12 @@
 
 
 \received{\today}
-\revised{\today}
-\accepted{\today}
+\revised{??}%\today}
+\accepted{??}%\today}
 \submitjournal{ApJ}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TITLE & AUTHORS
 \shorttitle{Predicting the Rossby number in convective experiments}
 \shortauthors{Anders et al.}
 
@@ -73,6 +75,8 @@ We examine the scaling of traditional fluid numbers and boundary layers along pa
 \keywords{convection --- rotation --- turbulence}
 
 %%%%% Body of the paper
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% INTRODUCTION
 \section{Introduction}
 \label{sec:intro}
 Rotation influences the dynamics of convective flows in
@@ -113,24 +117,26 @@ giant and gas giant dynamos in our solar system \citep{soderlund&all2015}.
 \cite{aurnou&king2017} suggest that many studies in planetary systems
 have likely over-emphasized the importance of magnetism compared to rotation.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PARAMETER SPACE FIGURE
 \begin{figure*}[t!]
-\includegraphics[width=\textwidth]{parameter_space.png}
-\caption{(a) The critical Rayleigh number, as a function of the Taylor number, 
-is plotted as a solid black line. Paths of constant Convective Rossby Number
-(Co, green dashed line), constant supercriticality ($\mathcal{S}$, blue dash-dot line), and 
-\pro (orange solid line) are shown through parameter space. (b) Evolved
-Ro is plotted vs. Ra along multiple constant \pro
-paths. For comparison, paths of constant $\mathcal{S}$ (blue squares; $\mathcal{S} = 3$ for
-big squares and $\mathcal{S} = 2$ for small squares)
-and constant Co (green triangles; Co = 1 for big triangles, Co = 0.3 for medium triangles,
-and Co = 0.1 for small triangles) are shown.
-Ro is roughly constant for a constant \pro, but changes drastically at constant Co and 
-$\mathcal{S}$.
-(c) The scaling of Ro with \pro is shown for $\mathcal{S} = (2,3)$.
-At low Ro, both supercriticalities collapse onto a common scaling law of [NEED LAW].
-At higher Ro, a different scaling law of [NEED LAW] is seen, and different supercriticalities
-shift Ro.
-\label{fig:parameter_space} }
+    \includegraphics[width=\textwidth]{parameter_space.png}
+    \caption{(a) The critical Rayleigh number, as a function of the Taylor number, 
+    is plotted as a solid black line. Paths of constant Convective Rossby Number
+    (Co, green dashed line), constant supercriticality ($\mathcal{S}$, blue dash-dot line), and 
+    \pro (orange solid line) are shown through parameter space. (b) Evolved
+    Ro is plotted vs. Ra along multiple constant \pro
+    paths. For comparison, paths of constant $\mathcal{S}$ (blue squares; $\mathcal{S} = 3$ for
+    big squares and $\mathcal{S} = 2$ for small squares)
+    and constant Co (green triangles; Co = 1 for big triangles, Co = 0.3 for medium triangles,
+    and Co = 0.1 for small triangles) are shown.
+    Ro is roughly constant for a constant \pro, but changes drastically at constant Co and 
+    $\mathcal{S}$.
+    (c) The scaling of Ro with \pro is shown for $\mathcal{S} = (2,3)$.
+    At low Ro, both supercriticalities collapse onto a common scaling law of [NEED LAW].
+    At higher Ro, a different scaling law of [NEED LAW] is seen, and different supercriticalities
+    shift Ro.
+    \label{fig:parameter_space} }
 \end{figure*}
 
 
@@ -153,6 +159,8 @@ In section  \ref{sec:experiment}, we describe our experiment and paths through p
 In section \ref{sec:results}, we present
 the results of our experiments and in section \ref{sec:discussion} we offer concluding remarks.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% EXPERIMENT SECTION
 \section{Experiment} 
 \label{sec:experiment}
 We study fully compressible, stratified 
@@ -178,9 +186,9 @@ The kinematic viscosity ($\nu$), thermal diffusivity ($\chi$), and strength of
 rotation ($\Omega$) are set at the top of the domain by the Rayleigh number
 (Ra), Prandtl number (Pr), and Taylor number (Ta),
 \begin{equation}
-\text{Ra} = \frac{g L_z^3 \Delta S / c_P}{\nu \chi}, \,\,\,
-\text{Pr} = \frac{\nu}{\chi}, \,\,\,
-\text{Ta} = \left(\frac{2 \Omega L_z^2}{\nu}\right)^2,
+    \text{Ra} = \frac{g L_z^3 \Delta S / c_P}{\nu \chi}, \,\,\,
+    \text{Pr} = \frac{\nu}{\chi}, \,\,\,
+    \text{Ta} = \left(\frac{2 \Omega L_z^2}{\nu}\right)^2,
 \end{equation}
 where $L_z$ is the depth of the domain, 
 $\Delta S = \epsilon n_\rho / m$ is the specific entropy difference between
@@ -195,23 +203,21 @@ We evolve our simulations using the Dedalus\footnote{\url{http://dedalus-project
 pseudospectral framework, and our numerical methods are identical to those presented
 in \AB.
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DYNAMICS FIGURE
 \begin{figure*}[t]
-\includegraphics[width=\textwidth]{dynamics_plot.png}
-\caption{ A horizontal slice of the evolved entropy field is plotted at $z = 0.95L_z$
-for select simulations. The mean value of entropy at this height has been removed in all
-cases. All runs displayed here have an evolved volume-averaged Re$\,\sim\,200$. 
-As Ro decreases from O(1) on the left to O(0.1) on the right, and thus the rotational
-constraint on the flow increases, significant changes in flow morphology are observed.
-At Ro = 2.01, convective dynamics are not hugely dissimilar from the non-rotating
-case where there are large upflows and narrow, fast downflow lanes (see e.g., \AB).
-As the rotational constraint increases, the granular convective pattern gives way
-to vortical columns, as seen at Ro = 0.13.
-\label{fig:pretty_convection} }
+    \includegraphics[width=\textwidth]{dynamics_plot.png}
+    \caption{ A horizontal slice of the evolved entropy field is plotted at $z = 0.95L_z$
+    for select simulations. The mean value of entropy at this height has been removed in all
+    cases. All runs displayed here have an evolved volume-averaged Re$\,\sim\,200$. 
+    As Ro decreases from O(1) on the left to O(0.1) on the right, and thus the rotational
+    constraint on the flow increases, significant changes in flow morphology are observed.
+    At Ro = 2.01, convective dynamics are not hugely dissimilar from the non-rotating
+    case where there are large upflows and narrow, fast downflow lanes (see e.g., \AB).
+    As the rotational constraint increases, the granular convective pattern gives way
+    to vortical columns, as seen at Ro = 0.13.
+    \label{fig:pretty_convection} }
 \end{figure*}
-
-
-
 
 As Ta increases, the critical value of Ra at which convection onsets,
 Ra$_{\text{crit}}$, also increases (see the black line in Fig. \ref{fig:parameter_space}a). 
@@ -220,13 +226,13 @@ control parameters makes it difficult to predict the rotational constraint of th
 fluid flows for a given set of input parameters. In this work, we will
 explore three paths through Ra-Ta space:
 \begin{equation}
-\text{Ra} = 
-\begin{cases}
-\mathcal{S}\,\text{Ra}_\text{crit}(\text{Ta}), & (\text{I})\\
-\text{Co}^2\text{Pr Ta}, & (\text{II}) \\
-\pro^2 \text{Pr Ta}^{3/4} & (\text{III}).
-\end{cases}
-\label{eqn:paths}
+    \text{Ra} = 
+    \begin{cases}
+    \mathcal{S}\,\text{Ra}_\text{crit}(\text{Ta}), & (\text{I})\\
+    \text{Co}^2\text{Pr Ta}, & (\text{II}) \\
+    \pro^2 \text{Pr Ta}^{3/4} & (\text{III}).
+    \end{cases}
+    \label{eqn:paths}
 \end{equation}
 Paths on constraint I are at constant supercriticality, 
 $\mathcal{S} \equiv \text{Ra}/\text{Ra}_{\text{crit}}$
@@ -248,16 +254,15 @@ For each path defined in Eqn.~\ref{eqn:paths},
 our goal is to study the magnitude, and variation as
 a function of Ta, of the Rossby number,
 \begin{equation}
-\text{Ro} = \frac{|\grad\times \bm{u}|}{2 \Omega},
-\label{eqn:ro}
+    \text{Ro} = \frac{|\grad\times \bm{u}|}{2 \Omega},
+    \label{eqn:ro}
 \end{equation}
 which quantifies the degree to which the fluid is rotationally constrained.
 
 
-
-\section{Results \& Discussion}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% RESULTS SECTION
+\section{Results}
 \label{sec:results}
 In Fig.~\ref{fig:parameter_space}a, the value of Ra$_{\text{crit}}$
 is shown as a function of Ta, as
@@ -275,28 +280,31 @@ are related according to the power law [INSERT HERE ONCE MORE DATA].
 At higher Ro in the rotationally unconstrained regime, this scaling breaks down
 to a [INSERT SCALING], with some offset at different values of $\mathcal{S}$.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NU AND RE FIGURE
 \begin{figure}[t!]
-\includegraphics{./figs/nu_and_re.png}
-\caption{Scaling laws for paths at $\pro = 1.58$ (Ro $\sim$ 0.4) and
-$\pro = 0.96$ (Ro $\sim$ 0.1) are shown. 
-(a) Evolved Nu vs. Ra. The scaling laws here are very reminiscent of classic \RB convection
-theory \citep{ahlers&all2009}.
-(b) Evolved Re vs. Ra.
-The scaling seen here is nearly identical to scalings in nonrotating convection.
-\label{fig:nu_and_re} }
+    \includegraphics{./figs/nu_and_re.png}
+    \caption{Scaling laws for paths at $\pro = 1.58$ (Ro $\sim$ 0.4) and
+    $\pro = 0.96$ (Ro $\sim$ 0.1) are shown. 
+    (a) Evolved Nu vs. Ra. The scaling laws here are very reminiscent of classic \RB convection
+    theory \citep{ahlers&all2009}.
+    (b) Evolved Re vs. Ra.
+    The scaling seen here is nearly identical to scalings in nonrotating convection.
+    \label{fig:nu_and_re} }
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BOUNDARY LAYER FIGURE
 \begin{figure*}[ht!]
-\includegraphics[width=\textwidth]{./figs/boundary_layers.png}
-\caption{Horizontally-averaged profiles of the entropy gradient ($\grad s$, a)
-and Rossby number (Ro, b) are shown vs. height for $\pro = 0.96$. 
-Similar profiles are shown in (c) and (d) for $\pro = 1.58$. 
-(c) The ratio of the sizes of the Ro boundary layer and $\grad s$ boundary layer are
-shown. We find that for increasingly rotationally constrained flows, the Ro boundary layer
-is increasingly thinner than the thermal boundary layer.
-\label{fig:profiles_and_bls} }
+    \includegraphics[width=\textwidth]{./figs/boundary_layers.png}
+    \caption{Horizontally-averaged profiles of the entropy gradient ($\grad s$, a)
+    and Rossby number (Ro, b) are shown vs. height for $\pro = 0.96$. 
+    Similar profiles are shown in (c) and (d) for $\pro = 1.58$. 
+    (c) The ratio of the sizes of the Ro boundary layer and $\grad s$ boundary layer are
+    shown. We find that for increasingly rotationally constrained flows, the Ro boundary layer
+    is increasingly thinner than the thermal boundary layer.
+    \label{fig:profiles_and_bls} }
 \end{figure*}
-
 
 In Fig.~\ref{fig:pretty_convection}, sample snapshots
 of the evolved entropy field in the $x-y$ plane near the top of the domain are shown. 
@@ -307,7 +315,6 @@ classic granular structure of convection (see e.g., Fig.~2 in \AB) gives way to 
 columns of convection, as seen in rapidly rotating \RB convection \citep{stellmach&all2014}.
 The select cases displayed in Fig.~\ref{fig:pretty_convection} have an evolved volume-averaged
 Re$\,\sim\,$200.
-
 
 We measure the Nusselt number (Nu, which quantifies heat transport in a convective
 solution) as we did in \AB.
@@ -337,6 +344,8 @@ of these two boundary layers. As anticipated, the dynamical boundary layer ($\de
 becomes relatively thinner with respect to the thermal boundary layer ($\delta_{\grad s}$)
 as Ro and \pro$\,$ decrease. [need a sentence saying what this means?]
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CONCLUSION SECTION
 \section{Discussion}
 \label{sec:discussion}
 In this letter, we studied low-Mach-number, stratified, compressible convection 
@@ -357,7 +366,8 @@ gravity and rotation, preliminary results in 3D spherical convective systems sug
 that the results presented here are broadly applicable to rotational convection in
 complex geometries (Brown et al. 2019 in prep).
 
-\subsection{acknowledgements}
+
+\begin{acknowledgements}
 EHA acknowledges the support of NASA NESSF (insert fellowship number)
 and the University of Colorado's George 
 Ellery Hale Graduate Student Fellowship.
@@ -366,6 +376,7 @@ Computations were conducted
 with support by the NASA High End Computing (HEC) Program through the NASA 
 Advanced Supercomputing (NAS) Division at Ames Research Center on Pleiades
 with allocations GID s1647.
+\end{acknowledgements}
 
 \newpage
 \bibliography{biblio.bib}
