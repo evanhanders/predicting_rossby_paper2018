@@ -28,7 +28,7 @@ ax3 = plt.subplot(gs.new_subplotspec(*gs_info[2]))
 onset_data = np.genfromtxt('../data/eps1e-4_onsets.csv', skip_header=1, delimiter=',', usecols=(0,3))
 ax1.plot(onset_data[:,0], onset_data[:,1], c='k', lw=3)
 
-original_co = np.genfromtxt('../data/coprime_data_original_co_runs.csv', skip_header=1, delimiter=',', usecols=(2,4,6)) #ra, ro, ta -- need to double check if this is backwards ra/ta.
+original_co = np.genfromtxt('../data/constant_co.csv', skip_header=1, delimiter=',', usecols=(2,4,6)) #ra, ro, ta -- need to double check if this is backwards ra/ta.
 print( original_co[:,0]/original_co[:,2])
 co1 = original_co[:,0]/original_co[:,2] == 1
 co03 = np.round(np.sqrt(original_co[:,0]/original_co[:,2]), decimals=1) == 0.3
