@@ -26,7 +26,9 @@ ax3 = plt.subplot(gs.new_subplotspec(*gs_info[2]))
 
 #READ DATA, PLOT 1
 onset_data = np.genfromtxt('../data/eps1e-4_onsets.csv', skip_header=1, delimiter=',', usecols=(0,3))
-ax1.plot(onset_data[:,0], onset_data[:,1], c='k', lw=3)
+
+ax1.plot(onset_data[:,0], onset_data[:,1], c='k', lw=0.5)
+ax1.fill_between(onset_data[:,0], 0, onset_data[:,1], color='k', alpha=0.1)
 
 original_co = np.genfromtxt('../data/constant_co.csv', skip_header=1, delimiter=',', usecols=(2,4,6)) #ra, ro, ta -- need to double check if this is backwards ra/ta.
 print( original_co[:,0]/original_co[:,2])
@@ -55,15 +57,16 @@ c158 = new_c[:,0] == 1.58
 ax1.plot(new_c[c158, 2], new_c[c158, 1], c=Pro_color, lw=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
 
 
-ax1.set_xlim(1e1, 1e9)
+ax1.set_xlim(1e1, 1e7)
 ax1.set_ylim(1e1, 1e6)
 ax1.set_xscale('log')
 ax1.set_yscale('log')
-ax1.legend(loc='lower right', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0.4)
+ax1.legend(loc='upper left', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0.4)
 
 ax1.set_xlabel('Ta')
 ax1.set_ylabel('Ra')
-ax1.text(3e1, 6e5, "(a)", ha="center", va="center", size=8)
+ax1.text(4e6, 1.5e1, "(a)", ha="center", va="center", size=8)
+ax1.text(3e5, 2e2, "stable", ha="center", va="center", rotation=0, size=10, alpha=0.7)
 
 
 #PLOT 2

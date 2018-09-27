@@ -37,6 +37,7 @@ for key in rossby_profiles.keys():
     tas.append(float(ta[2:]))
 cos = np.array(cos)
 tas = np.array(tas)
+ras = cos**2 * tas**(3/4)
 
 fig_trash = plt.figure()
 ax_trash  = fig_trash.add_subplot(1,1,1)
@@ -63,17 +64,25 @@ sm.set_array([])
 s_bls = []
 ro_bls = []
 taylors = []
+rayleighs = []
 for key in rossby_profiles.keys():
     co, ta = key.split('_')
     co = float(co[2:])
     ta = float(ta[2:])
+    ra = co**2 * ta**(3/4)
 
     if co != 0.96:
         continue
+
+    print(key)
+    print('ra {:.4e}, ta {:.4e}'.format(ra, ta))
     ax1_1.plot(z[key], entropy_gradients[key], c=sm.to_rgba(np.log10(ta)))
     ax1_2.plot(z[key], rossby_profiles[key], c=sm.to_rgba(np.log10(ta)))
 
-    if ta < 1e7:
+    if ta < 1e5:
+        n_pts = 12
+        frac = 0.9
+    elif ta < 1e7:
         n_pts = 12#int(len(z[key])*5/100)
         frac = 0.985
     else:
@@ -81,6 +90,7 @@ for key in rossby_profiles.keys():
         frac = 0.99
     good_zs = z[key][z[key] <= frac*Lz]
     good_grads = entropy_gradients[key][z[key] <= frac*Lz]
+    print(z[key][-1], good_zs[-1])
     fit = np.polyfit(good_zs[-n_pts:], good_grads[-n_pts:], deg=1)
     y_fit = np.zeros_like(z[key])
     for i, f in enumerate(fit):
@@ -110,18 +120,19 @@ for key in rossby_profiles.keys():
     ro_bl = Lz - big_z[ro_bl_guess_i]
     ro_bls.append(ro_bl)
     taylors.append(ta)
+    rayleighs.append(ra)
 
 
   
 ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
  
-ax3.plot(taylors, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$', marker='o', lw=0)
+ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$', marker='o', lw=0, color='orange')
 ax3.set_xscale('log')
 
 ax1_2.set_xlabel('z')
 ax1_2.set_ylabel('Ro')
-ax1_1.set_ylabel(r'$\nabla s \times 10^{-4}$')
+ax1_1.set_ylabel(r'$(\nabla s)_z \times 10^{-4}$')
 ax1_1.set_xticks(())
 ax1_1.set_yticks((0, -0.00025, -0.0005))
 ax1_1.set_yticklabels(('0', r'$-$2.5', r'$-$5.0'))
@@ -135,9 +146,9 @@ ax1_2.text(0.4, 0.03, "(b)", ha="center", va="center", size=8)
 
 plt.colorbar(sm, cax=cax1, orientation='horizontal')
 cax1.set_xticklabels(())
-cax1.annotate(r'$10^{3.5}$', xy=(0,1.2), annotation_clip=False)
-cax1.annotate(r'$10^8$', xy=(.9,1.2), annotation_clip=False)
-cax1.annotate('Ta', xy=(.45,1.2), annotation_clip=False)
+cax1.annotate(r'$10^{2.75}$', xy=(0,1.2), annotation_clip=False)
+cax1.annotate(r'$10^6$', xy=(.9,1.2), annotation_clip=False)
+cax1.annotate('Ra', xy=(.45,1.2), annotation_clip=False)
 
 
 #COLUMN 2
@@ -152,6 +163,8 @@ sm.set_array([])
 s_bls = []
 ro_bls = []
 taylors = []
+rayleighs = []
+print('_________________')
 for key in rossby_profiles.keys():
     co, ta = key.split('_')
     co = float(co[2:])
@@ -159,10 +172,16 @@ for key in rossby_profiles.keys():
 
     if co == 0.96:
         continue
+    
+    ra = co**2 * ta**(3/4)
+    print('{:.4e}'.format(ra))
     ax2_1.plot(z[key], entropy_gradients[key], c=sm.to_rgba(np.log10(ta)))
     ax2_2.plot(z[key], rossby_profiles[key], c=sm.to_rgba(np.log10(ta)))
 
-    if ta < 1e6:
+    if ta < 1e3:
+        n_pts = 12
+        frac = 0.9
+    elif ta < 1e6:
         n_pts = 12#int(len(z[key])*5/100)
         frac = 0.985
     else:
@@ -199,16 +218,17 @@ for key in rossby_profiles.keys():
     ro_bl = Lz - big_z[ro_bl_guess_i]
     ro_bls.append(ro_bl)
     taylors.append(ta)
+    rayleighs.append(ra)
 ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
  
-ax3.plot(taylors, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$', marker='o', lw=0)
-ax3.set_xlabel('Ta')
+ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$', marker='o', lw=0, color='blue')
+ax3.set_xlabel('Ra')
 ax3.set_ylabel(r'$\delta_{\mathrm{Ro}}/\delta_{\mathrm{\nabla s}}$')
 
 ax2_2.set_xlabel('z')
 ax2_2.set_ylabel('Ro')
-ax2_1.set_ylabel(r'$\nabla s \times 10^{-3}$')
+ax2_1.set_ylabel(r'$(\nabla s)_z \times 10^{-3}$')
 ax2_1.set_xticks(())
 ax2_1.set_yticks((0, -0.001, -0.002))
 ax2_1.set_yticklabels(('0', r'$-$1', r'$-$2'))
@@ -219,15 +239,15 @@ ax2_1.text(0.4, -2.22e-3, "(c)", ha="center", va="center", size=8)
 ax2_2.text(0.4, 0.125, "(d)", ha="center", va="center", size=8)
 
 
-ax3.text(1.4e2, 0.54, "(e)", ha="center", va="center", size=8)
-ax3.legend(loc='upper right', frameon=False, borderpad=0.2, handletextpad=0.2, fontsize=8)
+ax3.text(1.2e2, 0.55, "(e)", ha="center", va="center", size=8)
+ax3.legend(loc='center right', frameon=False, borderpad=0.2, handletextpad=0.2, fontsize=8)
  
 
 
 plt.colorbar(sm, cax=cax2, orientation='horizontal')
 cax2.annotate(r'$10^{2}$', xy=(0,1.2), annotation_clip=False)
-cax2.annotate(r'$10^8$', xy=(.9,1.2), annotation_clip=False)
-cax2.annotate('Ta', xy=(.45,1.2), annotation_clip=False)
+cax2.annotate(r'$10^{6.5}$', xy=(.9,1.2), annotation_clip=False)
+cax2.annotate('Ra', xy=(.45,1.2), annotation_clip=False)
 cax2.set_xticklabels([])
 
 
