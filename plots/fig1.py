@@ -101,26 +101,49 @@ c_sig_1 = np.sqrt(sigma[sig1_1, 0]/sigma[sig1_1, 3]**(3/4))
 ax3.plot(c_sig, sigma[sig2, 1], marker='o', lw=0, c=(*S_color, 0.3), ms=4.5, label='$\mathcal{S} = 3$', markeredgecolor=(*S_color, 1))
 ax3.plot(c_sig_1, sigma[sig1_1, 1], marker='o', lw=0, c=(*S_color, 0.3), ms=2.5, label='$\mathcal{S} = 2$', markeredgecolor=(*S_color, 1))
 
-#p = np.polyfit(np.log10(c_sig[sigma[sig2,1] <= 0.3]), np.log10(sigma[sig2, 1][sigma[sig2,1] < 0.3]), deg=1)
-#p2 = np.polyfit(np.log10(c_sig_1[sigma[sig1_1,1] <= 0.3]), np.log10(sigma[sig1_1, 1][sigma[sig1_1,1] < 0.3]), deg=1)
-#label_str = 'Ro' + r'$ \propto $'
-#str2 = '$\mathcal{P}__{\mathrm{Ro}}^{' + '{:.2f}'.format(p[0]) + '}$'
-#print('{:.4g}p^({:.4g})'.format(10**p[1], p[0]))
-#print('{:.4g}p^({:.4g})'.format(10**p2[1], p2[0]))
-#ax3.plot(c_sig, 10**(p[1])*c_sig**(p[0]))#, label=label_str+r'{:s}'.format(str2))
-#ax3.plot(c_sig_1, 10**(p2[1])*c_sig_1**(p2[0]))#, label=label_str+r'{:s}'.format(str2))
+cutoff = 0.4
+pros = np.concatenate((c_sig[sigma[sig2,1] < cutoff], c_sig_1[sigma[sig1_1,1] < cutoff]))
+ros  = np.concatenate((sigma[sig2, 1][sigma[sig2,1] < cutoff], sigma[sig1_1, 1][sigma[sig1_1,1] < cutoff]))
+print(pros.shape, ros.shape)
+p  = np.polyfit(np.log10(pros), np.log10(ros), deg=1)
+
+label_str = 'Ro' + r'$ \propto $'
+str2 = '$\mathcal{P}_{\mathrm{Ro}}^{' + '{:.2f}'.format(p[0]) + '}$'
+print('{:.4g}p^({:.4g})'.format(10**p[1], p[0]))
+line = ax3.plot(pros, 10**(p[1])*pros**(p[0]), color=(*S_color, 1))
+label = [r'{:s}'.format(str2),]
+
+cutoff = 0.4
+pros = np.concatenate((c_sig[sigma[sig2,1] >= cutoff], c_sig_1[sigma[sig1_1,1] >= cutoff]))
+ros  = np.concatenate((sigma[sig2, 1][sigma[sig2,1] >= cutoff], sigma[sig1_1, 1][sigma[sig1_1,1] >= cutoff]))
+pros, ros = zip(*sorted(zip(pros, ros)))
+p2  = np.polyfit(np.log10(pros), np.log10(ros), deg=1)
+
+label_str = 'Ro' + r'$ \propto $'
+str2 = '$\mathcal{P}_{\mathrm{Ro}}^{' + '{:.2f}'.format(p2[0]) + '}$'
+print('{:.4g}p^({:.4g})'.format(10**p2[1], p2[0]))
+line += ax3.plot(pros, 10**(p2[1])*pros**(p2[0]), color=(*S_color, 1), dashes=(3,1,0.5,1))
+label += [r'{:s}'.format(str2)]
+
 
 
 ax3.set_yscale('log')
 ax3.set_xscale('log')
 ax3.set_xlabel(r'$\mathcal{P}_{\mathrm{Ro}}$')
 ax3.set_ylabel('Ro')
+ax3.set_ylim(4e-2, 6e0)
 ax3.legend(loc='lower right', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0)
+
+from matplotlib.legend import Legend
+leg = Legend(ax3, line, label, frameon=False, fontsize=8, loc='upper center', borderpad=0.1, handletextpad=0.1, handlelength=1.5)
+ax3.add_artist(leg)
+
+
 
 ax3.set_xticks((1,3,10))
 ax3.get_xaxis().set_major_formatter(matplotlib.ticker.FormatStrFormatter('%.1f'))
 ax3.tick_params(axis='x', which='minor', labelsize=0)
-ax3.text(9e-1, 4.5e0, "(c)", ha="center", va="center", size=8)
+ax3.text(7.5e-1, 4.5e0, "(c)", ha="center", va="center", size=8)
 
 
 
