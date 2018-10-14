@@ -22,8 +22,11 @@
 	#1\propto\cr\noalign{\kern2pt}#1\sim\cr\noalign{\kern-2pt}}}}}
 
 \newcommand{\appropto}{\mathpalette\approptoinn\relax}
-\newcommand{\pro}{\ensuremath{\mathcal{P}_{\text{Ro}}\,}}
+\newcommand{\pro}{\ensuremath{\text{Ro}_{\text{*}}}}
+\newcommand{\con}{\ensuremath{\text{Ro}_{c}}}
 
+\usepackage{color}
+\newcommand{\gv}[1]{{\color{blue} #1}}
 
 %% Tells LaTeX to search for image files in the 
 %% current directory as well as in the figures/ folder.
@@ -86,18 +89,19 @@ rotating convection in both laboratory and numerical settings
 have provided great insight into the properties of convection 
 in both the rapidly rotating regime 
 \citep{julien&all2012, stellmach&all2014, gastine&all2016}
-and the rotationally unconstrained regime \citep{king&all2009, zhong&all2009, 
-cheng&all2015}. The scaling behavior of heat transport, the nature of convective flow
-structures, and the importance of boundary layer-bulk interactions
- in driving dynamics are well known,
-and yet we are not aware of a well-developed
-procedure for specifying the significance of rotation on the evolved
-convective flows in the experimental initial conditions.
-The importance of rotation on convective dynamics,
-measured by the evolved Rossby number
-(Ro, the ratio of convective to rotational vorticity),
-is in general not held constant in parameter space studies and is often not
-reported.
+and the \gv{transition to the} rotationally unconstrained regime \citep{king&all2009, zhong&all2009, 
+cheng&all2015}. 
+The scaling behavior of heat transport, the nature of convective flow
+structures, and the importance of boundary layer-bulk interactions in driving dynamics are well known.
+\gv{Yet, we do know of any simple procedure for predicting the magnitude of flow gradients purely from experimental control parameters; such a bulk rotation rate and thermal input.}
+%and yet we are not aware of a well-developed
+%procedure for specifying the significance of rotation on the evolved
+%convective flows in the experimental initial conditions.
+%The importance of rotation on convective dynamics,
+%measured by the evolved Rossby number
+%(Ro, the ratio of convective to rotational vorticity),
+%is in general not held constant in parameter space studies and is often not
+%reported.
 
 In the astrophysical context,
 many studies of rotating convection have investigated questions inspired by the solar dynamo
@@ -106,36 +110,54 @@ brown&all2010, brown&all2011, augustson&all2012, guerrero&all2013, kapyla&all201
 Even when these simulations nominally rotate at the solar rate,
 they frequently produce distinctly different behaviors than the true Sun,
 such as anti-solar differential rotation profiles.
-These differences
-may arise from the fact that Ro in these simulations differs from
-its value the Sun. Recent simulations and experiments predict
-that Ro in the deep solar interior is very small, implying that deep solar convection
-is highly rotationally constrained, and this likely drastically
-affects the behavior of solar convection
-\citep{featherstone&hindman2016, greer&all2016}.
-In the planetary context, the balance between Lorentz
+\gv{It seems that these differences occur because the simulation produce less rotationally constrained stated than the true sun. The influence of rotation results from the local shear gradients, and these are not direct input parameters.}
+%These differences may arise from the fact that Ro in these simulations differs from
+%its value the Sun. 
+%Recent simulations and experiments predict
+%that Ro in the deep solar interior is very small, implying that deep solar convection
+%is highly rotationally constrained, and this likely drastically
+%affects the behavior of solar convection
+%\citep{featherstone&hindman2016, greer&all2016}.
+Recent simulations predict significant rotational influence in the deep solar interior, which can drastically affect flows throughout the solar convection zone\citep{featherstone&hindman2016, greer&all2016}. 
+In the planetary context, the balance between magnetic
 and rotational forces likely leads to the observed differences between ice
 giant and gas giant dynamos in our solar system \citep{soderlund&all2015}.
 In particular, \cite{aurnou&king2017} suggest that many studies of planetary systems
 have over-emphasized the importance of magnetism compared to rotation.
 
+%In short, simulations must have flows at the proper Rossby number if they are to  explain the behavior of astrophysical objects.
+%Here, we demonstrate an empirically derived method of \emph{specifying} the Rossby number
+%of convection in a simplified system.
+%In \cite{anders&brown2017} (hereafter \AB), we studied non-rotating
+%compressible convection without magnetic fields in polytropic atmospheres. 
+%In this work, we extend \AB$\,$ to rotationally-influenced, $f$-plane
+%atmospheres 
+%\cite[e.g.][]{brummell&all1996, brummell&all1998, calkins&all2015a}. We determine
+%how the input parameters we studied previously, controlling the Mach and
+%Reynolds numbers of the evolved flows, couple with the the Taylor number (Ta, \cite{julien&all1996}), which sets the magnitude of the rotational vector. 
 
-In short, simulations must have flows
-at the proper Rossby number if they are to  explain the behavior of
-astrophysical objects.
-Here, we demonstrate an empirically derived method of \emph{specifying} the Rossby number
-of convection in a simplified system.
-In \cite{anders&brown2017} (hereafter \AB), we studied non-rotating
-compressible convection without magnetic fields in polytropic atmospheres. 
+In short, simulations must have the proper rotational balance if they are to explain the behavior of astrophysical objects. 
+The degree of rotational influence is best assessed by the ratio between  nonlinear advection magnitude, and the linear Coriolis accelerations. 
+\gv{The \textit{Rossby number} provides the standard way to measure this ratio, 
+\begin{equation}
+\text{Ro} \ \equiv \ \frac{| \nabla \times \boldsymbol{u} | }{2 \Omega} \ \sim \ \frac{| (\nabla \times \boldsymbol{u}) \times \boldsymbol{u}  | }{|2 \Omega \times \boldsymbol{u}|} \label{Rossby-def}
+\end{equation}
+where $\Omega$ denotes the bulk rotation rate. 
+Many proxies for the dynamical Rossby number exist that are based solely on input parameters; most notably the \textit{convective} Rossby number. 
+However, all proxies produce imperfect predictions for the true dynamically relevant quantity.
+\begin{quote}
+\emph{In the letter, we demonstrate an emperical method of predicting the output Rossby number
+of convection in a simple stratified system.}
+\end{quote}}
+In \cite{anders&brown2017} (hereafter \AB), we studied non-rotating compressible convection without magnetic fields in polytropic atmospheres. 
 In this work, we extend \AB$\,$ to rotationally-influenced, $f$-plane
 atmospheres 
-\cite[e.g.][]{brummell&all1996, brummell&all1998, calkins&all2015a}. We determine
-how the input parameters we studied previously, controlling the Mach and
+\cite[e.g.][]{brummell&all1996, brummell&all1998, calkins&all2015a}. 
+We determine how the input parameters we studied previously, controlling the Mach and
 Reynolds numbers of the evolved flows, couple with the the Taylor number (Ta, \cite{julien&all1996}), which sets the magnitude of the rotational vector. 
 
 In section  \ref{sec:experiment}, we describe our experiment and paths through parameter space. 
-In section \ref{sec:results}, we present
-the results of our experiments and in section \ref{sec:discussion} we offer concluding remarks.
+In section \ref{sec:results}, we present the results of our experiments and in section \ref{sec:discussion} we offer concluding remarks.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% EXPERIMENT SECTION
@@ -143,7 +165,7 @@ the results of our experiments and in section \ref{sec:discussion} we offer conc
 \label{sec:experiment}
 We study fully compressible, stratified 
 convection under precisely the same atmospheric model
-as we previously did in \AB, but here
+as in \AB, but here
 we have included rotation. We study polytropic atmospheres
 with $n_\rho = 3$ density scale heights and a superadiabatic
 excess of $\epsilon = 10^{-4}$ such that flows are at low Mach number.
@@ -154,12 +176,12 @@ are antiparallel \citep[as in e.g.,][]{julien&all1996, brummell&all1996}.
 We evolve the velocity ($\bm{u}$), temperature ($T$), 
 and log density ($\ln\rho$) in the same form presented in \AB, with the
 addition of the Coriolis term, $2\bm{\Omega}\times\bm{u}$, to the left-hand side
-of the momentum equation. We impose impenetrable, stress-free, fixed-temperature boundary
-conditions at the top and bottom of the domain.
+of the momentum equation. 
+We impose impenetrable, stress-free, fixed-temperature boundary conditions at the top and bottom of the domain.
 
 
-The kinematic viscosity ($\nu$), thermal diffusivity ($\chi$), and strength of
-rotation ($\Omega$) are set at the top of the domain by the Rayleigh number
+We set the kinematic viscosity ($\nu$), thermal diffusivity ($\chi$), and strength of
+rotation ($\Omega$) at the top of the domain by the Rayleigh number 
 (Ra), Prandtl number (Pr), and Taylor number (Ta),
 \begin{equation}
     \text{Ra} = \frac{g L_z^3 \Delta S / c_P}{\nu \chi}, \,\,\,
@@ -171,8 +193,15 @@ $\Delta S \propto \epsilon n_\rho$ is the specific entropy difference between
 $z = 0$ and $z = L_z$, and the specific heat at constant pressure is $c_P$.
 Throughout this work we set Pr = 1.
 
-As Ta increases, the wavenumber of convective onset, $k_{\text{crit}}$, also increases
-\citep{calkins&all2015a}. 
+\gv{The \textit{convective} Rossby number has provided (e.g., \cite{julien&all1996, brummell&all1996}) a common proxy (based on input parameters) for the degree of rotational constraint  
+\begin{equation}
+\con \ = \   \sqrt{ \frac{\text{Ra}}{\text{Pr}\, \text{Ta} } } \ = \  \frac{1}{2 \Omega } \sqrt{\frac{g \, \Delta  S}{c_{p} L_{z}}}
+\end{equation}
+This parameter measures the importance of buoyancy relative to rotation without involving dissipation. We show that true Rossby number defined in equation \ref{Rossby-def} depends nonlinearly on $\con$.  
+}
+
+\gv{The wavenumber of convective onset increases such that, $k_{\text{crit}} \sim \text{Ta}^{1/6}$ (approximately), \citep{Chandrasekhar,calkins&all2015a}.}
+%As Ta increases, the wavenumber of convective onset, $k_{\text{crit}}$, also increases\citep{calkins&all2015a}. 
 We study 3D Cartesian convective domains with horizontal extents of
 $x, y = [0, 4(2\pi/k_{\text{crit}})]$. 
 We evolve our simulations using the Dedalus\footnote{\url{http://dedalus-project.org/}} 
@@ -186,14 +215,14 @@ in \AB.
     \caption{(a) The critical Rayleigh number, as a function of the Taylor number, 
     is plotted as a solid black line. The grey shaded region is subcritical, and rotation
     supresses convection there. Paths of constant Convective Rossby Number
-    (Co, green dashed line), constant supercriticality ($\mathcal{S}$, blue dash-dot line), and 
+    ($\con$, green dashed line), constant supercriticality ($\mathcal{S}$, blue dash-dot line), and 
     constant \pro (orange solid line) are shown through parameter space. 
     (b) Evolved Ro is plotted vs. Ra along paths of \pro = [1.58, 0.96] for [big, small] orange circles.
     For comparison, paths of constant $\mathcal{S}$ (blue squares, $\mathcal{S} = [3,2]$ 
     for [big, small] squares)
-    and constant Co (green triangles, Co = [1, 0.3, 0.1] for [big, medium, small] triangles) are shown.
+    and constant $\con$ (green triangles, $\con$ = [1, 0.3, 0.1] for [big, medium, small] triangles) are shown.
     Ro is roughly constant for a constant \pro, particularly for the low-Ro, $\pro=0.96$ case, 
-    but changes drastically at constant Co or $\mathcal{S}$.
+    but changes drastically at constant $\con$ or $\mathcal{S}$.
     (c) The scaling of Ro with \pro$\,$is shown for $\mathcal{S} = [2,3]$.
     At low Ro, both supercriticalities collapse onto a common scaling law of $\text{Ro}\propto\pro^{2.52}$.
     For rotationally unconstrained flows, we measure $\text{Ro}\propto\pro^{1.22}$, and the value of Ro varies with $\mathcal{S}$.
@@ -201,46 +230,49 @@ in \AB.
 \end{figure*}
 
 
-
-As Ta increases, the critical value of Ra at which convection onsets,
-Ra$_{\text{crit}}$, also increases (see the black line in figure \ref{fig:parameter_space}a). 
-The linked nature of these crucial
-control parameters makes it difficult to predict the rotational constraint of the evolved
-fluid flows for a given set of input parameters. We will
-explore three paths through Ra-Ta space:
+The critical value of Ra at which convection onsets also depends on Ta (see the black line in figure \ref{fig:parameter_space}a);  
+\gv{roughly according to $\text{Ra}_{\text{crit}} \sim \text{Ta}^{2/3}$ \cite{Chandrasekhar}.}
+%The linked nature of these crucial control parameters makes it difficult to predict the rotational constraint of the evolved fluid flows for a given set of input parameters. 
+\gv{Even taking into account of linear theory, the nonlinear dependence of the evolved fluid flows on the input parameters predict the rotational constraint very challenging. }
+We will explore three paths through Ra-Ta space:
 \begin{equation}
     \text{Ra} = 
     \begin{cases}
     \mathcal{S}\,\text{Ra}_\text{crit}(\text{Ta}), & (\text{I})\\
-    \text{Co}^2\text{Pr Ta}, & (\text{II}) \\
-    \pro^2 \text{Pr Ta}^{3/4} & (\text{III}).
+    (\con)^2 \, \text{Pr}\, \text{Ta}, & (\text{II}) \\
+    (\pro)^2\, \text{Pr}\, \text{Ta}^{3/4} & (\text{III}).
     \end{cases}
     \label{eqn:paths}
 \end{equation}
 Paths on constraint I are at constant supercriticality, 
 $\mathcal{S} \equiv \text{Ra}/\text{Ra}_{\text{crit}}$
 (blue dash-dot line in figure \ref{fig:parameter_space}a).
-Paths on constraint II are at a constant value of the classic
-``Convective Rossby number'' (Co$^2$ = Ra / [Pr Ta]), which has been used frequently 
-in past work, and is intended to predict the Rossby number of the
-evolved solution (green dashed line in figure \ref{fig:parameter_space}a; 
-\citet{julien&all1996, brummell&all1996}). Paths on constraint
-III set constant a ratio which we call the ``Predictive Rossby Number,'' 
-$\pro^2 = \text{Ra}/(\text{Pr}\text{Ta}^{3/4})$, 
-(e.g., orange solid line in figure \ref{fig:parameter_space}a).
-To our knowledge, these paths have not been reported
-in the literature.
-
-
-
-For each path defined in equation~\ref{eqn:paths}, 
-our goal is to study the magnitude, and variation as
-a function of Ta, of the Rossby number,
+Paths on constraint II are at a constant value of the classic $\con$ (green dashed line in figure \ref{fig:parameter_space}a). Paths on constraint
+III (e.g., orange solid line in figure \ref{fig:parameter_space}a) set constant a ratio which we call the \gv{``Predictive Rossby Number,'' 
 \begin{equation}
-    \text{Ro} = \frac{|\grad\times \bm{u}|}{2 \Omega},
-    \label{eqn:ro}
+\pro = \sqrt{\frac{\text{Ra}}{\text{Pr}\,\text{Ta}^{3/4}}} \ = \    \frac{1}{2 \Omega } \sqrt{\frac{g \, \Delta  S}{c_{p} L_{*}}}
 \end{equation}
-which quantifies the degree to which the fluid is rotationally constrained.
+To our knowledge, these paths have not been reported in the literature. The importance of the predictive Rossby number implies the importance of a dynamical length scale, 
+\begin{equation}
+L_{*} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/4}} \label{L-star}
+\end{equation}
+This differs noticeably from the anticipated onset length scale 
+\begin{equation}
+L_{\text{crit.}} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/6}}.
+\end{equation}
+Length-scale correction of the form of equation \ref{L-star} have been proposed in systems with no-slip boundary conditions and Ekman pumping effects. However, we see this scale in a system with stress-free boundaries and ostensibly no significant Ekman fluxes. 
+
+
+}
+
+%For each path defined in equation~\ref{eqn:paths}, 
+%our goal is to study the magnitude, and variation as
+%a function of Ta, of the Rossby number,
+%\begin{equation}
+%    \text{Ro} = \frac{|\grad\times \bm{u}|}{2 \Omega},
+%    \label{eqn:ro}
+%\end{equation}
+%which quantifies the degree to which the fluid is rotationally constrained.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -254,7 +286,7 @@ each criterion in equation~\ref{eqn:paths} through
 this parameter space is shown.
 In figure \ref{fig:parameter_space}b, we display the scaling of Ro
 with increasing Ra along various paths through parameter space.
-We find that Ro increases on constant Co paths, decreases on constant $\mathcal{S}$
+We find that Ro increases on constant \con paths, decreases on constant $\mathcal{S}$
 paths, and remains roughly constant along constant \pro$\,$ paths.
 In figure \ref{fig:parameter_space}c, the behavior of Ro is shown as
 a function of \pro$\,$ at constant $\mathcal{S}$.
