@@ -228,7 +228,13 @@ ro_cc, ro_pp, ro_m_interp, ro_m_func, fit_str, fit, ro_b_cc, ro_b_pp = run_analy
 
 ### Plot 1
 plot = ax3.pcolormesh(ro_b_cc, ro_b_pp, ro_m_interp, cmap='viridis', vmin=ro_m.min(), vmax=ro_m.max(), snap=True)
-ax3.plot(10**(ro_c), 10**(ro_p), marker='s', lw=0, markersize=2, markerfacecolor='none', markeredgecolor='black')
+norm = matplotlib.colors.Normalize(vmin=np.min(ro_m), vmax=np.max(ro_m))
+sm = plt.cm.ScalarMappable(cmap='viridis', norm=norm)
+sm.set_array([])
+for i in range(len(ro_m)):
+    ax3.plot(10**(ro_c[i]), 10**(ro_p[i]), markerfacecolor=sm.to_rgba(ro_m[i]), markeredgecolor='black', markersize=3, lw=0, marker='s', markeredgewidth=0.5)
+
+
 ax3.set_yscale('log')
 ax3.set_xscale('log')
 ax3.set_xticks((1e-5, 1e-3, 1e-1, 1e1))
@@ -239,6 +245,24 @@ plt.colorbar(plot, cax=cax, orientation='vertical')
 cax.annotate('Ro', xy=(.25,1.01), annotation_clip=False)
 cax.set_yticklabels((r'$10^{-1.5}$', r'$10^{-1}$', r'$10^{-0.5}$', '1', r'$10^{0.5}$'))
 cax.set_xticklabels([])
+
+onset_ta = onset_data[:,0]
+onset_ra = onset_data[:,1]
+onset_ta2 = [1e-3, 1e-2, 1e-1]
+onset_ra2 = [onset_ra[0]]*3
+
+onset_ta = np.concatenate((onset_ta2, onset_ta))
+onset_ra = np.concatenate((onset_ra2, onset_ra))
+
+onset_roc = onset_ra/onset_ta
+onset_rop = onset_ra/onset_ta**(0.75)
+ax3.plot(onset_roc, onset_rop, c='k', lw=0.5)
+ax3.fill_between(onset_roc, 0, onset_rop, color='k', alpha=0.1)
+
+ax3.set_ylim(np.min(ro_b_pp), np.max(ro_b_pp))
+ax3.set_xlim(1e-5, np.max(ro_b_cc))
+ax3.text(5e0, 7e-1, "stable", ha="center", va="center", rotation=0, size=10, alpha=0.7)
+
 
 
 fig.savefig('../tex/figs/parameter_space.png', dpi=600, bbox_inches='tight')

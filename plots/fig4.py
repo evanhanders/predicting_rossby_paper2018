@@ -132,7 +132,7 @@ ax3.set_xscale('log')
 
 ax1_2.set_xlabel('z')
 ax1_2.set_ylabel('Ro')
-ax1_1.set_ylabel(r'$(\nabla s)_z \times 10^{-4}$')
+ax1_1.set_ylabel(r'$(\partial_z\,s) \times 10^{-4}$')
 ax1_1.set_xticks(())
 ax1_1.set_yticks((0, -0.00025, -0.0005))
 ax1_1.set_yticklabels(('0', r'$-$2.5', r'$-$5.0'))
@@ -224,11 +224,11 @@ s_bls = np.array(s_bls)
  
 ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', lw=0, color='blue')
 ax3.set_xlabel('Ra')
-ax3.set_ylabel(r'$\delta_{\mathrm{Ro}}/\delta_{\mathrm{\nabla s}}$')
+ax3.set_ylabel(r'$\delta_{\mathrm{Ro}}/\delta_{\mathrm{s}}$')
 
 ax2_2.set_xlabel('z')
 ax2_2.set_ylabel('Ro')
-ax2_1.set_ylabel(r'$(\nabla s)_z \times 10^{-3}$')
+ax2_1.set_ylabel(r'$(\partial_z\,s) \times 10^{-3}$')
 ax2_1.set_xticks(())
 ax2_1.set_yticks((0, -0.001, -0.002))
 ax2_1.set_yticklabels(('0', r'$-$1', r'$-$2'))
@@ -240,7 +240,7 @@ ax2_2.text(0.4, 0.125, "(d)", ha="center", va="center", size=8)
 
 
 ax3.text(1.2e2, 0.55, "(e)", ha="center", va="center", size=8)
-ax3.legend(loc='center right', frameon=False, borderpad=0.2, handletextpad=0.2, fontsize=8)
+ax3.legend(loc='center right', frameon=True, borderpad=0.2, handletextpad=0.2, fontsize=8)
  
 
 
