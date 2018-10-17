@@ -22,8 +22,8 @@
 	#1\propto\cr\noalign{\kern2pt}#1\sim\cr\noalign{\kern-2pt}}}}}
 
 \newcommand{\appropto}{\mathpalette\approptoinn\relax}
-\newcommand{\pro}{\ensuremath{\text{Ro}_{\text{*}}}}
-\newcommand{\con}{\ensuremath{\text{Ro}_{c}}}
+\newcommand{\pro}{\ensuremath{\text{Ro}_{\text{p}}}}
+\newcommand{\con}{\ensuremath{\text{Ro}_{\text{c}}}}
 
 \usepackage{color}
 \newcommand{\gv}[1]{{\color{blue} #1}}
@@ -89,11 +89,12 @@ rotating convection in both laboratory and numerical settings
 have provided great insight into the properties of convection 
 in both the rapidly rotating regime 
 \citep{julien&all2012, stellmach&all2014, gastine&all2016}
-and the \gv{transition to the} rotationally unconstrained regime \citep{king&all2009, zhong&all2009, 
+and the transition to the rotationally unconstrained regime \citep{king&all2009, zhong&all2009, 
 cheng&all2015}. 
 The scaling behavior of heat transport, the nature of convective flow
 structures, and the importance of boundary layer-bulk interactions in driving dynamics are well known.
-\gv{Yet, we do know of any simple procedure for predicting the magnitude of flow gradients purely from experimental control parameters; such a bulk rotation rate and thermal input.}
+Yet, we do know of any simple procedure for predicting the magnitude of flow gradients 
+purely from experimental control parameters, such as bulk rotation rate and thermal input.
 %and yet we are not aware of a well-developed
 %procedure for specifying the significance of rotation on the evolved
 %convective flows in the experimental initial conditions.
@@ -110,7 +111,9 @@ brown&all2010, brown&all2011, augustson&all2012, guerrero&all2013, kapyla&all201
 Even when these simulations nominally rotate at the solar rate,
 they frequently produce distinctly different behaviors than the true Sun,
 such as anti-solar differential rotation profiles.
-\gv{It seems that these differences occur because the simulation produce less rotationally constrained stated than the true sun. The influence of rotation results from the local shear gradients, and these are not direct input parameters.}
+It seems that these differences occur because the simulations produce less rotationally 
+constrained states than the true Sun. The influence of rotation results from the local 
+shear gradients, and these are not direct input parameters.
 %These differences may arise from the fact that Ro in these simulations differs from
 %its value the Sun. 
 %Recent simulations and experiments predict
@@ -118,7 +121,9 @@ such as anti-solar differential rotation profiles.
 %is highly rotationally constrained, and this likely drastically
 %affects the behavior of solar convection
 %\citep{featherstone&hindman2016, greer&all2016}.
-Recent simulations predict significant rotational influence in the deep solar interior, which can drastically affect flows throughout the solar convection zone\citep{featherstone&hindman2016, greer&all2016}. 
+Recent simulations predict significant rotational influence in the deep solar interior, 
+which can drastically affect flows throughout the solar convection zone 
+\citep{featherstone&hindman2016, greer&all2016}. 
 In the planetary context, the balance between magnetic
 and rotational forces likely leads to the observed differences between ice
 giant and gas giant dynamos in our solar system \citep{soderlund&all2015}.
@@ -136,19 +141,23 @@ have over-emphasized the importance of magnetism compared to rotation.
 %how the input parameters we studied previously, controlling the Mach and
 %Reynolds numbers of the evolved flows, couple with the the Taylor number (Ta, \cite{julien&all1996}), which sets the magnitude of the rotational vector. 
 
-In short, simulations must have the proper rotational balance if they are to explain the behavior of astrophysical objects. 
-The degree of rotational influence is best assessed by the ratio between  nonlinear advection magnitude, and the linear Coriolis accelerations. 
-\gv{The \textit{Rossby number} provides the standard way to measure this ratio, 
+In short, simulations must achieve the proper rotational balance if they are to explain 
+the behavior of astrophysical objects. 
+The degree of rotational influence is best assessed by the ratio between 
+nonlinear advection magnitude, and the linear Coriolis accelerations. 
+The \textit{Rossby number} is the standard measure of this ratio, 
 \begin{equation}
-\text{Ro} \ \equiv \ \frac{| \nabla \times \boldsymbol{u} | }{2 \Omega} \ \sim \ \frac{| (\nabla \times \boldsymbol{u}) \times \boldsymbol{u}  | }{|2 \Omega \times \boldsymbol{u}|} \label{Rossby-def}
+\text{Ro} \ \equiv \ \frac{| \nabla \times \boldsymbol{u} | }{2 \Omega} \ 
+\sim \ \frac{| (\nabla \times \boldsymbol{u}) \times \boldsymbol{u}  | }{|2 \Omega \times \boldsymbol{u}|},
+\label{eqn:rossby-def}
 \end{equation}
 where $\Omega$ denotes the bulk rotation rate. 
 Many proxies for the dynamical Rossby number exist that are based solely on input parameters; most notably the \textit{convective} Rossby number. 
 However, all proxies produce imperfect predictions for the true dynamically relevant quantity.
 \begin{quote}
-\emph{In the letter, we demonstrate an emperical method of predicting the output Rossby number
+\emph{In this letter, we demonstrate an emperical method of predicting the output Rossby number
 of convection in a simple stratified system.}
-\end{quote}}
+\end{quote}
 In \cite{anders&brown2017} (hereafter \AB), we studied non-rotating compressible convection without magnetic fields in polytropic atmospheres. 
 In this work, we extend \AB$\,$ to rotationally-influenced, $f$-plane
 atmospheres 
@@ -191,16 +200,22 @@ rotation ($\Omega$) at the top of the domain by the Rayleigh number
 where $L_z$ is the depth of the domain, 
 $\Delta S \propto \epsilon n_\rho$ is the specific entropy difference between
 $z = 0$ and $z = L_z$, and the specific heat at constant pressure is $c_P$.
-Throughout this work we set Pr = 1.
+Throughout this work we set Pr = 1. The Taylor number relates to the often-used
+Ekman number such that $\text{Ta} \sim \text{Ek}^{-2}$
 
-\gv{The \textit{convective} Rossby number has provided (e.g., \cite{julien&all1996, brummell&all1996}) a common proxy (based on input parameters) for the degree of rotational constraint  
+The \textit{convective} Rossby number has provided (e.g., \cite{julien&all1996, brummell&all1996}) 
+a common proxy (based on input parameters) for the degree of rotational constraint,
 \begin{equation}
-\con \ = \   \sqrt{ \frac{\text{Ra}}{\text{Pr}\, \text{Ta} } } \ = \  \frac{1}{2 \Omega } \sqrt{\frac{g \, \Delta  S}{c_{p} L_{z}}}
+\con \ = \   \sqrt{ \frac{\text{Ra}}{\text{Pr}\, \text{Ta} } } \ 
+= \  \frac{1}{2 \Omega } \sqrt{\frac{g \, \Delta  S}{c_{p} L_{z}}}.
 \end{equation}
-This parameter measures the importance of buoyancy relative to rotation without involving dissipation. We show that true Rossby number defined in equation \ref{Rossby-def} depends nonlinearly on $\con$.  
-}
+This parameter measures the importance of buoyancy relative to rotation without 
+involving dissipation. We show that true Rossby number defined in equation \ref{eqn:rossby-def} 
+depends nonlinearly on $\con$.  
 
-\gv{The wavenumber of convective onset increases such that, $k_{\text{crit}} \sim \text{Ta}^{1/6}$ (approximately), \citep{Chandrasekhar,calkins&all2015a}.}
+
+The wavenumber of convective onset increases such that, $k_{\text{crit}} \propto \text{Ta}^{1/6}$, 
+\citep{Chandrasekhar,calkins&all2015a}.
 %As Ta increases, the wavenumber of convective onset, $k_{\text{crit}}$, also increases\citep{calkins&all2015a}. 
 We study 3D Cartesian convective domains with horizontal extents of
 $x, y = [0, 4(2\pi/k_{\text{crit}})]$. 
@@ -223,17 +238,20 @@ in \AB.
     and constant $\con$ (green triangles, $\con$ = [1, 0.3, 0.1] for [big, medium, small] triangles) are shown.
     Ro is roughly constant for a constant \pro, particularly for the low-Ro, $\pro=0.96$ case, 
     but changes drastically at constant $\con$ or $\mathcal{S}$.
-    (c) The scaling of Ro with \pro$\,$is shown for $\mathcal{S} = [2,3]$.
-    At low Ro, both supercriticalities collapse onto a common scaling law of $\text{Ro}\propto\pro^{2.52}$.
-    For rotationally unconstrained flows, we measure $\text{Ro}\propto\pro^{1.22}$, and the value of Ro varies with $\mathcal{S}$.
+    (c) The value of evolved Ro is shown as a function of $\pro$ and $\con$. Each of the experiments in (b) is shown as a black square,
+	and the colormap of Ro shown is linearly interpolated between data points. A least-squares fit to all experiments with
+	$\text{Ro} \geq 0.5$ returns $\text{Ro} = 0.33 \con^{-0.018}\pro^{0.57}$. A similar fit to all experiments with
+	$\text{Ro} < 0.3$ returns $\text{Ro} = 0.13 \con^{-0.024}\pro^{1.7}$. In both the high- and low- Ro regime, the measured
+	Rossby number is a strong function of $\pro$ and a negligible function of $\con$.
     \label{fig:parameter_space} }
 \end{figure*}
 
 
 The critical value of Ra at which convection onsets also depends on Ta (see the black line in figure \ref{fig:parameter_space}a);  
-\gv{roughly according to $\text{Ra}_{\text{crit}} \sim \text{Ta}^{2/3}$ \cite{Chandrasekhar}.}
+roughly according to $\text{Ra}_{\text{crit}} \sim \text{Ta}^{2/3}$ \citep{Chandrasekhar,calkins&all2015a}.
 %The linked nature of these crucial control parameters makes it difficult to predict the rotational constraint of the evolved fluid flows for a given set of input parameters. 
-\gv{Even taking into account of linear theory, the nonlinear dependence of the evolved fluid flows on the input parameters predict the rotational constraint very challenging. }
+Even taking into account of linear theory, the nonlinear dependence of the evolved fluid 
+flows on the input parameters predict the rotational constraint very challenging. 
 We will explore three paths through Ra-Ta space:
 \begin{equation}
     \text{Ra} = 
@@ -248,22 +266,26 @@ Paths on constraint I are at constant supercriticality,
 $\mathcal{S} \equiv \text{Ra}/\text{Ra}_{\text{crit}}$
 (blue dash-dot line in figure \ref{fig:parameter_space}a).
 Paths on constraint II are at a constant value of the classic $\con$ (green dashed line in figure \ref{fig:parameter_space}a). Paths on constraint
-III (e.g., orange solid line in figure \ref{fig:parameter_space}a) set constant a ratio which we call the \gv{``Predictive Rossby Number,'' 
+III (e.g., orange solid line in figure \ref{fig:parameter_space}a) 
+set constant a ratio which we call the ``Predictive Rossby Number,'' 
 \begin{equation}
-\pro = \sqrt{\frac{\text{Ra}}{\text{Pr}\,\text{Ta}^{3/4}}} \ = \    \frac{1}{2 \Omega } \sqrt{\frac{g \, \Delta  S}{c_{p} L_{*}}}
+\pro = \sqrt{\frac{\text{Ra}}{\text{Pr}\,\text{Ta}^{3/4}}} \ = \    \frac{1}{2 \Omega } \sqrt{\frac{g \, \Delta  S}{c_{p} L_{\text{p}}}}
 \end{equation}
-To our knowledge, these paths have not been reported in the literature. The importance of the predictive Rossby number implies the importance of a dynamical length scale, 
+To our knowledge, these paths have not been reported in the literature. 
+The importance of the predictive Rossby number implies the importance of a 
+dynamical length scale, 
 \begin{equation}
-L_{*} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/4}} \label{L-star}
+L_{\text{p}} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/4}} \label{L-star}
 \end{equation}
 This differs noticeably from the anticipated onset length scale 
 \begin{equation}
 L_{\text{crit.}} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/6}}.
 \end{equation}
-Length-scale correction of the form of equation \ref{L-star} have been proposed in systems with no-slip boundary conditions and Ekman pumping effects. However, we see this scale in a system with stress-free boundaries and ostensibly no significant Ekman fluxes. 
+Length-scale correction of the form of equation \ref{L-star} 
+have been proposed in systems with no-slip boundary conditions and Ekman pumping effects. However, we see this scale in a system with stress-free boundaries and ostensibly no significant Ekman fluxes. 
 
 
-}
+
 
 %For each path defined in equation~\ref{eqn:paths}, 
 %our goal is to study the magnitude, and variation as
@@ -288,12 +310,13 @@ In figure \ref{fig:parameter_space}b, we display the scaling of Ro
 with increasing Ra along various paths through parameter space.
 We find that Ro increases on constant \con paths, decreases on constant $\mathcal{S}$
 paths, and remains roughly constant along constant \pro$\,$ paths.
-In figure \ref{fig:parameter_space}c, the behavior of Ro is shown as
-a function of \pro$\,$ at constant $\mathcal{S}$.
-At low Ro and \pro, in the rotationally constrained regime, the two parameters
-follow a scaling of $\text{Ro}\propto\pro^{2.52}$.
-At higher Ro in the rotationally unconstrained regime, this scaling breaks down
-to a $\text{Ro}\propto\pro^{1.22}$ law, with some offset at different values of $\mathcal{S}$.
+In figure \ref{fig:parameter_space}c, the value of Ro is shown as
+a function of \pro$\,$ and \con for all experiments conducted in this study.
+We find a general power-law of the form $\text{Ro} \propto \con^{1/50}\pro^{\alpha}$,
+where $\alpha \sim 1.7$ in the rotationally constrained, low-Ro regime and
+$\alpha \sim 3/5$ in the unconstrained, high-Ro regime. In all cases, the 1/50
+scaling with \con$\,$ is negligible, and the Rossby number can be said to be a function
+of \pro$\,$ alone.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% DYNAMICS FIGURE
@@ -412,7 +435,7 @@ of magnitude of Ra will not only have the same volume-averaged value of Ro
 (as in Fig.~\ref{fig:parameter_space}b), but will
 also maintain proper force balances within the boundary layers.
 
-Our results suggest that by choosing the proper value of \pro, experimenters can
+Our results suggest that by choosing the proper value of \pro, experimenters
 can select the degree of rotational constraint present in their simulations. 
 Once that value is chosen, it is straightforward to increase the turbulent nature of 
 the simulations by increasing Ra, just as in the non-rotating case. 
@@ -422,16 +445,16 @@ antiparallel gravity and rotation, preliminary 3D spherical simulations suggest 
 
 
 \begin{acknowledgements}
-EHA acknowledges the support of NASA NESSF (insert fellowship number)
-and the University of Colorado's George 
+This work was supported by NASA Headquarters under the NASA Earth and Space
+Science Fellowship Program -- Grant 80NSSC18K1199.
+EHA further acknowledges the University of Colorado's George 
 Ellery Hale Graduate Student Fellowship.
 This work was additionally supported by  NASA LWS grant number NNX16AC92G.  
 Computations were conducted 
 with support by the NASA High End Computing (HEC) Program through the NASA 
 Advanced Supercomputing (NAS) Division at Ames Research Center on Pleiades
-with allocations GID s1647.
+with allocation GID s1647.
 \end{acknowledgements}
 
-\vspace{-1cm}
 \bibliography{biblio.bib}
 \end{document}

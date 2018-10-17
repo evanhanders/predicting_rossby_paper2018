@@ -127,7 +127,7 @@ for key in rossby_profiles.keys():
 ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
  
-ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$', marker='o', lw=0, color='orange')
+ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', marker='o', lw=0, color='orange')
 ax3.set_xscale('log')
 
 ax1_2.set_xlabel('z')
@@ -139,7 +139,7 @@ ax1_1.set_yticklabels(('0', r'$-$2.5', r'$-$5.0'))
 ax1_1.set_xlim(0, Lz)
 ax1_2.set_xlim(0, Lz)
 
-ax1_1.text(2.2, -7e-4, r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$', ha='center', va='center')
+ax1_1.text(2.2, -7e-4, r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', ha='center', va='center')
 ax1_1.text(0.4, -7e-4, "(a)", ha="center", va="center", size=8)
 ax1_2.text(0.4, 0.03, "(b)", ha="center", va="center", size=8)
     
@@ -222,7 +222,7 @@ for key in rossby_profiles.keys():
 ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
  
-ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$', marker='o', lw=0, color='blue')
+ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', lw=0, color='blue')
 ax3.set_xlabel('Ra')
 ax3.set_ylabel(r'$\delta_{\mathrm{Ro}}/\delta_{\mathrm{\nabla s}}$')
 
@@ -234,7 +234,7 @@ ax2_1.set_yticks((0, -0.001, -0.002))
 ax2_1.set_yticklabels(('0', r'$-$1', r'$-$2'))
 ax2_1.set_xlim(0, Lz)
 ax2_2.set_xlim(0, Lz)
-ax2_1.text(2.2, -2.22e-3, r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$', ha='center', va='center')
+ax2_1.text(2.2, -2.22e-3, r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', ha='center', va='center')
 ax2_1.text(0.4, -2.22e-3, "(c)", ha="center", va="center", size=8)
 ax2_2.text(0.4, 0.125, "(d)", ha="center", va="center", size=8)
 
