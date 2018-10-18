@@ -102,9 +102,10 @@ many studies of rotating convection have investigated questions inspired by the 
 brown&all2010, brown&all2011, augustson&all2012, guerrero&all2013, kapyla&all2014}.
 Even when these simulations nominally rotate at the solar rate,
 they frequently produce distinctly different behaviors than the true Sun,
-such as anti-solar differential rotation profiles.
+such as anti-solar differential rotation profiles  \citep{gastine&all2014}.
 It seems that these differences occur because the simulations produce less rotationally 
-constrained states than the Sun. The influence of rotation results from the local 
+constrained states than the Sun. 
+The influence of rotation results from the local 
 shear gradients, and these are not direct input parameters.
 Recent simulations predict significant rotational influence in the deep solar interior, 
 which can drastically affect flows throughout the solar convection zone 
@@ -137,7 +138,7 @@ In this work, we extend \AB$\,$ to rotationally-influenced, $f$-plane
 atmospheres 
 \cite[e.g.][]{brummell&all1996, brummell&all1998, calkins&all2015a}. 
 We determine how the input parameters we studied previously, controlling the Mach and
-Reynolds numbers of the evolved flows, couple with the Taylor number (Ta, \cite{julien&all1996}), which sets the magnitude of the rotational vector. 
+Reynolds numbers of the evolved flows, couple with the Taylor number \citep[Ta, ][]{julien&all1996}, which sets the magnitude of the rotational vector. 
 
 In section  \ref{sec:experiment}, we describe our experiment and paths through parameter space. 
 In section \ref{sec:results}, we present the results of our experiments and in section \ref{sec:discussion} we offer concluding remarks.
@@ -159,7 +160,7 @@ are antiparallel \citep[as in e.g.,][]{julien&all1996, brummell&all1996}.
 We evolve the velocity ($\bm{u}$), temperature ($T$), 
 and log density ($\ln\rho$) according to the Fully Compressible Navier-Stokes equations
 in the same form presented in \AB, with the
-addition of the Coriolis term, $2\bm{\Omega}\times\bm{u}$, to the left-hand side
+addition of the Coriolis term, \mbox{$2\bm{\Omega}\times\bm{u}$}, to the left-hand side
 of the momentum equation. 
 We impose impenetrable, stress-free, fixed-temperature boundary conditions at the top and bottom of the domain.
 
@@ -172,13 +173,14 @@ rotation ($\Omega$) at the top of the domain by choosing the Rayleigh number
     \text{Pr} = \frac{\nu}{\chi}, \,\,\,
     \text{Ta} = \left(\frac{2 \Omega L_z^2}{\nu}\right)^2,
 \end{equation}
-where $L_z$ is the depth of the domain, 
+where $L_z$ is the depth of the domain as defiend in \AB, 
 $\Delta S \propto \epsilon n_\rho$ is the specific entropy difference between
-$z = 0$ and $z = L_z$, and the specific heat at constant pressure is $c_P$.
+$z = 0$ and $z = L_z$, and the specific heat at constant pressure is $c_P = \gamma/(\gamma-1)$
+and $\gamma = 5/3$.
 Throughout this work we set Pr = 1. The Taylor number relates to the often-quoted
-Ekman number such that $\text{Ta} \sim \text{Ek}^{-2}$.
+Ekman by the equality $\text{Ek} \equiv \text{Ta}^{-1/2}$.
 
-The \textit{convective} Rossby number has provided (e.g., \cite{julien&all1996, brummell&all1996}) 
+The \textit{convective} Rossby number has provided \citep[e.g., ][]{julien&all1996, brummell&all1996} 
 a common proxy (based on input parameters) for the degree of rotational constraint,
 \begin{equation}
 \con \ = \   \sqrt{ \frac{\text{Ra}}{\text{Pr}\, \text{Ta} } } \ 
@@ -191,8 +193,9 @@ depends nonlinearly on $\con$.
 
 The wavenumber of convective onset increases such that, $k_{\text{crit}} \propto \text{Ta}^{1/6}$
 \citep{Chandrasekhar,calkins&all2015a}.
-We study horizontally-periodic, 3D Cartesian convective domains with horizontal extents of
-$x, y = [0, 4(2\pi/k_{\text{crit}})]$. 
+We study horizontally-periodic, 3D Cartesian convective domains with extents of
+$x, y = [0, 4(2\pi/k_{\text{crit}})]$ and $z = [0, L_z]$. At large values of Ta, these
+domains are tall and skinny, as in \cite{stellmach&all2014}.
 We evolve our simulations using the Dedalus\footnote{\url{http://dedalus-project.org/}} 
 pseudospectral framework, and our numerical methods are identical to those presented
 in \AB.
@@ -212,19 +215,26 @@ in \AB.
     and constant $\con$ (green triangles, $\con$ = [1, 0.3, 0.1] for [big, medium, small] triangles) are shown.
     Ro is roughly constant for a constant \pro, particularly for the low-Ro, $\pro=0.96$ case, 
     but changes drastically at constant $\con$ or $\mathcal{S}$.
-    (c) The evolved value of Ro is shown as a function of $\pro$ and $\con$. Each of the experiments in (b) is outlined by a black square.
-	The color inside of the square represents the measured Ro of that experiment, while the colormap outside of squares is a linear interpolation
-	of the data set. A least-squares fit to all experiments with
-	$\text{Ro} \geq 0.5$ returns $\text{Ro} = 0.33 \con^{-0.018}\pro^{0.57}$. A similar fit to all experiments with
-	$\text{Ro} < 0.3$ returns $\text{Ro} = 0.13 \con^{-0.024}\pro^{1.7}$. In both the high- and low- Ro regime, the measured
-	Rossby number is a strong function of $\pro$ and a negligible function of $\con$.
+    (c) The evolved value of Ro is shown as a function of $\pro$ and $\con$. 
+	Each of the experiments in (b) is outlined by a black (circle, triangle, square)
+	for points along constant (\pro, \con, $\mathcal{S}$) paths.
+	The color inside of the marker represents the exact measured Ro of that experiment, 
+	while the colormap outside of markers is a linear interpolation
+	of the data set. A least-squares fit to all experiments with $\mathcal{S} \geq 1.5$ and
+	$\text{Ro} \geq 0.3$ returns $\text{Ro} = 0.2 \con^{-0.19}\pro^{1.5}$. A similar fit to all experiments with
+	$\mathcal{S} \geq 1.5$ and $\text{Ro} < 0.3$ returns $\text{Ro} = 0.1 \con^{-0.21}\pro^{3.5}$. 
+	In both the high- and low- Ro regime, the measured
+	Rossby number is a strong function of $\pro$ and a weak function of $\con$.
     \label{fig:parameter_space} }
 \end{figure*}
 
 
 The critical value of Ra at which convection onsets also depends on Ta (see the black line in figure \ref{fig:parameter_space}a);  
 roughly according to $\text{Ra}_{\text{crit}} \sim \text{Ta}^{2/3}$ \citep{Chandrasekhar,calkins&all2015a}.
-Even taking account of linear theory, the nonlinear dependence of the evolved fluid 
+We have confirmed these scalings of $\text{Ra}_{\text{crit}}(\text{Ta})$ and 
+$k_{\text{crit}}(\text{Ta})$ in our atmospheres using a linear
+stability analysis.
+Even taking account of linear theory, the dependence of the evolved nonlinear fluid 
 flows on the input parameters makes predicting the rotational constraint very challenging. 
 We will explore three paths through Ra-Ta space:
 \begin{equation}
@@ -273,11 +283,13 @@ We find that Ro increases on constant \con$\,$paths, decreases on constant $\mat
 paths, and remains roughly constant along constant \pro$\,$ paths.
 In figure \ref{fig:parameter_space}c, the value of Ro is shown simultaneously as
 a function of \pro$\,$and \con$\,$for all experiments conducted in this study.
-We find a general power-law of the form $\text{Ro} \propto \con^{-1/50}\pro^{\alpha}$,
-where $\alpha \approx 1.7$ in the rotationally constrained, low-Ro regime and
-$\alpha \approx 3/5$ in the unconstrained, high-Ro regime. In all cases, the $\con^{-1/50}$
-scaling is negligible, and the Rossby number can be said to be a function
-of \pro$\,$ alone.
+We find a general power-law of the form \mbox{$\text{Ro} \propto \con^{-1/5}\,\pro^{\alpha}$},
+where $\alpha \approx 3.5$ in the rotationally constrained, low-Ro regime and
+\mbox{$\alpha \approx 1.5$} in the unconstrained, high-Ro regime. 
+In the rotationally constrained regime, Ro is a much stronger function of 
+$\pro\,$than $\con$, and the
+evolved Ro can be approximately determined through specification of \pro$\,$alone.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% DYNAMICS FIGURE
@@ -288,10 +300,10 @@ of \pro$\,$ alone.
     cases. All runs displayed here have an evolved volume-averaged $\text{Re} \approx 200$. 
     As Ro decreases from O(1) on the left to O(0.1) on the right, and thus the rotational
     constraint on the flow increases, significant changes in flow morphology are observed.
-    At Ro = 2.01, convective dynamics are not hugely dissimilar from the non-rotating
+    At Ro = 2.01 ($\con = 1$), convective dynamics are not hugely dissimilar from the non-rotating
     case where there are large upflows and narrow, fast downflow lanes (see e.g., \AB).
     As the rotational constraint increases, the granular convective pattern gives way
-    to vortical columns, as seen at Ro = 0.13.
+    to vortical columns, as seen at Ro = 0.13 ($\pro = 0.96$).
     \label{fig:pretty_convection} }
 \end{figure*}
 
@@ -332,7 +344,7 @@ Ro, and Ro decreases into the rotationally constrained regime from left to right
 As Ro decreases, the
 classic granular structure of convection (see e.g., figure~2 in \AB) gives way to vortical
 columns of convection, as seen in rapidly rotating \RB convection \citep{stellmach&all2014}.
-The select cases displayed in figure~\ref{fig:pretty_convection} have an evolved volume-averaged
+The select cases displayed in figure~\ref{fig:pretty_convection} each have an evolved volume-averaged
 $\text{Re} \approx 200$.
 
 We measure the Nusselt number (Nu), which quantifies heat transport in a convective
@@ -390,7 +402,7 @@ the theorized boundary between fully rotationally constrained convection and
 partially constrained convection predicted in Boussinesq theory, of 
 $\text{Ra} \propto \text{Ta}^{4/5}$ \citep{julien&all2012, gastine&all2016}. This
 Ta$^{4/5}$ scaling arises through arguments of geostrophic balance in the boundary layers,
-and is a steeper scaling than the The Ta$^{3/4}$ scaling present in \pro.
+and is a steeper scaling than the Ta$^{3/4}$ scaling present in \pro.
 This suggests that at sufficiently low \pro, a suite of simulations across many orders
 of magnitude of Ra will not only have the same volume-averaged value of Ro 
 (as in Fig.~\ref{fig:parameter_space}b), but will
@@ -399,7 +411,7 @@ also maintain proper force balances within the boundary layers.
 Our results suggest that by choosing the proper value of \pro, experimenters
 can select the degree of rotational constraint present in their simulations. 
 Once that value is chosen, it is straightforward to increase the turbulent nature of 
-the simulations by increasing Ra, just as in the non-rotating case. 
+the simulations by increasing Ra, just as in the non-rotating case.
 Although all the results reported here are for a simple Cartesian geometry with 
 antiparallel gravity and rotation, preliminary 3D spherical simulations suggest that 
 \pro$\,$ also specifies Ro in more complex geometries (Brown et al. 2019 in prep).

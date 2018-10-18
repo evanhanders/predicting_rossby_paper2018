@@ -34,7 +34,6 @@ ax1.plot(onset_data[:,0], onset_data[:,1], c='k', lw=0.5)
 ax1.fill_between(onset_data[:,0], 0, onset_data[:,1], color='k', alpha=0.1)
 
 original_co = np.genfromtxt('../data/constant_co.csv', skip_header=1, delimiter=',', usecols=(2,4,6)) #ra, ro, ta -- need to double check if this is backwards ra/ta.
-print( original_co[:,0]/original_co[:,2])
 co1 = original_co[:,0]/original_co[:,2] == 1
 co03 = np.round(np.sqrt(original_co[:,0]/original_co[:,2]), decimals=1) == 0.3
 co01 = np.round(np.sqrt(original_co[:,0]/original_co[:,2]), decimals=1) == 0.1
@@ -43,7 +42,6 @@ x, y = zip(*sorted(zip(x, y)))
 ax1.plot(x, y, c=Co_color, lw=2, label='Co = 1', dashes=(3,1))
 
 #sigma = np.genfromtxt('../data/coprime_data_sigma_runs.csv', skip_header=1, delimiter=',', usecols=(2,4,5,6)) #ra, ro, sigma, ta
-#print(sigma[:,2])
 #sig2 = sigma[:,2] == 2
 #sig1_1 = sigma[:,2] == 1
 sigma = np.genfromtxt('../data/constant_supercriticality.csv', skip_header=1, delimiter=',', usecols=(2,4,5,6)) #ra, ro, supercrit, ta
@@ -161,22 +159,25 @@ ax2.text(8e6, 2.6e-1, "0.1", ha="center", va="center", size=8, color=Co_color)
 
 #READ DATA
 const_s = np.genfromtxt('../data/constant_supercriticality.csv', skip_header=1, delimiter=',') 
-ta_s = np.log10(const_s[:,6])
-ro_c_s = np.log10(const_s[:,2] / const_s[:,6]) #ra/ta
-ro_m_s = np.log10(const_s[:,4])
-ro_p_s = np.log10(const_s[:, 0])
+supercrit = (const_s[:,5] < 3.5)*(const_s[:,5] >= 1.5)
+ta_s = np.log10(const_s[supercrit,6])
+ro_c_s = np.log10(np.sqrt(const_s[supercrit,2] / const_s[supercrit,6])) #ra/ta
+ro_m_s = np.log10(const_s[supercrit,4])
+ro_p_s = np.log10(np.sqrt(const_s[supercrit, 0]))
 
 const_co = np.genfromtxt('../data/constant_co.csv', skip_header=1, delimiter=',') 
 ta_co = np.log10(const_co[:,6])
-ro_c_co = np.log10(const_co[:,2] / const_co[:,6]) #ra/ta
+ro_c_co = np.log10(np.sqrt(const_co[:,2] / const_co[:,6])) #ra/ta
 ro_m_co = np.log10(const_co[:,4])
-ro_p_co = np.log10(const_co[:, 0])
+ro_p_co = np.log10(np.sqrt(const_co[:, 0]))
 
 const_rop = np.genfromtxt('../data/ra_ta0.75_AR4_alldata.csv', skip_header=1, delimiter=',')
-ta_rop = np.log10(const_co[:,2])
-ro_c_rop = np.log10(const_co[:,1] / const_co[:,2]) #ra/ta
-ro_m_rop = np.log10(const_co[:,4])
-ro_p_rop = np.log10(const_co[:,0])
+ta_rop = np.log10(const_rop[:,2])
+ro_c_rop = np.log10(np.sqrt(const_rop[:,1] / const_rop[:,2])) #ra/ta
+ro_m_rop = np.log10(const_rop[:,5])
+ro_p_rop = np.log10(const_rop[:,0])
+
+print(ro_p_rop)
 
 ta_full = np.concatenate((ta_s, ta_co, ta_rop))
 ro_c_full = np.concatenate((ro_c_s, ro_c_co, ro_c_rop))
@@ -227,23 +228,30 @@ ro_cc, ro_pp, ro_m_interp, ro_m_func, fit_str, fit, ro_b_cc, ro_b_pp = run_analy
 
 
 ### Plot 1
+print(ro_m.min(), ro_m.max())
 plot = ax3.pcolormesh(ro_b_cc, ro_b_pp, ro_m_interp, cmap='viridis', vmin=ro_m.min(), vmax=ro_m.max(), snap=True)
 norm = matplotlib.colors.Normalize(vmin=np.min(ro_m), vmax=np.max(ro_m))
 sm = plt.cm.ScalarMappable(cmap='viridis', norm=norm)
 sm.set_array([])
 for i in range(len(ro_m)):
-    ax3.plot(10**(ro_c[i]), 10**(ro_p[i]), markerfacecolor=sm.to_rgba(ro_m[i]), markeredgecolor='black', markersize=3, lw=0, marker='s', markeredgewidth=0.5)
+    if ro_c[i] in ro_c_rop and ro_p[i] in ro_p_rop:
+        marker = Pro_marker
+    elif ro_c[i] in ro_c_s and ro_p[i] in ro_p_s:
+        marker = S_marker
+    elif ro_c[i] in ro_c_co and ro_p[i] in ro_p_co:
+        marker = Co_marker
+    ax3.plot(10**(ro_c[i]), 10**(ro_p[i]), markerfacecolor=sm.to_rgba(ro_m[i]), markeredgecolor='black', markersize=3, lw=0, marker=marker, markeredgewidth=0.5)
 
 
 ax3.set_yscale('log')
 ax3.set_xscale('log')
-ax3.set_xticks((1e-5, 1e-3, 1e-1, 1e1))
+ax3.set_xticks((1e-2, 1e-1, 1, 1e1))
 ax3.set_xlabel(r'Ro$_\mathrm{c}$')
 ax3.set_ylabel(r'Ro$_\mathrm{p}$')
 
-plt.colorbar(plot, cax=cax, orientation='vertical')
+plt.colorbar(plot, cax=cax, orientation='vertical', ticks=[-1, -0.5, 0, 0.5])
 cax.annotate('Ro', xy=(.25,1.01), annotation_clip=False)
-cax.set_yticklabels((r'$10^{-1.5}$', r'$10^{-1}$', r'$10^{-0.5}$', '1', r'$10^{0.5}$'))
+cax.set_yticklabels((r'$10^{-1}$', r'$10^{-0.5}$', r'$10^0$', r'$10^{0.5}$'))
 cax.set_xticklabels([])
 
 onset_ta = onset_data[:,0]
@@ -254,14 +262,14 @@ onset_ra2 = [onset_ra[0]]*3
 onset_ta = np.concatenate((onset_ta2, onset_ta))
 onset_ra = np.concatenate((onset_ra2, onset_ra))
 
-onset_roc = onset_ra/onset_ta
-onset_rop = onset_ra/onset_ta**(0.75)
+onset_roc = np.sqrt(onset_ra/onset_ta)
+onset_rop = np.sqrt(onset_ra/onset_ta**(0.75))
 ax3.plot(onset_roc, onset_rop, c='k', lw=0.5)
 ax3.fill_between(onset_roc, 0, onset_rop, color='k', alpha=0.1)
 
 ax3.set_ylim(np.min(ro_b_pp), np.max(ro_b_pp))
-ax3.set_xlim(1e-5, np.max(ro_b_cc))
-ax3.text(5e0, 7e-1, "stable", ha="center", va="center", rotation=0, size=10, alpha=0.7)
+ax3.set_xlim(np.min(ro_b_cc), np.max(ro_b_cc))
+ax3.text(4e0, 1e0, "stable", ha="center", va="center", rotation=0, size=10, alpha=0.7)
 
 
 
