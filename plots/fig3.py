@@ -15,19 +15,19 @@ ax2 = plt.subplot(gs.new_subplotspec(*gs_info[1]))
 
 
 #READ DATA, PLOT 1
-new_c = np.genfromtxt('../data/ra_ta0.75_AR4_alldata.csv', skip_header=1, delimiter=',') 
+new_c = np.genfromtxt('../data/constant_pro.csv', skip_header=1, delimiter=',') 
 #co, ra, ta, nu, re, ro
-c957 = new_c[:,0] == 0.957
-c158 = new_c[:,0] == 1.58
+c957 = np.round(np.sqrt(new_c[:,0]),3) == 0.957
+c158 = np.round(np.sqrt(new_c[:,0]),3) == 1.58
 start_pt = 4
-ra957 = new_c[c957,1][start_pt:]
-nu957 = new_c[c957,3][start_pt:]
-ra957_full = new_c[c957,1]
-nu957_full = new_c[c957,3]
-ra158 = new_c[c158,1][start_pt:]
-nu158 = new_c[c158,3][start_pt:]
-ra158_full = new_c[c158,1]
-nu158_full = new_c[c158,3]
+ra957 = new_c[c957,2][start_pt:]
+nu957 = new_c[c957,1][start_pt:]
+ra957_full = new_c[c957,2]
+nu957_full = new_c[c957,1]
+ra158 = new_c[c158,2][start_pt:]
+nu158 = new_c[c158,1][start_pt:]
+ra158_full = new_c[c158,2]
+nu158_full = new_c[c158,1]
 
 
 
@@ -69,17 +69,17 @@ ax1.text(2.5e1, 2.5e1, "(a)", ha="center", va="center", size=8)
 lines, labels = [], []
 #PLOT 2
 start_pt = 4
-ra957 = new_c[c957,1][start_pt:]
-re957 = new_c[c957,4][start_pt:]
-ra957_full = new_c[c957,1]
-re957_full = new_c[c957,4]
-ra158 = new_c[c158,1][start_pt:]
-re158 = new_c[c158,4][start_pt:]
-ra158_full = new_c[c158,1]
-re158_full = new_c[c158,4]
+ra957 = new_c[c957,2][start_pt:]
+re957 = new_c[c957,3][start_pt:]
+ra957_full = new_c[c957,2]
+re957_full = new_c[c957,3]
+ra158 = new_c[c158,2][start_pt:]
+re158 = new_c[c158,3][start_pt:]
+ra158_full = new_c[c158,2]
+re158_full = new_c[c158,3]
 
-lines += ax2.plot(new_c[c957, 1], new_c[c957, 4], c='orange', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax2.plot(new_c[c158, 1], new_c[c158, 4], c='blue', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
+lines += ax2.plot(new_c[c957, 2], new_c[c957, 3], c='orange', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
+lines += ax2.plot(new_c[c158, 2], new_c[c158, 3], c='blue', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
 
 #labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
 #labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']

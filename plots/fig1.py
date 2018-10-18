@@ -51,11 +51,12 @@ sig1_1 = sigma[:,2] == 2
 
 ax1.plot(sigma[sig2, 3], sigma[sig2, 0], c=S_color, dashes=(3,0.5,0.5,0.5), lw=2, label=r'$\mathcal{S}=3$')
 
-new_c = np.genfromtxt('../data/ra_ta0.75_AR4_alldata.csv', skip_header=1, delimiter=',', usecols=(0,1,2,5)) #sigma, ra, ta, ro
-c957 = new_c[:,0] == 0.957
-c158 = new_c[:,0] == 1.58
+new_c = np.genfromtxt('../data/constant_pro.csv', skip_header=1, delimiter=',', usecols=(0, 2,4,5,6)) #Ro_c^2, Ra, Ro, S, Ta
+print(np.sqrt(new_c[:,0]))
+c957 = np.round(np.sqrt(new_c[:,0]),3) == 0.957
+c158 = np.round(np.sqrt(new_c[:,0]),3) == 1.58
 #ax1.plot(new_c[c957, 2], new_c[c957, 1])
-ax1.plot(new_c[c158, 2], new_c[c158, 1], c=Pro_color, lw=3, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$')
+ax1.plot(new_c[c158, 4], new_c[c158, 1], c=Pro_color, lw=3, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$')
 
 
 ax1.set_xlim(1e1, 1e7)
@@ -78,8 +79,8 @@ ax2.plot(original_co[co03, 0], original_co[co03, 1], marker=Co_marker, color=(*C
 ax2.plot(original_co[co01, 0], original_co[co01, 1], marker=Co_marker, color=(*Co_color, 0.3), lw=0, ms=2.5, markeredgecolor=(*Co_color, 1))
 ax2.plot(sigma[sig2, 0], sigma[sig2, 1], marker=S_marker, color=(*S_color, 0.3), lw=0, ms=4.5, markeredgecolor=(*S_color, 1))
 ax2.plot(sigma[sig1_1, 0], sigma[sig1_1, 1], marker=S_marker, color=(*S_color, 0.3), lw=0, ms=2.5, markeredgecolor=(*S_color, 1))
-ax2.plot(new_c[c158, 1], new_c[c158, 3], marker=Pro_marker, color=Pro_color, lw=0, ms=4.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$')
-ax2.plot(new_c[c957, 1], new_c[c957, 3], marker=Pro_marker, color=Pro_color, lw=0, ms=2.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$')
+ax2.plot(new_c[c158, 1], new_c[c158, 2], marker=Pro_marker, color=Pro_color, lw=0, ms=4.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$')
+ax2.plot(new_c[c957, 1], new_c[c957, 2], marker=Pro_marker, color=Pro_color, lw=0, ms=2.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$')
 #ax2.legend(loc='upper middle', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0)
 
 lines, labels = [], []
@@ -171,11 +172,11 @@ ro_c_co = np.log10(np.sqrt(const_co[:,2] / const_co[:,6])) #ra/ta
 ro_m_co = np.log10(const_co[:,4])
 ro_p_co = np.log10(np.sqrt(const_co[:, 0]))
 
-const_rop = np.genfromtxt('../data/ra_ta0.75_AR4_alldata.csv', skip_header=1, delimiter=',')
-ta_rop = np.log10(const_rop[:,2])
-ro_c_rop = np.log10(np.sqrt(const_rop[:,1] / const_rop[:,2])) #ra/ta
-ro_m_rop = np.log10(const_rop[:,5])
-ro_p_rop = np.log10(const_rop[:,0])
+const_rop = np.genfromtxt('../data/constant_pro.csv', skip_header=1, delimiter=',')
+ta_rop = np.log10(const_rop[:,6])
+ro_c_rop = np.log10(np.sqrt(const_rop[:,2] / const_rop[:,6])) #ra/ta
+ro_m_rop = np.log10(const_rop[:,4])
+ro_p_rop = np.log10(np.sqrt(const_rop[:, 0]))
 
 print(ro_p_rop)
 
