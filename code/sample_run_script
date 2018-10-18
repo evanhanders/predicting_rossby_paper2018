@@ -1,0 +1,37 @@
+#PBS -S /bin/bash
+#PBS -N supercrit3_Rop0.8
+#PBS -l select=26:ncpus=40:mpiprocs=40:model=sky_ele
+#PBS -l walltime=24:00:00
+#PBS -j oe
+#PBS -q long
+
+export dedalus_script=FC_poly
+export output_dir=/nobackup/eanders/polytrope/sigma_runs/
+mkdir $output_dir
+
+cd $PBS_O_WORKDIR
+
+TA=5.63e9
+RA=1.32e7
+AR=0.2301
+
+date
+mpiexec_mpt -np 1024 ~/.python3 $dedalus_script.py  \
+    --nz=512 \
+    --nx=128 \
+    --ny=128 \
+    --mesh=32,32 \
+    --aspect=$AR \
+    --epsilon=1e-4 \
+    --n_rho_cz=3 \
+    --Taylor=$TA \
+    --Rayleigh=$RA \
+    --3D \
+    --rotating \
+    --split_diffusivities \
+    --no_coeffs \
+    --run_time=23 \
+    --run_time_buoy=200 \
+    --fixed_T \
+    --root_dir=$output_dir > $output_dir/$dedalus_script.Ra$RA.Ta$TA.out.$PBS_JOBID
+date
