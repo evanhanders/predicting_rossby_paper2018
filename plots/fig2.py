@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib
+matplotlib.use('Agg')
 #matplotlib settings
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -55,7 +56,7 @@ for f, ax in zip( [lowF, highF, coF], [ax3, ax2, ax1] ):
     big_s = s_field['g']
     
     yy, xx = np.meshgrid(big_y, big_x)
-    c = ax.pcolormesh(xx, yy, big_s, cmap='RdBu_r')
+    c = ax.pcolormesh(xx, yy, big_s, cmap='RdBu_r', rasterized=True)
     c.set_edgecolor('face')
 
     ax.set_xticklabels(())
@@ -87,7 +88,7 @@ ax3.text(0.17, 0.93, "Ro = 0.13", ha="center", va="center", size=8, bbox=bbox_pr
 ax2.text(0.17, 0.93, "Ro = 0.42", ha="center", va="center", size=8, bbox=bbox_props)
 ax1.text(0.17, 0.93, "Ro = 2.01", ha="center", va="center", size=8, bbox=bbox_props)
 
-#print('saving png')
-#fig.savefig('../tex/figs/dynamics_plot.png', dpi=600, bbox_inches='tight')
+print('saving png')
+fig.savefig('../tex/figs/dynamics_plot.png', dpi=600, bbox_inches='tight')
 print('saving pdf')
-fig.savefig('../tex/figs/dynamics_plot.pdf', dpi=100, bbox_inches='tight')
+fig.savefig('../tex/figs/dynamics_plot.pdf', dpi=600, bbox_inches='tight')
