@@ -38,8 +38,8 @@ lines += ax1.plot(ra158_full, nu158_full, c='blue', lw=0, marker='o', ms=4, labe
 
 #labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
 #labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
-labels += [r'Ro$\sim$0.1']
-labels += [r'Ro$\sim$0.4']
+labels += [r'Ro$\approx$0.1']
+labels += [r'Ro$\approx$0.4']
 
 for xlabel_i in ax1.get_xticklabels():
     xlabel_i.set_visible(False)
