@@ -251,5 +251,5 @@ cax2.annotate('Ra', xy=(.45,1.2), annotation_clip=False)
 cax2.set_xticklabels([])
 
 
-fig.savefig('../tex/figs/boundary_layers.png', dpi=300, bbox_inches='tight')
-#plt.show()
+fig.savefig('../tex/figs/boundary_layers.png', dpi=600, bbox_inches='tight')
+fig.savefig('../tex/figs/boundary_layers.pdf', dpi=600, bbox_inches='tight')

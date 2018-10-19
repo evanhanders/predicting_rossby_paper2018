@@ -203,7 +203,7 @@ in \AB.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% PARAMETER SPACE FIGURE
 \begin{figure*}[t!]
-    \includegraphics[width=\textwidth]{parameter_space.png}
+    \includegraphics[width=\textwidth]{parameter_space.pdf}
     \caption{(a) The critical Rayleigh number, as a function of the Taylor number, 
     is plotted as a solid black line. The grey shaded region is subcritical, and rotation
     supresses convection there. Paths of constant Convective Rossby Number
@@ -253,20 +253,26 @@ Paths on constraint II are at a constant value of the classic $\con$ (green dash
 III (e.g., orange solid line in figure \ref{fig:parameter_space}a) 
 set constant a ratio which we call the ``Predictive Rossby Number,'' 
 \begin{equation}
-\pro = \sqrt{\frac{\text{Ra}}{\text{Pr}\,\text{Ta}^{3/4}}} \ = \    \frac{1}{2 \Omega } \sqrt{\frac{g \, \Delta  S}{c_{p} L_{\text{p}}}}
+\pro = \sqrt{\frac{\text{Ra}}{\text{Pr}\,\text{Ta}^{3/4}}} \ = \    
+\frac{1}{(2 \Omega)^{3/4}} \sqrt{\frac{g \, \Delta  S}{c_{p} \nu^{1/2}}}
 \end{equation}
 To our knowledge, these paths have not been reported in the literature. 
-The importance of the predictive Rossby number implies the importance of a 
-dynamical length scale, 
-\begin{equation}
-L_{\text{p}} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/4}} \label{L-star}
-\end{equation}
-This differs noticeably from the anticipated onset length scale 
-\begin{equation}
-L_{\text{crit.}} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/6}}.
-\end{equation}
-Length-scale corrections of the form of equation \ref{L-star} 
-have been proposed in systems with no-slip boundary conditions and Ekman pumping effects. However, we see this scale in a system with stress-free boundaries and ostensibly no significant Ekman fluxes. 
+Paths along constant \con$\,$are sensitive to the depth of the domain, 
+but are blind to changes in diffusivities with increasing Ra and Ta. 
+On the other hand, paths with constant \pro$\,$ 
+feel changes in diffusivities but not the depth of the domain.
+
+%The importance of the predictive Rossby number implies the importance of a 
+%dynamical length scale, 
+%\begin{equation}
+%L_{\text{p}} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/4}} \label{L-star}
+%\end{equation}
+%This differs noticeably from the anticipated onset length scale 
+%\begin{equation}
+%L_{\text{crit.}} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/6}}.
+%\end{equation}
+%Length-scale corrections of the form of equation \ref{L-star} 
+%have been proposed in systems with no-slip boundary conditions and Ekman pumping effects. However, we see this scale in a system with stress-free boundaries and ostensibly no significant Ekman fluxes. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% RESULTS SECTION
@@ -310,7 +316,7 @@ evolved Ro can be approximately determined through specification of \pro$\,$alon
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% NU AND RE FIGURE
 \begin{figure}[t!]
-    \includegraphics{./figs/nu_and_re.png}
+    \includegraphics{./figs/nu_and_re.pdf}
     \caption{Scaling laws for paths at $\pro = 1.58$ ($\text{Ro} \approx 0.4$) and
     $\pro = 0.96$ ($\text{Ro} \approx 0.1$) are shown. 
     (a) Evolved Nu vs. Ra. The scaling laws here are very reminiscent of classic \RB convection
@@ -323,7 +329,7 @@ evolved Ro can be approximately determined through specification of \pro$\,$alon
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% BOUNDARY LAYER FIGURE
 \begin{figure*}[ht!]
-    \includegraphics[width=\textwidth]{./figs/boundary_layers.png}
+    \includegraphics[width=\textwidth]{./figs/boundary_layers.pdf}
     \caption{Horizontally-averaged profiles of the $z$-derivative of 
     the specific entropy profile ($\partial_z s$, a) and Rossby number (Ro, b) 
     are shown vs. height for $\pro = 0.96$ ($\text{Ro} \approx 0.1$). 

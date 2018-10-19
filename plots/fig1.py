@@ -231,6 +231,7 @@ ro_cc, ro_pp, ro_m_interp, ro_m_func, fit_str, fit, ro_b_cc, ro_b_pp = run_analy
 ### Plot 1
 print(ro_m.min(), ro_m.max())
 plot = ax3.pcolormesh(ro_b_cc, ro_b_pp, ro_m_interp, cmap='viridis', vmin=ro_m.min(), vmax=ro_m.max(), snap=True)
+plot.set_edgecolor('face')
 norm = matplotlib.colors.Normalize(vmin=np.min(ro_m), vmax=np.max(ro_m))
 sm = plt.cm.ScalarMappable(cmap='viridis', norm=norm)
 sm.set_array([])
@@ -275,3 +276,4 @@ ax3.text(4e0, 1e0, "stable", ha="center", va="center", rotation=0, size=10, alph
 
 
 fig.savefig('../tex/figs/parameter_space.png', dpi=600, bbox_inches='tight')
+fig.savefig('../tex/figs/parameter_space.pdf', dpi=600, bbox_inches='tight')

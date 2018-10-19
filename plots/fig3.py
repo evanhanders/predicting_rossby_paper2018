@@ -107,9 +107,10 @@ ax2.set_xscale('log')
 ax2.set_yscale('log')
 ax2.set_xlabel('Ra')
 ax2.set_ylabel('Re')
-ax2.text(2.5e1, 6e2, "(b)", ha="center", va="center", size=8)
+ax2.text(2.5e1, 4e2, "(b)", ha="center", va="center", size=8)
 
 
 #PLOT 2
 
-fig.savefig('../tex/figs/nu_and_re.png', dpi=300, bbox_inches='tight')
+fig.savefig('../tex/figs/nu_and_re.png', dpi=600, bbox_inches='tight')
+fig.savefig('../tex/figs/nu_and_re.pdf', dpi=600, bbox_inches='tight')

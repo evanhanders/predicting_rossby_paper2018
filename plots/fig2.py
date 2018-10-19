@@ -34,6 +34,7 @@ highres_n = 1024
 
 count = 0
 for f, ax in zip( [lowF, highF, coF], [ax3, ax2, ax1] ):
+    print('plotting {}/3'.format(count+1))
     x, y = f['scales']['x']['1.0'], f['scales']['y']['1.0']
     x_basis = de.Fourier(  'x', len(x), interval=[0., 1], dealias=3/2)
     y_basis = de.Fourier(  'y', len(y), interval=[0., 1], dealias=3/2)
@@ -55,6 +56,7 @@ for f, ax in zip( [lowF, highF, coF], [ax3, ax2, ax1] ):
     
     yy, xx = np.meshgrid(big_y, big_x)
     c = ax.pcolormesh(xx, yy, big_s, cmap='RdBu_r')
+    c.set_edgecolor('face')
 
     ax.set_xticklabels(())
     ax.set_yticklabels(())
@@ -85,5 +87,7 @@ ax3.text(0.17, 0.93, "Ro = 0.13", ha="center", va="center", size=8, bbox=bbox_pr
 ax2.text(0.17, 0.93, "Ro = 0.42", ha="center", va="center", size=8, bbox=bbox_props)
 ax1.text(0.17, 0.93, "Ro = 2.01", ha="center", va="center", size=8, bbox=bbox_props)
 
-
-fig.savefig('../tex/figs/dynamics_plot.png', dpi=300, bbox_inches='tight')
+#print('saving png')
+#fig.savefig('../tex/figs/dynamics_plot.png', dpi=600, bbox_inches='tight')
+print('saving pdf')
+fig.savefig('../tex/figs/dynamics_plot.pdf', dpi=100, bbox_inches='tight')
