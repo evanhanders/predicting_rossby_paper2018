@@ -25,6 +25,8 @@ for fname in glob.glob('../profile_data/*.h5'):
         if 'ta' in s:
             key += s
     f = h5py.File(fname, 'r')
+    for k in f.keys():
+        print(k)
     entropy_gradients[key] = f['grad_s_tot'].value[-2,:]
     rossby_profiles[key]  = f['Rossby'].value[-2,:]
     z[key]  = f['z'].value
@@ -48,9 +50,15 @@ fig = plt.figure(figsize=(8.5, 3))
 gs     = gridspec.GridSpec(*(1000,1000))
 gs_info = (((0,0), 50, 250), ((50,0), 450, 250), ((500, 0), 450, 250), 
            ((0,370), 50, 250), ((50, 370), 450, 250), ((500, 370), 450, 250),
-           ((0, 750), 950, 250))
+           ((0, 750), 500, 250), ((500, 750),450, 250))
 
-ax3 = plt.subplot(gs.new_subplotspec(*gs_info[-1]))
+ax3 = plt.subplot(gs.new_subplotspec(*gs_info[-2]))
+ax3_2 = plt.subplot(gs.new_subplotspec(*gs_info[-1]))
+ax3_2.axhline(1, c='k')
+ax3_2.axvline(2.5e4, c='blue', ls='--')
+ax3_2.axvline(3e5, c='orange', ls='--')
+ax3.axvline(2.5e4, c='blue', ls='--')
+ax3.axvline(3e5, c='orange', ls='--')
 
 #COLUMN 1
 cax1  = plt.subplot(gs.new_subplotspec(*gs_info[0]))
@@ -63,6 +71,8 @@ sm.set_array([])
 
 s_bls = []
 ro_bls = []
+s_bls_bot = []
+ro_bls_bot = []
 taylors = []
 rayleighs = []
 for key in rossby_profiles.keys():
@@ -101,7 +111,34 @@ for key in rossby_profiles.keys():
     z0  = fit_f(0)
     s_bl = Lz - z0
     s_bls.append(s_bl)
-    
+
+    #bot bl
+    if ta < 1e7:
+        n_pts = 5
+        frac = 0.985
+    else:
+        n_pts = 5
+        frac = 0.99
+
+    if ta < 1e5:
+        s_bls_bot.append(np.nan)
+    else:
+        good_zs = z[key][z[key] >= (1-frac)*Lz]
+        good_grads = entropy_gradients[key][z[key] >= (1-frac)*Lz]
+        fit = np.polyfit(good_zs[:n_pts], good_grads[:n_pts], deg=1)
+        bot_y_fit = np.zeros_like(z[key])
+        for i, f in enumerate(fit):
+            bot_y_fit += f*z[key]**(len(fit)-1-i)
+
+
+        fit_f = interp1d(bot_y_fit, z[key])
+        z0  = fit_f(0)
+        s_bl = z0
+        s_bls_bot.append(s_bl)
+ 
+        ax_trash.plot(z[key], bot_y_fit)
+    ax_trash.axvline(s_bls_bot[-1])
+    ax_trash.axvline(Lz - s_bls[-1], ls='--')
     ax_trash.plot(z[key], entropy_gradients[key])
     ax_trash.plot(z[key], y_fit, c=sm.to_rgba(np.log10(ta)))
     ax_trash.axhline(0)
@@ -119,15 +156,40 @@ for key in rossby_profiles.keys():
     ro_bl_guess_i = np.argmax(big_ro)
     ro_bl = Lz - big_z[ro_bl_guess_i]
     ro_bls.append(ro_bl)
+
+    #bot
+    half_z = z[key][:int(len(z[key])/2)]
+    half_ro = rossby_profiles[key][:int(len(rossby_profiles[key])    /2)] 
+    ro = interp1d(half_z, half_ro, fill_value='extrapolate')
+    big_z = np.linspace(0, Lz/2, 1e4)
+    big_ro = ro(big_z)
+
+    ro_bl_guess_i = np.argmax(big_ro)
+    ro_bl = big_z[ro_bl_guess_i]
+    ro_bls_bot.append(ro_bl)
+
+    ax_trash.axvline(ro_bls_bot[-1])
+    ax_trash.axvline(Lz - ro_bls[-1], ls='--')
+    ax_trash.plot(z[key], rossby_profiles[key])
+    fig_trash.savefig('ro_{:s}.png'.format(key))
+    ax_trash.cla()
+
+
     taylors.append(ta)
     rayleighs.append(ra)
+
 
 
   
 ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
+ro_bls_bot = np.array(ro_bls_bot)
+s_bls_bot = np.array(s_bls_bot)
+
+ax3_2.plot(rayleighs, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', marker='o', lw=0, color='orange')
  
 ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', marker='o', lw=0, color='orange')
+#ax3.plot(rayleighs, ro_bls_bot/s_bls_bot, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', marker='v', lw=0, color='orange')
 ax3.set_xscale('log')
 
 ax1_2.set_xlabel('z')
@@ -162,6 +224,8 @@ sm.set_array([])
 
 s_bls = []
 ro_bls = []
+s_bls_bot = []
+ro_bls_bot = []
 taylors = []
 rayleighs = []
 print('_________________')
@@ -199,6 +263,37 @@ for key in rossby_profiles.keys():
     z0  = fit_f(0)
     s_bl = Lz - z0
     s_bls.append(s_bl)
+
+   #bot bl
+    if ta < 1e5:
+        n_pts = 4
+        frac = 0.99
+    elif ta < 1e8:
+        n_pts = 4
+        frac = 0.995
+    else:
+        n_pts = 4
+        frac = 0.995
+    if ta < 1e3:
+        s_bls_bot.append(np.nan)
+    else:
+        good_zs = z[key][z[key] >= (1-frac)*Lz]
+        good_grads = entropy_gradients[key][z[key] >= (1-frac)*Lz]
+        fit = np.polyfit(good_zs[:n_pts], good_grads[:n_pts], deg=1)
+        bot_y_fit = np.zeros_like(z[key])
+        for i, f in enumerate(fit):
+            bot_y_fit += f*z[key]**(len(fit)-1-i)
+
+
+        fit_f = interp1d(bot_y_fit, z[key])
+        z0  = fit_f(0)
+        s_bl = z0
+        s_bls_bot.append(s_bl)
+ 
+        ax_trash.plot(z[key], bot_y_fit)
+    ax_trash.axvline(s_bls_bot[-1])
+    ax_trash.axvline(Lz - s_bls[-1], ls='--')
+
     
     ax_trash.plot(z[key], entropy_gradients[key])
     ax_trash.plot(z[key], y_fit, c=sm.to_rgba(np.log10(ta)))
@@ -217,13 +312,44 @@ for key in rossby_profiles.keys():
     ro_bl_guess_i = np.argmax(big_ro)
     ro_bl = Lz - big_z[ro_bl_guess_i]
     ro_bls.append(ro_bl)
+
+    #bot
+    half_z = z[key][:int(len(z[key])/2)]
+    half_ro = rossby_profiles[key][:int(len(rossby_profiles[key])    /2)] 
+    ro = interp1d(half_z, half_ro, fill_value='extrapolate')
+    big_z = np.linspace(0, Lz/2, 1e4)
+    big_ro = ro(big_z)
+
+    ro_bl_guess_i = np.argmax(big_ro)
+    ro_bl = big_z[ro_bl_guess_i]
+    ro_bls_bot.append(ro_bl)
+
+    ax_trash.axvline(ro_bls_bot[-1])
+    ax_trash.axvline(Lz - ro_bls[-1], ls='--')
+    ax_trash.plot(z[key], rossby_profiles[key])
+    ax_trash.set_xlim(0,1)
+    ax_trash.axvline(s_bls_bot[-1], ls='-.')
+    fig_trash.savefig('ro_{:s}.png'.format(key))
+    ax_trash.cla()
+
+
     taylors.append(ta)
     rayleighs.append(ra)
 ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
+ro_bls_bot = np.array(ro_bls_bot)
+s_bls_bot = np.array(s_bls_bot)
+
+ax3_2.plot(rayleighs, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', lw=0, color='blue')
+ax3_2.set_yscale('log')
+ax3_2.set_xscale('log')
+ax3_2.set_ylabel(r'$\delta_{\mathrm{s}}/\mathrm{H}_\rho$')
+
  
 ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', lw=0, color='blue')
-ax3.set_xlabel('Ra')
+#ax3.plot(rayleighs, ro_bls_bot/s_bls_bot, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='v', lw=0, color='blue')
+#ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', lw=0, color='blue')
+ax3_2.set_xlabel('Ra')
 ax3.set_ylabel(r'$\delta_{\mathrm{Ro}}/\delta_{\mathrm{s}}$')
 
 ax2_2.set_xlabel('z')
@@ -239,8 +365,10 @@ ax2_1.text(0.4, -2.22e-3, "(c)", ha="center", va="center", size=8)
 ax2_2.text(0.4, 0.125, "(d)", ha="center", va="center", size=8)
 
 
-ax3.text(1.2e2, 0.55, "(e)", ha="center", va="center", size=8)
-ax3.legend(loc='center right', frameon=True, borderpad=0.2, handletextpad=0.2, fontsize=8)
+ax3.set_yticks((0.6, 0.8, 1))
+ax3.text(1.2e2, 0.565, "(e)", ha="center", va="center", size=8)
+ax3_2.text(2.2e6, 4.8, "(f)", ha="center", va="center", size=8)
+ax3_2.legend(loc='lower left', frameon=False, borderpad=0.1, borderaxespad=0.05, handletextpad=0, fontsize=8, markerscale=1)
  
 
 

@@ -1,4 +1,4 @@
-\documentclass[twocolumn, amsmath, amsfonts, amssymb]{aastex62}
+\documentclass[twocolumn, amsmath, amsfonts, amssymb, trackchanges]{aastex62}
 \usepackage{mathtools}
 \usepackage{natbib}
 \usepackage{bm}
@@ -253,34 +253,31 @@ Paths on constraint II are at a constant value of the classic $\con$ (green dash
 III (e.g., orange solid line in figure \ref{fig:parameter_space}a) 
 set constant a ratio which we call the ``Predictive Rossby number,'' 
 \begin{equation}
-\pro = \sqrt{\frac{\text{Ra}}{\text{Pr}\,\text{Ta}^{3/4}}} \ = \    
-\frac{1}{(2 \Omega)^{3/4}} \sqrt{\frac{g \, \Delta  S}{c_{p} \nu^{1/2}}}
+\pro = \sqrt{\frac{\text{Ra}}{\text{Pr}^{\edit1{1/2}}\,\text{Ta}^{3/4}}} \ = \    
+\frac{1}{(2 \Omega)^{3/4}} \sqrt{\frac{g \, \Delta  S}{c_{p} \edit1{\chi}^{1/2}}}
 \end{equation}
-To our knowledge, these paths have not been reported in the literature. 
-Paths along constant \con$\,$are sensitive to the depth of the domain, 
+\explain{Replaced Pr with Pr$^{1/2}$; this makes \pro$\,$ a function of $\chi$,
+rather than $\nu$, which better fits the boundary layer theory}
+\replaced{Paths along constant \con$\,$are sensitive to the depth of the domain, 
 but are blind to changes in diffusivities with increasing Ra and Ta. 
-On the other hand, paths with constant \pro$\,$ 
+On the other hand,}{Unlike paths through parameter space which hold \con$\,$ constant,}
+paths with constant \pro$\,$ 
 feel changes in diffusivities but not the depth of the domain.
-
-%The importance of the predictive Rossby number implies the importance of a 
-%dynamical length scale, 
-%\begin{equation}
-%L_{\text{p}} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/4}} \label{L-star}
-%\end{equation}
-%This differs noticeably from the anticipated onset length scale 
-%\begin{equation}
-%L_{\text{crit.}} \ \sim \ \frac{L_{z}}{\text{Ta}^{1/6}}.
-%\end{equation}
-%Length-scale corrections of the form of equation \ref{L-star} 
-%have been proposed in systems with no-slip boundary conditions and Ekman pumping effects. However, we see this scale in a system with stress-free boundaries and ostensibly no significant Ekman fluxes. 
+To our knowledge, these paths have not been reported in the literature
+\added{, although the importance of $\text{Ra}/\text{Ta}^{3/4} = \text{Ra Ek}^{3/2}$
+has been independently found by \cite{king&all2012} using a boundary layer
+analysis. We compare our results to their theory in Section \ref{sec:discussion}.} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% RESULTS SECTION
 \section{Results}
 \label{sec:results}
+\added{In our stratified domains, for $\text{Ta} \geq 10^5$, a linear instability
+analysis provides $\text{Ra}_{\text{crit}} = 1.459\text{Ta}^{2/3}$ 
+and $k_{\text{crit}} = 0.414\text{Ta}^{1/6}$.}
 In figure~\ref{fig:parameter_space}a, the value of Ra$_{\text{crit}}$
-is shown as a function of Ta, as
-calculated by a linear instability analysis. A sample path for
+is shown as a function of Ta.
+A sample path for
 each criterion in equation~\ref{eqn:paths} through
 this parameter space is shown.
 In figure \ref{fig:parameter_space}b, we display the evolution of Ro
@@ -424,6 +421,10 @@ antiparallel gravity and rotation, preliminary 3D spherical simulations suggest 
 
 
 \begin{acknowledgements}
+\added{We thank Jon Aurnou and the anonymous referee who independently directed
+us to the work of \citet{king&all2012} during the review process, which greatly
+helped us understand the results of the experiments here. We further thank
+the anonymous referee for other helpful and clarifying suggestions.}
 This work was supported by NASA Headquarters under the NASA Earth and Space
 Science Fellowship Program -- Grant 80NSSC18K1199.
 EHA further acknowledges the University of Colorado's George 
@@ -436,4 +437,6 @@ with allocation GID s1647.
 \end{acknowledgements}
 
 \bibliography{biblio.bib}
+
+\listofchanges
 \end{document}

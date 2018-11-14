@@ -53,6 +53,7 @@ ax1.plot(sigma[sig2, 3], sigma[sig2, 0], c=S_color, dashes=(3,0.5,0.5,0.5), lw=2
 
 new_c = np.genfromtxt('../data/constant_pro.csv', skip_header=1, delimiter=',', usecols=(0, 2,4,5,6)) #Ro_c^2, Ra, Ro, S, Ta
 print(np.sqrt(new_c[:,0]))
+c06 = np.round(np.sqrt(new_c[:,0]),3) == 0.6
 c957 = np.round(np.sqrt(new_c[:,0]),3) == 0.957
 c158 = np.round(np.sqrt(new_c[:,0]),3) == 1.58
 #ax1.plot(new_c[c957, 2], new_c[c957, 1])
@@ -81,7 +82,7 @@ ax2.plot(sigma[sig2, 0], sigma[sig2, 1], marker=S_marker, color=(*S_color, 0.3),
 ax2.plot(sigma[sig1_1, 0], sigma[sig1_1, 1], marker=S_marker, color=(*S_color, 0.3), lw=0, ms=2.5, markeredgecolor=(*S_color, 1), rasterized=True)
 ax2.plot(new_c[c158, 1], new_c[c158, 2], marker=Pro_marker, color=Pro_color, lw=0, ms=4.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', rasterized=True)
 ax2.plot(new_c[c957, 1], new_c[c957, 2], marker=Pro_marker, color=Pro_color, lw=0, ms=2.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', rasterized=True)
-#ax2.legend(loc='upper middle', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0)
+ax2.plot(new_c[c06, 1], new_c[c06, 2], marker=Pro_marker, color=Pro_color, lw=0, ms=1.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$', rasterized=True)
 
 lines, labels = [], []
 co1_ra = original_co[co1, 0][original_co[co1, 0] >= 1e3]
