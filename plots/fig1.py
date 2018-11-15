@@ -33,31 +33,37 @@ onset_data = np.genfromtxt('../data/eps1e-4_onsets.csv', skip_header=1, delimite
 ax1.plot(onset_data[:,0], onset_data[:,1], c='k', lw=0.5, rasterized=True)
 ax1.fill_between(onset_data[:,0], 0, onset_data[:,1], color='k', alpha=0.1, rasterized=True)
 
+runs_data = np.genfromtxt('../data/release_data.csv', skip_header=1, delimiter=',')
+Ra = runs_data[:,0]
+Ta = runs_data[:,1]
+S  = runs_data[:,6]
+Ro_p = runs_data[:,7]
+Ro_c = runs_data[:,8]
+Ro_m = runs_data[:,9]
+
+
+
 original_co = np.genfromtxt('../data/constant_co.csv', skip_header=1, delimiter=',', usecols=(2,4,6)) #ra, ro, ta -- need to double check if this is backwards ra/ta.
-co1 = original_co[:,0]/original_co[:,2] == 1
-co03 = np.round(np.sqrt(original_co[:,0]/original_co[:,2]), decimals=1) == 0.3
-co01 = np.round(np.sqrt(original_co[:,0]/original_co[:,2]), decimals=1) == 0.1
-x, y = original_co[co1, 2], original_co[co1, 0]
+co1 = Ro_c == 1
+co03 = Ro_c == 0.3
+co01 = Ro_c == 0.1
+this_ta = np.logspace(1,7,100)
+this_ra = this_ta
+ax1.plot(this_ta, this_ra, c=Co_color, lw=2, label='Co = 1', dashes=(3,1), rasterized=True)
+
+S3 = S == 3
+S2 = S == 2
+
+x, y = Ta[S3], Ra[S3]
 x, y = zip(*sorted(zip(x, y)))
-ax1.plot(x, y, c=Co_color, lw=2, label='Co = 1', dashes=(3,1), rasterized=True)
+ax1.plot(x, y, c=S_color, dashes=(3,0.5,0.5,0.5), lw=2, label=r'$\mathcal{S}=3$', rasterized=True)
 
-#sigma = np.genfromtxt('../data/coprime_data_sigma_runs.csv', skip_header=1, delimiter=',', usecols=(2,4,5,6)) #ra, ro, sigma, ta
-#sig2 = sigma[:,2] == 2
-#sig1_1 = sigma[:,2] == 1
-sigma = np.genfromtxt('../data/constant_supercriticality.csv', skip_header=1, delimiter=',', usecols=(2,4,5,6)) #ra, ro, supercrit, ta
-sig2 = sigma[:,2] == 3
-sig1_1 = sigma[:,2] == 2
-
-
-ax1.plot(sigma[sig2, 3], sigma[sig2, 0], c=S_color, dashes=(3,0.5,0.5,0.5), lw=2, label=r'$\mathcal{S}=3$', rasterized=True)
-
-new_c = np.genfromtxt('../data/constant_pro.csv', skip_header=1, delimiter=',', usecols=(0, 2,4,5,6)) #Ro_c^2, Ra, Ro, S, Ta
-print(np.sqrt(new_c[:,0]))
-c06 = np.round(np.sqrt(new_c[:,0]),3) == 0.6
-c957 = np.round(np.sqrt(new_c[:,0]),3) == 0.957
-c158 = np.round(np.sqrt(new_c[:,0]),3) == 1.58
-#ax1.plot(new_c[c957, 2], new_c[c957, 1])
-ax1.plot(new_c[c158, 4], new_c[c158, 1], c=Pro_color, lw=3, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', rasterized=True)
+Rop06  = Ro_p == 0.6
+Rop957 = Ro_p == 0.957
+Rop158 = Ro_p == 1.58
+this_ta = np.logspace(1,7)
+this_ra = 1.58**2*this_ta**(3/4)
+ax1.plot(this_ta, this_ra, c=Pro_color, lw=3, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', rasterized=True)
 
 
 ax1.set_xlim(1e1, 1e7)
@@ -75,116 +81,37 @@ ax1.set_xticks((1e1, 1e3, 1e5, 1e7))
 
 #PLOT 2
 
-ax2.plot(original_co[co1, 0], original_co[co1, 1], marker=Co_marker, color=(*Co_color, 0.3), lw=0, ms=4.5, markeredgecolor=(*Co_color, 1), rasterized=True)
-ax2.plot(original_co[co03, 0], original_co[co03, 1], marker=Co_marker, color=(*Co_color, 0.3), lw=0, ms=3.5, markeredgecolor=(*Co_color, 1), rasterized=True)
-ax2.plot(original_co[co01, 0], original_co[co01, 1], marker=Co_marker, color=(*Co_color, 0.3), lw=0, ms=2.5, markeredgecolor=(*Co_color, 1), rasterized=True)
-ax2.plot(sigma[sig2, 0], sigma[sig2, 1], marker=S_marker, color=(*S_color, 0.3), lw=0, ms=4.5, markeredgecolor=(*S_color, 1), rasterized=True)
-ax2.plot(sigma[sig1_1, 0], sigma[sig1_1, 1], marker=S_marker, color=(*S_color, 0.3), lw=0, ms=2.5, markeredgecolor=(*S_color, 1), rasterized=True)
-ax2.plot(new_c[c158, 1], new_c[c158, 2], marker=Pro_marker, color=Pro_color, lw=0, ms=4.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', rasterized=True)
-ax2.plot(new_c[c957, 1], new_c[c957, 2], marker=Pro_marker, color=Pro_color, lw=0, ms=2.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', rasterized=True)
-ax2.plot(new_c[c06, 1], new_c[c06, 2], marker=Pro_marker, color=Pro_color, lw=0, ms=1.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$', rasterized=True)
+ax2.plot(Ra[co1],    Ro_m[co1], marker=Co_marker, color=(*Co_color, 0.3), lw=0, ms=4.5, markeredgecolor=(*Co_color, 1), rasterized=True)
+ax2.plot(Ra[co03],   Ro_m[co03], marker=Co_marker, color=(*Co_color, 0.3), lw=0, ms=3.5, markeredgecolor=(*Co_color, 1), rasterized=True)
+ax2.plot(Ra[co01],   Ro_m[co01], marker=Co_marker, color=(*Co_color, 0.3), lw=0, ms=2.5, markeredgecolor=(*Co_color, 1), rasterized=True)
+ax2.plot(Ra[S3],     Ro_m[S3], marker=S_marker, color=(*S_color, 0.3), lw=0, ms=4.5, markeredgecolor=(*S_color, 1), rasterized=True)
+ax2.plot(Ra[S2],     Ro_m[S2], marker=S_marker, color=(*S_color, 0.3), lw=0, ms=2.5, markeredgecolor=(*S_color, 1), rasterized=True)
+ax2.plot(Ra[Rop158], Ro_m[Rop158], marker=Pro_marker, color=Pro_color, lw=0, ms=4.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', rasterized=True)
+ax2.plot(Ra[Rop957], Ro_m[Rop957], marker=Pro_marker, color=Pro_color, lw=0, ms=2.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', rasterized=True)
+ax2.plot(Ra[Rop06],  Ro_m[Rop06], marker=Pro_marker, color=Pro_color, lw=0, ms=1.5, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$', rasterized=True)
 
 lines, labels = [], []
-co1_ra = original_co[co1, 0][original_co[co1, 0] >= 1e3]
-co1_ro = original_co[co1, 1][original_co[co1, 0] >= 1e3]
-
-#from matplotlib.legend import Legend
-#leg = Legend(ax2, lines, labels, frameon=False, fontsize=8, loc='lower left', borderpad=0.1, handletextpad=0.1, handlelength=1.5)
-#ax2.add_artist(leg)
+co1_ra = Ra[co1][Ra[co1] >= 1e3]
+co1_ro = Ro_m[co1][Ra[co1] >= 1e3]
 
 
 ax2.set_yscale('log')
 ax2.set_xscale('log')
 ax2.set_xlabel('Ra')
 ax2.set_ylabel('Ro', labelpad=0)
-ax2.set_xticks((1e1, 1e3, 1e5, 1e7))
-ax2.text(3e1, 5e-2, "(b)", ha="center", va="center", size=8)
-ax2.text(3e6, 6.5e-2, "2", ha="center", va="center", size=8, color=S_color)
-ax2.text(1.35e7, 1e-1, "3", ha="center", va="center", size=8, color=S_color)
-ax2.text(5e2, 5.5e-2, "0.96", ha="center", va="center", size=8, color=Pro_color)
+ax2.set_ylim(1e-2, 6)
+ax2.set_xticks((1e1, 1e3, 1e5, 1e7, 1e9))
+ax2.text(3e1, 1.2e-2, "(b)", ha="center", va="center", size=8)
+ax2.text(7e6, 5.2e-2, "2", ha="center", va="center", size=8, color=S_color)
+ax2.text(4e7, 7.8e-2, "3", ha="center", va="center", size=8, color=S_color)
+ax2.text(1.5e5, 1.15e-2, "0.6", ha="center", va="center", size=8, color=Pro_color)
+ax2.text(8e2, 6e-2, "0.96", ha="center", va="center", size=8, color=Pro_color)
 ax2.text(7e1, 2.2e-1, "1.58", ha="center", va="center", size=8, color=Pro_color)
-ax2.text(9e6, 3.4e0, "1.0", ha="center", va="center", size=8, color=Co_color)
-ax2.text(4e6, 8e-1, "0.3", ha="center", va="center", size=8, color=Co_color)
-ax2.text(8e6, 2.6e-1, "0.1", ha="center", va="center", size=8, color=Co_color)
+ax2.text(2e7, 3.4e0, "1.0", ha="center", va="center", size=8, color=Co_color)
+ax2.text(8e6, 8e-1, "0.3", ha="center", va="center", size=8, color=Co_color)
+ax2.text(1.6e7, 2.6e-1, "0.1", ha="center", va="center", size=8, color=Co_color)
 
 
-
-# PLOT 3
-#print(sigma[sig2,3], sigma[sig2,0]/sigma[sig2,3]**(3/4))
-#c_sig = np.sqrt(sigma[sig2, 0]/sigma[sig2, 3]**(3/4))
-#c_sig_1 = np.sqrt(sigma[sig1_1, 0]/sigma[sig1_1, 3]**(3/4))
-#ax3.plot(c_sig, sigma[sig2, 1], marker='o', lw=0, c=(*S_color, 0.3), ms=4.5, label='$\mathcal{S} = 3$', markeredgecolor=(*S_color, 1))
-#ax3.plot(c_sig_1, sigma[sig1_1, 1], marker='o', lw=0, c=(*S_color, 0.3), ms=2.5, label='$\mathcal{S} = 2$', markeredgecolor=(*S_color, 1))
-#
-#cutoff = 0.3
-#pros = np.concatenate((c_sig[sigma[sig2,1] < cutoff], c_sig_1[sigma[sig1_1,1] < cutoff]))
-#ros  = np.concatenate((sigma[sig2, 1][sigma[sig2,1] < cutoff], sigma[sig1_1, 1][sigma[sig1_1,1] < cutoff]))
-#print(pros.shape, ros.shape)
-#p  = np.polyfit(np.log10(pros), np.log10(ros), deg=1)
-#
-#label_str = 'Ro' + r'$ \propto $'
-#str2 = '$\mathrm{Ro}_{\mathrm{p}}^{' + '{:.2f}'.format(p[0]) + '}$'
-#print('{:.4g}p^({:.4g})'.format(10**p[1], p[0]))
-#line = ax3.plot(pros, 10**(p[1])*pros**(p[0]), color=(*S_color, 1))
-#label = [r'{:s}'.format(str2),]
-#
-#pros = np.concatenate((c_sig[sigma[sig2,1] >= cutoff], c_sig_1[sigma[sig1_1,1] >= cutoff]))
-#ros  = np.concatenate((sigma[sig2, 1][sigma[sig2,1] >= cutoff], sigma[sig1_1, 1][sigma[sig1_1,1] >= cutoff]))
-#pros, ros = zip(*sorted(zip(pros, ros)))
-#p2  = np.polyfit(np.log10(pros), np.log10(ros), deg=1)
-#
-#label_str = 'Ro' + r'$ \propto $'
-#str2 = '$\mathrm{Ro}_{\mathrm{p}}^{' + '{:.2f}'.format(p2[0]) + '}$'
-#print('{:.4g}p^({:.4g})'.format(10**p2[1], p2[0]))
-#line += ax3.plot(pros, 10**(p2[1])*pros**(p2[0]), color=(*S_color, 1), dashes=(3,1,0.5,1))
-#label += [r'{:s}'.format(str2)]
-#
-#
-#
-#ax3.set_yscale('log')
-#ax3.set_xscale('log')
-#ax3.set_xlabel(r'$\mathrm{Ro}_{\mathrm{p}}$')
-#ax3.set_ylabel('Ro')
-#ax3.set_ylim(4e-2, 6e0)
-#ax3.legend(loc='lower right', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0)
-#
-#from matplotlib.legend import Legend
-#leg = Legend(ax3, line, label, frameon=False, fontsize=8, loc='upper center', borderpad=0.1, handletextpad=0.1, handlelength=1.5)
-#ax3.add_artist(leg)
-#
-#
-#
-#ax3.set_xticks((1,3,10))
-#ax3.get_xaxis().set_major_formatter(matplotlib.ticker.FormatStrFormatter('%.1f'))
-#ax3.tick_params(axis='x', which='minor', labelsize=0)
-#ax3.text(7.5e-1, 4.5e0, "(c)", ha="center", va="center", size=8)
-
-#READ DATA
-const_s = np.genfromtxt('../data/constant_supercriticality.csv', skip_header=1, delimiter=',') 
-supercrit = (const_s[:,5] < 3.5)*(const_s[:,5] >= 1.5)
-ta_s = np.log10(const_s[supercrit,6])
-ro_c_s = np.log10(np.sqrt(const_s[supercrit,2] / const_s[supercrit,6])) #ra/ta
-ro_m_s = np.log10(const_s[supercrit,4])
-ro_p_s = np.log10(np.sqrt(const_s[supercrit, 0]))
-
-const_co = np.genfromtxt('../data/constant_co.csv', skip_header=1, delimiter=',') 
-ta_co = np.log10(const_co[:,6])
-ro_c_co = np.log10(np.sqrt(const_co[:,2] / const_co[:,6])) #ra/ta
-ro_m_co = np.log10(const_co[:,4])
-ro_p_co = np.log10(np.sqrt(const_co[:, 0]))
-
-const_rop = np.genfromtxt('../data/constant_pro.csv', skip_header=1, delimiter=',')
-ta_rop = np.log10(const_rop[:,6])
-ro_c_rop = np.log10(np.sqrt(const_rop[:,2] / const_rop[:,6])) #ra/ta
-ro_m_rop = np.log10(const_rop[:,4])
-ro_p_rop = np.log10(np.sqrt(const_rop[:, 0]))
-
-print(ro_p_rop)
-
-ta_full = np.concatenate((ta_s, ta_co, ta_rop))
-ro_c_full = np.concatenate((ro_c_s, ro_c_co, ro_c_rop))
-ro_m_full = np.concatenate((ro_m_s, ro_m_co, ro_m_rop))
-ro_p_full = np.concatenate((ro_p_s, ro_p_co, ro_p_rop))
 
 
 def ro_m_calc(params, ro_c, ro_p):
@@ -222,28 +149,28 @@ def run_analysis(ro_c, ro_m, ro_p):
     ro_m_interp = griddata((ro_c, ro_p), ro_m, (np.copy(ro_cc), np.copy(ro_pp)), method='linear')
     ro_m_func = fit[0] + ro_cc*(fit[1]) + ro_pp*(fit[2])
 
+    print(ro_b_pp.min(), ro_b_pp.max(), ro_p.min(), ro_p.max())
+
     return ro_cc, ro_pp, ro_m_interp, ro_m_func, fit_str, fit, ro_b_cc, ro_b_pp
 
 #full data set
-ro_c, ro_m, ro_p = ro_c_full, ro_m_full, ro_p_full
-ro_cc, ro_pp, ro_m_interp, ro_m_func, fit_str, fit, ro_b_cc, ro_b_pp = run_analysis(ro_c, ro_m, ro_p)
+ro_cc, ro_pp, ro_m_interp, ro_m_func, fit_str, fit, ro_b_cc, ro_b_pp = run_analysis(np.log10(Ro_c), np.log10(Ro_m), np.log10(Ro_p))
 
 
 ### Plot 1
-print(ro_m.min(), ro_m.max())
-plot = ax3.pcolormesh(ro_b_cc, ro_b_pp, ro_m_interp, cmap='viridis', vmin=ro_m.min(), vmax=ro_m.max(), snap=True, rasterized=True)
+plot = ax3.pcolormesh(ro_b_cc, ro_b_pp, ro_m_interp, cmap='viridis', vmin=np.log10(Ro_m).min(), vmax=np.log10(Ro_m).max(), snap=True, rasterized=True)
 plot.set_edgecolor('face')
-norm = matplotlib.colors.Normalize(vmin=np.min(ro_m), vmax=np.max(ro_m))
+norm = matplotlib.colors.Normalize(vmin=np.min(np.log10(Ro_m)), vmax=np.max(np.log10(Ro_m)))
 sm = plt.cm.ScalarMappable(cmap='viridis', norm=norm)
 sm.set_array([])
-for i in range(len(ro_m)):
-    if ro_c[i] in ro_c_rop and ro_p[i] in ro_p_rop:
-        marker = Pro_marker
-    elif ro_c[i] in ro_c_s and ro_p[i] in ro_p_s:
+for i in range(len(Ro_m)):
+    if S2[i] or S3[i]:
         marker = S_marker
-    elif ro_c[i] in ro_c_co and ro_p[i] in ro_p_co:
+    elif co1[i] or co03[i] or co01[i]:
         marker = Co_marker
-    ax3.plot(10**(ro_c[i]), 10**(ro_p[i]), markerfacecolor=sm.to_rgba(ro_m[i]), markeredgecolor='black', markersize=3, lw=0, marker=marker, markeredgewidth=0.5, rasterized=True)
+    elif Rop06[i] or Rop957[i] or Rop158[i]:
+        marker = Pro_marker
+    ax3.plot(Ro_c[i], Ro_p[i], markerfacecolor=sm.to_rgba(np.log10(Ro_m[i])), markeredgecolor='black', markersize=3, lw=0, marker=marker, markeredgewidth=0.5, rasterized=True)
 
 
 ax3.set_yscale('log')
@@ -252,10 +179,10 @@ ax3.set_xticks((1e-2, 1e-1, 1, 1e1))
 ax3.set_xlabel(r'Ro$_\mathrm{c}$')
 ax3.set_ylabel(r'Ro$_\mathrm{p}$')
 
-cb = plt.colorbar(plot, cax=cax, orientation='vertical', ticks=[-1, -0.5, 0, 0.5])
+cb = plt.colorbar(plot, cax=cax, orientation='vertical', ticks=[-2, -1.5, -1, -0.5, 0, 0.5])
 cb.solids.set_rasterized(True)
 cax.annotate('Ro', xy=(.25,1.01), annotation_clip=False)
-cax.set_yticklabels((r'$10^{-1}$', r'$10^{-0.5}$', r'$10^0$', r'$10^{0.5}$'))
+cax.set_yticklabels((r'$10^{-2}$', r'$10^{-1.5}$', r'$10^{-1}$', r'$10^{-0.5}$', r'$10^0$', r'$10^{0.5}$'))
 cax.set_xticklabels([])
 
 onset_ta = onset_data[:,0]
@@ -271,7 +198,7 @@ onset_rop = np.sqrt(onset_ra/onset_ta**(0.75))
 ax3.plot(onset_roc, onset_rop, c='k', lw=0.5)
 ax3.fill_between(onset_roc, 0, onset_rop, color='k', alpha=0.1, rasterized=True)
 
-ax3.set_ylim(np.min(ro_b_pp), np.max(ro_b_pp))
+ax3.set_ylim(0.5, 10)#np.min(ro_b_pp), np.max(ro_b_pp))
 ax3.set_xlim(np.min(ro_b_cc), np.max(ro_b_cc))
 ax3.text(4e0, 1e0, "stable", ha="center", va="center", rotation=0, size=10, alpha=0.7)
 

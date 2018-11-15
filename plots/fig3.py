@@ -3,6 +3,7 @@ import matplotlib
 #matplotlib settings
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+from matplotlib.legend import Legend
 matplotlib.rcParams['font.family'] = 'serif'
 
 
@@ -15,29 +16,60 @@ ax2 = plt.subplot(gs.new_subplotspec(*gs_info[1]))
 
 
 #READ DATA, PLOT 1
-new_c = np.genfromtxt('../data/constant_pro.csv', skip_header=1, delimiter=',') 
-#co, ra, ta, nu, re, ro
-c957 = np.round(np.sqrt(new_c[:,0]),3) == 0.957
-c158 = np.round(np.sqrt(new_c[:,0]),3) == 1.58
-start_pt = 4
-ra957 = new_c[c957,2][start_pt:]
-nu957 = new_c[c957,1][start_pt:]
-ra957_full = new_c[c957,2]
-nu957_full = new_c[c957,1]
-ra158 = new_c[c158,2][start_pt:]
-nu158 = new_c[c158,1][start_pt:]
-ra158_full = new_c[c158,2]
-nu158_full = new_c[c158,1]
+runs_data = np.genfromtxt('../data/release_data.csv', skip_header=1, delimiter=',')
+Ra = runs_data[:,0]
+Ta = runs_data[:,1]
+S  = runs_data[:,6]
+Ro_p = runs_data[:,7]
+Ro_c = runs_data[:,8]
+Ro_m = runs_data[:,9]
+Re_para = runs_data[:,10]
+Re_perp = runs_data[:,11]
+Nu   = runs_data[:,12]
+
+Rop06  = Ro_p == 0.6
+Rop957 = Ro_p == 0.957
+Rop158 = Ro_p == 1.58
+
+start_pt = 3
+ra957_full = Ra[Rop957]/234.8
+nu957_full = Nu[Rop957]
+ra158_full = Ra[Rop158]/11
+nu158_full = Nu[Rop158]
+ra06_full = Ra[Rop06]/7.924e4
+nu06_full = Nu[Rop06]
+ra957      = ra957_full[start_pt:]
+nu957      = nu957_full[start_pt:]
+ra158      = ra158_full[start_pt:]
+nu158      = nu158_full[start_pt:]
+ra06       = ra06_full[start_pt:]
+nu06       = nu06_full[start_pt:]
+
+lines, labels = [], []
+ra = np.logspace(0.5, 9, 100)
+str2 = 'Ra$^{1/3}$'# + '{:.2f}'.format(1/3) + '}$'
+lines += ax1.plot(ra, 1.1*ra**(1/3), label=r'{:s}'.format(str2), color='k', lw=0.5)
+labels += [r'{:s}'.format(str2)]
+#str2 = 'Ra$^{2/7}$'# + '{:.2f}'.format(2/7) + '}$'
+#ra = np.logspace(0.5, 9, 100)
+#lines += ax1.plot(ra, 1.5*ra**(2/7), label=r'{:s}'.format(str2), color='k', lw=0.5, dashes=(5,1))
+#labels += [r'{:s}'.format(str2)]
+
+leg = Legend(ax1, lines[-2:], labels[-2:],
+             loc='upper left', frameon=False, fontsize=8)
+ax1.add_artist(leg)
 
 
 
 
 lines, labels = [], []
-lines += ax1.plot(ra957_full, nu957_full, c='orange', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax1.plot(ra158_full, nu158_full, c='blue', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
+lines += ax1.plot(ra06_full, nu06_full, c='green', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.6$')
+lines += ax1.plot(ra957_full, nu957_full, c='orange', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
+lines += ax1.plot(ra158_full, nu158_full, c='blue', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
 
 #labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
 #labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
+labels += [r'Ro$\approx$0.03']
 labels += [r'Ro$\approx$0.1']
 labels += [r'Ro$\approx$0.4']
 
@@ -45,70 +77,135 @@ for xlabel_i in ax1.get_xticklabels():
     xlabel_i.set_visible(False)
     xlabel_i.set_fontsize(0.0)
 
-
-p = np.polyfit(np.log10(ra158), np.log10(nu158), deg=1)
+print('Nu fit, rop_0.6')
+p = np.polyfit(np.log10(ra06), np.log10(nu06), deg=1)
 str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+print('nu', str2)
 labels += [r'{:s}'.format(str2)]
-lines += ax1.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), color='blue', alpha=0.4)
+lines += ax1.plot(ra06_full, 10**(p[1])*ra06_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='green', alpha=0.4)
+
+
+
+print('Nu fit, rop_0.957')
 p = np.polyfit(np.log10(ra957), np.log10(nu957), deg=1)
 str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+print('nu', str2)
 labels += [r'{:s}'.format(str2)]
-lines += ax1.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), color='orange', alpha=0.4)
+lines += ax1.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='orange', alpha=0.4)
 
-ax1.legend(lines[:2], labels[:2], loc='upper left', frameon=False, fontsize=8, handletextpad=0)
-from matplotlib.legend import Legend
-leg = Legend(ax1, lines[2:], labels[2:],
-             loc='lower right', frameon=False, fontsize=8)
+print('Nu fit, rop_1.58')
+p = np.polyfit(np.log10(ra158), np.log10(nu158), deg=1)
+str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+print('nu', str2)
+labels += [r'{:s}'.format(str2)]
+lines += ax1.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='blue', alpha=0.4)
+print('\n\n')
+
+
+ax1.legend(lines[:3], labels[:3], loc='lower right', frameon=False, fontsize=8, handletextpad=0)
+#leg = Legend(ax1, lines[2:], labels[2:],
+#             loc='lower right', frameon=False, fontsize=8)
 ax1.add_artist(leg)
 ax1.set_xscale('log')
 ax1.set_yscale('log')
 ax1.set_ylabel('Nu')
-ax1.text(2.5e1, 2.5e1, "(a)", ha="center", va="center", size=8)
+ax1.text(3e-2, 2.5e1, "(a)", ha="center", va="center", size=8)
+ax1.set_yticks([1e1, 1e2])
 
 
 lines, labels = [], []
 #PLOT 2
-start_pt = 4
-ra957 = new_c[c957,2][start_pt:]
-re957 = new_c[c957,3][start_pt:]
-ra957_full = new_c[c957,2]
-re957_full = new_c[c957,3]
-ra158 = new_c[c158,2][start_pt:]
-re158 = new_c[c158,3][start_pt:]
-ra158_full = new_c[c158,2]
-re158_full = new_c[c158,3]
+re06_full = Re_para[Rop06]
+re_perp06_full = Re_perp[Rop06]
+re957_full = Re_para[Rop957]
+re_perp957_full = Re_perp[Rop957]
+re158_full = Re_para[Rop158]
+re_perp158_full = Re_perp[Rop158]
+re06 = re06_full[start_pt:]
+re_perp06 = re_perp06_full[start_pt:]
+re957 = re957_full[start_pt:]
+re_perp957 = re_perp957_full[start_pt:]
+re158 = re158_full[start_pt:]
+re_perp158 = re_perp158_full[start_pt:]
 
-lines += ax2.plot(new_c[c957, 2], new_c[c957, 3], c='orange', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax2.plot(new_c[c158, 2], new_c[c158, 3], c='blue', lw=0, marker='o', ms=4, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
 
-#labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
-#labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
-labels += [r'Ro$\sim$0.1']
-labels += [r'Ro$\sim$0.4']
-
-p = np.polyfit(np.log10(ra158), np.log10(re158), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+ra = np.logspace(0.5, 9, 100)
+str2 = 'Ra$^{1/2}$'# + '{:.2f}'.format(0.5) + '}$'
+lines += ax2.plot(ra, 6*ra**(1/2), label=r'{:s}'.format(str2), color='k', lw=0.5)
 labels += [r'{:s}'.format(str2)]
-lines += ax2.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), color='blue', alpha=0.4)
+str2 = 'Ra$^{5/18}$'# + '{:.2f}'.format(5/18) + '}$'
+ra = np.logspace(0.5, 9, 100)
+lines += ax2.plot(ra, 1.8*ra**(5/18), label=r'{:s}'.format(str2), color='k', lw=0.5, dashes=(5,1))
+labels += [r'{:s}'.format(str2)]
+
+leg = Legend(ax2, lines[-2:], labels[-2:],
+             loc='upper left', frameon=False, fontsize=8)
+ax2.add_artist(leg)
+
+
+
+
+lines += ax2.plot(ra06_full, re06_full, c='green', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
+lines += ax2.plot(ra06_full, re_perp06_full, c='green', lw=0, marker='s', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
+lines += ax2.plot(ra957_full, re957_full, c='orange', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
+lines += ax2.plot(ra957_full, re_perp957_full, c='orange', lw=0, marker='s', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
+lines += ax2.plot(ra158_full, re158_full, c='blue', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
+lines += ax2.plot(ra158_full, re_perp158_full, c='blue', lw=0, marker='s', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
+
+
+leg = Legend(ax2, lines[-2:], (r'$\mathrm{Re}_{\parallel}$', r'$\mathrm{Re}_{\perp}$'),
+             loc='lower right', frameon=False, fontsize=8, borderpad=0.05, borderaxespad=0.05, handletextpad=0)
+ax2.add_artist(leg)
+
+print('Re fits, rop_0.6')
+p = np.polyfit(np.log10(ra06), np.log10(re06), deg=1)
+str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+print('para', str2)
+lines += ax2.plot(ra06_full, 10**(p[1])*ra06_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='green', alpha=0.4)
+p = np.polyfit(np.log10(ra06), np.log10(re_perp06), deg=1)
+str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+print('perp', str2)
+lines += ax2.plot(ra06_full, 10**(p[1])*ra06_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='green', alpha=0.4)
+
+print('Re fits, rop_0.957')
 p = np.polyfit(np.log10(ra957), np.log10(re957), deg=1)
 str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
-labels += [r'{:s}'.format(str2)]
-lines += ax2.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), color='orange', alpha=0.4)
+print('para', str2)
+lines += ax2.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='orange', alpha=0.4)
+p = np.polyfit(np.log10(ra957), np.log10(re_perp957), deg=1)
+str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+print('perp', str2)
+lines += ax2.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='orange', alpha=0.4, dashes=(5,1))
+
+print('Re fits, rop_1.58')
+p = np.polyfit(np.log10(ra158), np.log10(re158), deg=1)
+str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+print('para', str2)
+lines += ax2.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='blue', alpha=0.4)
+p = np.polyfit(np.log10(ra158), np.log10(re_perp158), deg=1)
+str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+print('perp', str2)
+lines += ax2.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='blue', alpha=0.4, dashes=(5,1))
+
 
 #ax2.legend(lines[:2], labels[:2], loc='upper left', frameon=False, fontsize=8, handletextpad=0)
 from matplotlib.legend import Legend
-leg = Legend(ax2, lines[2:], labels[2:],
-             loc='lower right', frameon=False, fontsize=8)
-ax2.add_artist(leg)
 
 
 
 ax2.set_xscale('log')
 ax2.set_yscale('log')
-ax2.set_xlabel('Ra')
+ax2.set_xlabel(r'Ra/Ra$_{\mathrm{crit}}$')
 ax2.set_ylabel('Re')
-ax2.text(2.5e1, 4e2, "(b)", ha="center", va="center", size=8)
+ax2.text(3e-2, 2e3, "(b)", ha="center", va="center", size=8)
+ax2.set_yticks([1e1, 1e2, 1e3])
 
+
+
+ax1.set_ylim(1, 1e2)
+ax2.set_ylim(1, 1e4)
+ax1.set_xlim(1, 1e7)
+ax2.set_xlim(1, 1e7)
 
 #PLOT 2
 

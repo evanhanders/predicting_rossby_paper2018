@@ -88,9 +88,9 @@ Many studies on the fundamental nature of
 rotating convection in both laboratory and numerical settings
 have provided great insight into the properties of convection 
 in both the rapidly rotating regime 
-\citep{julien&all2012, stellmach&all2014, gastine&all2016}
-and the transition to the rotationally unconstrained regime \citep{king&all2009, zhong&all2009, 
-cheng&all2015}. 
+and the transition to the rotationally unconstrained regime 
+\citep{king&all2009, zhong&all2009, schmitz&tilgner2009, king&all2012, julien&all2012, king&all2013, ecke&niemela2014, stellmach&all2014, cheng&all2015, gastine&all2016}
+\explain{re-arranged and added relevant references}
 The scaling behavior of heat transport, the nature of convective flow
 structures, and the importance of boundary layer-bulk interactions in driving dynamics are well known.
 Yet, we do not know of any simple procedure for predicting the magnitude of vortical flow gradients 
@@ -118,7 +118,11 @@ have over-emphasized the importance of magnetism compared to rotation.
 
 In short, simulations must achieve the proper rotational balance if they are to explain 
 the behavior of astrophysical objects. 
-The degree of rotational influence is best assessed by the ratio between 
+\added{In Boussinesq studies, rotational constraint is often measured by comparing
+dynamical and thermal boundary layers or deviation in heat transport from the non-rotating
+state \citep{king&all2012, julien&all2012, king&all2013}. 
+Such measurements are not available for astrophysical objects, where}
+the degree of rotational influence is best assessed by the ratio between 
 nonlinear advection magnitude and the linear Coriolis accelerations. 
 The \textit{Rossby number} is the standard measure of this ratio, 
 \begin{equation}
@@ -187,7 +191,8 @@ a common proxy (based on input parameters) for the degree of rotational constrai
 = \  \frac{1}{2 \Omega } \sqrt{\frac{g \, \Delta  S}{c_{p} L_{z}}}.
 \end{equation}
 This parameter measures the importance of buoyancy relative to rotation without 
-involving dissipation. We show that true Rossby number defined in equation \ref{eqn:rossby-def} 
+involving dissipation. \replaced{We show}{In section \ref{sec:experiment}, we empirically
+demonstrate} that \added{the} true Rossby number defined in equation \ref{eqn:rossby-def} 
 depends nonlinearly on $\con$.  
 
 
@@ -242,7 +247,7 @@ We will explore three paths through Ra-Ta space:
     \begin{cases}
     \mathcal{S}\,\text{Ra}_\text{crit}(\text{Ta}), & (\text{I})\\
     (\con)^2 \, \text{Pr}\, \text{Ta}, & (\text{II}) \\
-    (\pro)^2\, \text{Pr}\, \text{Ta}^{3/4} & (\text{III}).
+    (\pro)^2\, \text{Pr}\edit1{^{1/2}}\, \text{Ta}^{3/4} & (\text{III}).
     \end{cases}
     \label{eqn:paths}
 \end{equation}
@@ -294,6 +299,7 @@ $\pro\,$than $\con$, and the
 evolved Ro can be approximately determined through specification of \pro$\,$alone.
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% DYNAMICS FIGURE
 \begin{figure*}[t]
@@ -314,12 +320,28 @@ evolved Ro can be approximately determined through specification of \pro$\,$alon
 %% NU AND RE FIGURE
 \begin{figure}[t!]
     \includegraphics{nu_and_re.pdf}
-    \caption{Scaling laws for paths at $\pro = 1.58$ ($\text{Ro} \approx 0.4$) and
+    \caption{
+	\replaced{
+    Scaling laws for paths at $\pro = 1.58$ ($\text{Ro} \approx 0.4$) and
     $\pro = 0.96$ ($\text{Ro} \approx 0.1$) are shown. 
     (a) Evolved Nu vs. Ra. The scaling laws here are very reminiscent of classic \RB convection
     theory \citep{ahlers&all2009}.
     (b) Evolved Re vs. Ra.
     The scaling seen here is nearly identical to scalings in nonrotating convection (\AB).
+}{
+	Scaling laws for paths at $\pro = 1.58$ ($\text{Ro} \approx 0.4$),
+    $\pro = 0.96$ ($\text{Ro} \approx 0.1$), and $\pro = 0.6$ ($\text{Ro} \approx 0.3$) are shown. 
+    Numbers are plotted vs. Ra/Ra$_{\text{crit}}$, where Ra$_{\text{crit}}$ is the value at which
+	a given $\pro$ path crosses the supercriticality curve (e.g., where the solid orange line 
+	crosses the black line in Fig.~\ref{fig:parameter_space}a).
+	(a) The evolved scaling law of Nu approaches $\text{Ra}^{1/3}$, as expected from
+	boundary layer theory \citep{king&all2012}.
+    (b) $\text{Re}_\parallel$ and $\text{Re}_{\perp}$, as defined in equation \ref{eqn:re_defn},
+	are shown. All values of $\pro$ trace out similar $\text{Re}_{\perp}$ tracks which scale
+	roughly as $\text{Ra}^{5/18}$, as expected. $\text{Re}_\parallel$ tracks experience a constant
+	offset for each different value of \pro, but otherwise scale roughly as $\text{Ra}^{1/2}$,
+	as anticipated.
+	}
     \label{fig:nu_and_re} }
 \end{figure}
 
@@ -337,6 +359,11 @@ evolved Ro can be approximately determined through specification of \pro$\,$alon
     thermal ($\partial_z s$) boundary layers is shown for both values of \pro$\,$at each value of Ra.
     This ratio, and thus the relative importance of both thermal and rotational dynamics,
 	remains roughly constant across orders of magnitude of Ra.
+	\added{(f) We plot the size of the entropy boundary layer divided by the size of the density
+	scale height at the top of the atmosphere. Vertical lines denote when these two length
+	scales become equal, and we find that the size of the boundary layer compared to an important
+	dynamical length scale does not predict any measurable change in system behavior.
+	}
     \label{fig:profiles_and_bls} }
 \end{figure*}
 
@@ -350,19 +377,47 @@ columns of convection, as seen in rapidly rotating \RB convection \citep{stellma
 The select cases displayed in figure~\ref{fig:pretty_convection} each have an evolved volume-averaged
 $\text{Re} \approx 200$.
 
+
+
 We measure the Nusselt number (Nu), which quantifies heat transport in a convective
 solution, as defined in \AB.
 In figure~\ref{fig:nu_and_re}a, we show how Nu scales as a function
-of Ra at fixed \pro. When $\text{Ro} \approx 0.1$,
+of Ra at fixed \pro. \replaced{When $\text{Ro} \approx 0.1$,
 we find a scaling of $\text{Nu} \propto \text{Ra}^{0.27}$. This is reminiscent of
 classic scaling laws (e.g., Ra$^{2/7}$) in non-rotating \RB convection \citep{ahlers&all2009}.
 This suggests that changes in heat transport at constant \pro$\,$are driven by
-changes in the thermal boundary layer structure with increasing Ra.
-In figure \ref{fig:nu_and_re}b, we plot the RMS Reynold's
-number (Re $= |u| L_z / \nu$) as a function of Ra at fixed \pro, and find that 
+changes in the thermal boundary layer structure with increasing Ra.}
+{We find that $\text{Nu} \propto \{\text{Ra}^{0.35}, \text{Ra}^{0.30}, \text{Ra}^{0.25}\}$
+for $\pro = \{0.6, 0.957, 1.58\}$. As \pro, and thus Ro, become smaller, the scaling of Nu
+becomes closer to a $\text{Ra}^{1/3}$ scaling, which is predicted along paths of constant
+\pro$\,$\citep[see][and section \ref{sec:discussion}]{king&all2012}.}
+
+\added{In rotating convection, the nature of flows is distinctly different parallel
+to the rotation vector from perpendicular to the rotation vector. As a result, we
+use two forms of the RMS Reynolds number which capture different length scales,
+\begin{equation}
+\text{Re}_{\parallel} = \frac{|u| L_z}{\nu}, \qquad
+\text{Re}_{\perp}     = \frac{|u|}{\nu}\frac{2\pi}{k_{\text{crit}}}.
+\label{eqn:re_defn}
+\end{equation}
+From our work in \AB, we expect the RMS velocity to scale as $|u| \propto \sqrt{\Delta S}$.
+By definition, $\nu \propto \sqrt{\text{Ra}/(\text{Pr }\Delta S)}$, and $L_z$ is a constant
+set by the stratification while $k_{\text{crit}} \propto \text{Ta}^{1/6}$. Along paths of
+constant \pro, we thus expect $\text{Re}_{\parallel} \propto \text{Ra}^{1/2}$ and
+$\text{Re}_{\perp} \propto \text{Ra}^{5/18}$ when $\text{Pr}$ is held constant.}
+In figure \ref{fig:nu_and_re}b, we plot \replaced{the RMS Reynold's
+number (Re $= |u| L_z / \nu$)}{$\text{Re}_{\parallel}$ and $\text{Re}_{\perp}$}
+as a function of Ra at fixed \pro. \replaced{, and find that 
 $\text{Re} \propto \text{Ra}^{0.47}$ in the rotationally constrained regime,
 which is almost precisely the $\text{Re} \propto \text{Ra}^{1/2}$ scaling measured
-in the non-rotating regime in \AB.
+in the non-rotating regime in \AB.}
+{We find that $\text{Re}_\parallel \propto \{\text{Ra}^{0.49}, \text{Ra}^{0.47}, \text{Ra}^{0.44}\}$
+and $\text{Re}_\perp \propto \{\text{Ra}^{0.26}, \text{Ra}^{0.25}, \text{Ra}^{0.22}\}$ for
+$\pro = \{0.6, 0.957, 1.58\}$. Furthermore, $\text{Re}_{\perp}$ falls along the same track
+for all values of $\pro\,$ studied here, while $\text{Re}_{\parallel}$ experiences an offset
+to larger values as $\pro$ shrinks. In general, we find that $\text{Re}_{\perp}$ is a good
+proxy for the horizontal resolution required to run an experiment, while $\text{Re}_{\parallel}$
+probes the vertical resolution required.}
 
 Figure \ref{fig:profiles_and_bls} shows time- and horizontally-averaged profiles of
 Ro and the z-component of the specific entropy gradient, $\partial_z s$.
@@ -396,10 +451,29 @@ In this letter, we studied low-Mach-number, stratified, compressible convection
 under the influence of rotation.
 We examined three paths through Ra-Ta space, and showed that in the rotationally
 constrained regime at low-Ro, the newly-defined 
-Predictive Rossby number, $\pro = \text{Ra}/(\text{Pr }\text{Ta}^{3/4})$, determines the value of
-the evolved Ro. While increasing Ra and holding \pro$\,$ constant,
+Predictive Rossby number, $\pro = \text{Ra}/(\text{Pr }\edit1{^{1/2}}\text{Ta}^{3/4})$, determines the value of
+the evolved Ro. \deleted{While increasing Ra and holding \pro$\,$ constant,
 we find scaling laws of heat transport (Nu) and turbulence (Re) that are nearly identical
-to scaling laws seen in nonrotational convection.
+to scaling laws seen in nonrotational convection.}
+
+\added{In this work, we experimentally arrived at the 
+$\text{Ra}/\text{Ta}^{3/4} = \text{Ra}\text{Ek}^{3/2}$
+scaling which informs the predictive Rossby number, but this relationship was independently
+discovered by \cite{king&all2012}. They argue that the thermal boundary layer should
+scale as $\delta_{S} \propto \text{Ra}^{-1/3}$, and that rotational Ekman boundary layers
+should scale as $\delta_{\text{Ro}} \propto \text{Ta}^{-1/4} = \text{Ek}^{1/2}$, and thus
+when a ``transition parameter,'' $\text{Ra}/\text{Ta}^{3/4} \sim 1$, 
+these boundary layers should cross one another,
+and they demonstrate that the value of $\text{Ra}/\text{Ta}^{3/4}$ seems to determine
+whether your flow is rotationally constrained or not. \cite{king&all2013} continued their
+work, and showed how numerous convective flow properties scale with this transition parameter,
+including the ratio of the thermal to viscous boundary layer. In our current work, we find that
+despite the added complexity of stratification and despite our using stress-free rather than
+no-slip boundaries, the boundary layer scaling arguments put forth in \cite{king&all2012} seem
+to hold up in our systems. This is reminiscent of what we found in \AB, in which
+convection in these stratified domains, regardless of Mach number, produced boundary-layer
+dominated scaling laws of Nu that were nearly identical to the Boussinesq scaling laws.}
+
 We note briefly that the scaling $\text{Ra} \propto \text{Ta}^{3/4}$ is very similar to
 the theorized boundary between fully rotationally constrained convection and 
 partially constrained convection predicted in Boussinesq theory, of 
@@ -413,8 +487,20 @@ also maintain proper force balances within the boundary layers.
 
 Our results suggest that by choosing the proper value of \pro, experimenters
 can select the degree of rotational constraint present in their simulations. 
-Once that value is chosen, it is straightforward to increase the turbulent nature of 
-the simulations by increasing Ra, just as in the non-rotating case.
+\added{We find that $\text{Ro} \propto \text{Ro}_\text{p}^{3.5}$, which is within
+the error bounds of the estimate in \cite{king&all2013}, who although defining
+Ro very differently from our vorticity-based definition here, find 
+$\text{Ro} \propto \text{Ro}_\text{p}^{3.84 \pm 0.28}$. We note briefly that they
+claim that the value of $\text{Ro}$ is strongly dependent upon the Prandtl number studied, and
+that low Ro can be achieved at high Pr without achieving a rotationally constrained flow.
+We studied only $\text{Pr} = 1$ here, and leave it to future authors to determine if
+the scaling of $\text{Ro}_{\text{p}} \propto \text{Pr}^{-1/4}$ is the correct scaling to
+predict the evolved Rossby number.}
+
+\added{We close by noting that once \pro is chosen such that a convective system has the same
+Rossby number as an astrophysical object of choice,} it is straightforward to increase the 
+turbulent nature of 
+simulations increasing Ra, just as in the non-rotating case.
 Although all the results reported here are for a Cartesian geometry with 
 antiparallel gravity and rotation, preliminary 3D spherical simulations suggest that 
 \pro$\,$ also specifies Ro in more complex geometries (Brown et al. 2019 in prep).
