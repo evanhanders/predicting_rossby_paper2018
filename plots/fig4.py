@@ -5,41 +5,70 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import glob
 import h5py
+import scipy.optimize as scop
 from scipy.optimize import fmin
 from scipy.interpolate import interp1d
 matplotlib.rcParams['font.family'] = 'serif'
+
+ORANGE   = [1.        , 0.5, 0]
+GREEN    = [0, 0.398, 0]
+BLUE     = [0, 0.5, 1]
+kwargs = {'lw' : 0, 'ms' : 3, 'markeredgewidth' : 0.5}
+
+
 
 Lz = np.exp(3/(1.5-1e-4)) - 1
 
 cmap = 'viridis_r'
 
 entropy_gradients = dict()
+entropy_stds = dict()
 rossby_profiles   = dict()
 z   = dict()
 for fname in glob.glob('../profile_data/*.h5'):
     key = ''
     pieces = fname.split('.h5')[0].split('/')[-1].split('_')
+    ind_num = -2
     for s in pieces:
-        if 'co' in s:
+        if 'rop' in s:
             key += s + '_'
         if 'ta' in s:
             key += s
     f = h5py.File(fname, 'r')
     for k in f.keys():
         print(k)
-    entropy_gradients[key] = f['grad_s_tot'].value[-2,:]
-    rossby_profiles[key]  = f['Rossby'].value[-2,:]
+    n_profiles = f['grad_s_tot'].value.shape[0]
+    entropy_gradients[key] = f['grad_s_tot'].value[-int(n_profiles/3)-1:-1,:]
+    entropy_stds[key] = f['s_fluc_std'].value[-int(n_profiles/3)-1:-1,:]
+    rossby_profiles[key]  = f['Rossby'].value[-int(n_profiles/3)-1:-1,:]
     z[key]  = f['z'].value
+keys = rossby_profiles.keys()
+ta = [float(k.split('_ta')[-1]) for k in keys]
+tas, sorted_keys = zip(*sorted(zip(ta, keys)))
 
-cos = []
+maxminta = dict()
+for ta, k in zip(tas, sorted_keys):
+    key = k.split('_')[0]
+    if key in maxminta.keys():
+        if ta < maxminta[key][0]:
+            maxminta[key][0] = ta
+        if ta > maxminta[key][1]:
+            maxminta[key][1] = ta
+    else:
+        maxminta[key] = [ta, ta]
+
+print(maxminta)
+        
+
+rops = []
 tas = []
-for key in rossby_profiles.keys():
-    co, ta = key.split('_')
-    cos.append(float(co[2:]))
+for key in sorted_keys:
+    rop, ta = key.split('_')
+    rops.append(float(rop[3:]))
     tas.append(float(ta[2:]))
-cos = np.array(cos)
+rops = np.array(rops)
 tas = np.array(tas)
-ras = cos**2 * tas**(3/4)
+ras = rops**2 * tas**(3/4)
 
 fig_trash = plt.figure()
 ax_trash  = fig_trash.add_subplot(1,1,1)
@@ -55,17 +84,13 @@ gs_info = (((0,0), 50, 250), ((50,0), 450, 250), ((500, 0), 450, 250),
 ax3 = plt.subplot(gs.new_subplotspec(*gs_info[-2]))
 ax3_2 = plt.subplot(gs.new_subplotspec(*gs_info[-1]))
 ax3_2.axhline(1, c='k')
-ax3_2.axvline(2.5e4, c='blue', ls='--')
-ax3_2.axvline(3e5, c='orange', ls='--')
-ax3.axvline(2.5e4, c='blue', ls='--')
-ax3.axvline(3e5, c='orange', ls='--')
 
 #COLUMN 1
-cax1  = plt.subplot(gs.new_subplotspec(*gs_info[0]))
-ax1_1 = plt.subplot(gs.new_subplotspec(*gs_info[1]))
-ax1_2 = plt.subplot(gs.new_subplotspec(*gs_info[2]))
+cax1  = plt.subplot(gs.new_subplotspec(*gs_info[3]))
+ax1_1 = plt.subplot(gs.new_subplotspec(*gs_info[4]))
+ax1_2 = plt.subplot(gs.new_subplotspec(*gs_info[5]))
 
-norm = matplotlib.colors.Normalize(vmin=np.min(np.log10(tas[cos==0.96])), vmax=np.max(np.log10(tas[cos==0.96])))
+norm = matplotlib.colors.Normalize(vmin=np.min(np.log10(maxminta['rop0.957'][0])), vmax=np.max(np.log10(maxminta['rop0.957'][1])))
 sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
 sm.set_array([])
 
@@ -75,104 +100,54 @@ s_bls_bot = []
 ro_bls_bot = []
 taylors = []
 rayleighs = []
-for key in rossby_profiles.keys():
-    co, ta = key.split('_')
-    co = float(co[2:])
+for key in sorted_keys:
+    rop, ta = key.split('_')
+    rop = float(rop[3:])
     ta = float(ta[2:])
-    ra = co**2 * ta**(3/4)
+    ra = rop**2 * ta**(3/4)
 
-    if co != 0.96:
+    if rop != 0.957:
         continue
 
-    print(key)
-    print('ra {:.4e}, ta {:.4e}'.format(ra, ta))
-    ax1_1.plot(z[key], entropy_gradients[key], c=sm.to_rgba(np.log10(ta)))
-    ax1_2.plot(z[key], rossby_profiles[key], c=sm.to_rgba(np.log10(ta)))
-
-    if ta < 1e5:
-        n_pts = 12
-        frac = 0.9
-    elif ta < 1e7:
-        n_pts = 12#int(len(z[key])*5/100)
-        frac = 0.985
-    else:
-        n_pts = 12
-        frac = 0.99
-    good_zs = z[key][z[key] <= frac*Lz]
-    good_grads = entropy_gradients[key][z[key] <= frac*Lz]
-    print(z[key][-1], good_zs[-1])
-    fit = np.polyfit(good_zs[-n_pts:], good_grads[-n_pts:], deg=1)
-    y_fit = np.zeros_like(z[key])
-    for i, f in enumerate(fit):
-        y_fit += f*z[key]**(len(fit)-1-i)
- 
-
-    fit_f = interp1d(y_fit, z[key])
-    z0  = fit_f(0)
-    s_bl = Lz - z0
-    s_bls.append(s_bl)
-
-    #bot bl
-    if ta < 1e7:
-        n_pts = 5
-        frac = 0.985
-    else:
-        n_pts = 5
-        frac = 0.99
-
-    if ta < 1e5:
-        s_bls_bot.append(np.nan)
-    else:
-        good_zs = z[key][z[key] >= (1-frac)*Lz]
-        good_grads = entropy_gradients[key][z[key] >= (1-frac)*Lz]
-        fit = np.polyfit(good_zs[:n_pts], good_grads[:n_pts], deg=1)
-        bot_y_fit = np.zeros_like(z[key])
-        for i, f in enumerate(fit):
-            bot_y_fit += f*z[key]**(len(fit)-1-i)
+    print('rop {:.2f}, ra {:.4e}, ta {:.4e}'.format(rop,ra, ta))
+    ax1_1.plot(z[key], np.mean(entropy_stds[key]   , axis=0), c=sm.to_rgba(np.log10(ta)))
+    ax1_2.plot(z[key], np.mean(rossby_profiles[key], axis=0), c=sm.to_rgba(np.log10(ta)))
 
 
-        fit_f = interp1d(bot_y_fit, z[key])
-        z0  = fit_f(0)
-        s_bl = z0
-        s_bls_bot.append(s_bl)
- 
-        ax_trash.plot(z[key], bot_y_fit)
-    ax_trash.axvline(s_bls_bot[-1])
-    ax_trash.axvline(Lz - s_bls[-1], ls='--')
-    ax_trash.plot(z[key], entropy_gradients[key])
-    ax_trash.plot(z[key], y_fit, c=sm.to_rgba(np.log10(ta)))
-    ax_trash.axhline(0)
-    ax_trash.set_ylim(-np.max(np.abs(entropy_gradients[key])), np.max(np.abs(entropy_gradients[key])))
-    fig_trash.savefig('{:s}.png'.format(key))
-    ax_trash.cla()
-    
+    n_calcs = 0
+    mean_s_bl = 0
+    mean_ro_bl = 0
+
+    s_std = np.mean(entropy_stds[key], axis=0)
+    ro    = np.mean(rossby_profiles[key], axis=0)
 
     half_z = z[key][int(len(z[key])/2):]
-    half_ro = rossby_profiles[key][int(len(rossby_profiles[key])    /2):] 
+    half_s = s_std[int(len(s_std)/2):]
+    half_ro = ro[int(len(ro)/2):]
     ro = interp1d(half_z, half_ro, fill_value='extrapolate')
+    s = interp1d(half_z, half_s, fill_value='extrapolate')
     big_z = np.linspace(Lz/2, Lz, 1e4)
     big_ro = ro(big_z)
+    big_s  = s(big_z)
 
-    ro_bl_guess_i = np.argmax(big_ro)
-    ro_bl = Lz - big_z[ro_bl_guess_i]
-    ro_bls.append(ro_bl)
 
-    #bot
-    half_z = z[key][:int(len(z[key])/2)]
-    half_ro = rossby_profiles[key][:int(len(rossby_profiles[key])    /2)] 
-    ro = interp1d(half_z, half_ro, fill_value='extrapolate')
-    big_z = np.linspace(0, Lz/2, 1e4)
-    big_ro = ro(big_z)
+    ro_bl = Lz - big_z[np.argmax(big_ro)]
+    max_place = big_z[np.argmax(big_s[:-100])]
+    s_bl  = Lz - max_place
+    mean_s_bl += s_bl
+    mean_ro_bl += ro_bl
+    n_calcs += 1
 
-    ro_bl_guess_i = np.argmax(big_ro)
-    ro_bl = big_z[ro_bl_guess_i]
-    ro_bls_bot.append(ro_bl)
+    ro_bls.append(mean_ro_bl/n_calcs)
+    s_bls.append(mean_s_bl/n_calcs)
 
-    ax_trash.axvline(ro_bls_bot[-1])
-    ax_trash.axvline(Lz - ro_bls[-1], ls='--')
-    ax_trash.plot(z[key], rossby_profiles[key])
-    fig_trash.savefig('ro_{:s}.png'.format(key))
-    ax_trash.cla()
+#    ax_trash.axvline(Lz - ro_bls[-1], ls='--')
+#    ax_trash.axvline(Lz - s_bls[-1])
+#    ax_trash.plot(z[key], rossby_profiles[key]/np.max(rossby_profiles[key]))
+#    ax_trash.plot(z[key], entropy_stds[key]/np.max(entropy_stds[key]))
+#    ax_trash.plot(z[key], entropy_gradients[key]/np.min(entropy_gradients[key]))
+#    fig_trash.savefig('ro_{:s}.png'.format(key))
+#    ax_trash.cla()
 
 
     taylors.append(ta)
@@ -185,40 +160,44 @@ ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
 ro_bls_bot = np.array(ro_bls_bot)
 s_bls_bot = np.array(s_bls_bot)
+rayleighs = np.array(rayleighs)
 
-ax3_2.plot(rayleighs, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', marker='o', lw=0, color='orange')
+ax3_2.plot(rayleighs/234.8, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.957$', marker='o', color=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), **kwargs)
+p = np.polyfit(np.log10(rayleighs/234.8), np.log10(s_bls/0.66), deg=1)
+vert = (1/10**(p[1]))**(1/p[0])
+ax3_2.axvline(vert, c=ORANGE, ls='--', lw=0.5)
+ax3.axvline(vert, c=ORANGE, ls='--',  lw=0.5)
+
+
  
-ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', marker='o', lw=0, color='orange')
-#ax3.plot(rayleighs, ro_bls_bot/s_bls_bot, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', marker='v', lw=0, color='orange')
+ax3.plot(rayleighs/234.8, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.957$', marker='o', color=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), **kwargs)
 ax3.set_xscale('log')
 
 ax1_2.set_xlabel('z')
-ax1_2.set_ylabel('Ro')
-ax1_1.set_ylabel(r'$(\partial_z\,s) \times 10^{-4}$')
+ax1_2.set_ylabel('(d) Ro')
+ax1_1.set_ylabel(r'(c) $\sigma_\mathrm{s} \times 10^{-5}$')
 ax1_1.set_xticks(())
-ax1_1.set_yticks((0, -0.00025, -0.0005))
-ax1_1.set_yticklabels(('0', r'$-$2.5', r'$-$5.0'))
+ax1_1.set_yticks((0, 1e-5, 2e-5, 3e-5, 4e-5))
+ax1_1.set_yticklabels((0, 1, 2, 3, 4))
 ax1_1.set_xlim(0, Lz)
 ax1_2.set_xlim(0, Lz)
 
-ax1_1.text(2.2, -7e-4, r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', ha='center', va='center')
-ax1_1.text(0.4, -7e-4, "(a)", ha="center", va="center", size=8)
-ax1_2.text(0.4, 0.03, "(b)", ha="center", va="center", size=8)
+ax1_1.text(1.7, 3e-5, r'$\mathrm{Ro}_{\mathrm{p}} = 0.957$', ha='center', va='center')
     
 
 plt.colorbar(sm, cax=cax1, orientation='horizontal')
 cax1.set_xticklabels(())
 cax1.annotate(r'$10^{2.75}$', xy=(0,1.2), annotation_clip=False)
-cax1.annotate(r'$10^6$', xy=(.9,1.2), annotation_clip=False)
+cax1.annotate(r'$10^{7.75}$', xy=(.9,1.2), annotation_clip=False)
 cax1.annotate('Ra', xy=(.45,1.2), annotation_clip=False)
 
 
 #COLUMN 2
-cax2  = plt.subplot(gs.new_subplotspec(*gs_info[3]))
-ax2_1 = plt.subplot(gs.new_subplotspec(*gs_info[4]))
-ax2_2 = plt.subplot(gs.new_subplotspec(*gs_info[5]))
+cax2  = plt.subplot(gs.new_subplotspec(*gs_info[0]))
+ax2_1 = plt.subplot(gs.new_subplotspec(*gs_info[1]))
+ax2_2 = plt.subplot(gs.new_subplotspec(*gs_info[2]))
 
-norm = matplotlib.colors.Normalize(vmin=np.min(np.log10(tas[cos!=0.96])), vmax=np.max(np.log10(tas[cos!=0.96])))
+norm = matplotlib.colors.Normalize(vmin=np.min(np.log10(maxminta['rop1.58'][0])), vmax=np.max(np.log10(maxminta['rop1.58'][1])))
 sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
 sm.set_array([])
 
@@ -229,154 +208,177 @@ ro_bls_bot = []
 taylors = []
 rayleighs = []
 print('_________________')
-for key in rossby_profiles.keys():
-    co, ta = key.split('_')
-    co = float(co[2:])
+for key in sorted_keys:
+    rop, ta = key.split('_')
+    rop = float(rop[3:])
     ta = float(ta[2:])
 
-    if co == 0.96:
+    if rop != 1.58:
         continue
     
-    ra = co**2 * ta**(3/4)
-    print('{:.4e}'.format(ra))
-    ax2_1.plot(z[key], entropy_gradients[key], c=sm.to_rgba(np.log10(ta)))
-    ax2_2.plot(z[key], rossby_profiles[key], c=sm.to_rgba(np.log10(ta)))
+    ra = rop**2 * ta**(3/4)
+    ax2_1.plot(z[key], entropy_stds[key][0,:], c=sm.to_rgba(np.log10(ta)))
+    ax2_2.plot(z[key], rossby_profiles[key][0,:], c=sm.to_rgba(np.log10(ta)))
+    print('rop {:.2f}, ra {:.4e}, ta {:.4e}'.format(rop,ra, ta))
+    n_calcs = 0
+    mean_s_bl = 0
+    mean_ro_bl = 0
 
-    if ta < 1e3:
-        n_pts = 12
-        frac = 0.9
-    elif ta < 1e6:
-        n_pts = 12#int(len(z[key])*5/100)
-        frac = 0.985
-    else:
-        n_pts = 12
-        frac = 0.995
-    good_zs = z[key][z[key] <= frac*Lz]
-    good_grads = entropy_gradients[key][z[key] <= frac*Lz]
-    fit = np.polyfit(good_zs[-n_pts:], good_grads[-n_pts:], deg=1)
-    y_fit = np.zeros_like(z[key])
-    for i, f in enumerate(fit):
-        y_fit += f*z[key]**(len(fit)-1-i)
- 
-
-    fit_f = interp1d(y_fit, z[key])
-    z0  = fit_f(0)
-    s_bl = Lz - z0
-    s_bls.append(s_bl)
-
-   #bot bl
-    if ta < 1e5:
-        n_pts = 4
-        frac = 0.99
-    elif ta < 1e8:
-        n_pts = 4
-        frac = 0.995
-    else:
-        n_pts = 4
-        frac = 0.995
-    if ta < 1e3:
-        s_bls_bot.append(np.nan)
-    else:
-        good_zs = z[key][z[key] >= (1-frac)*Lz]
-        good_grads = entropy_gradients[key][z[key] >= (1-frac)*Lz]
-        fit = np.polyfit(good_zs[:n_pts], good_grads[:n_pts], deg=1)
-        bot_y_fit = np.zeros_like(z[key])
-        for i, f in enumerate(fit):
-            bot_y_fit += f*z[key]**(len(fit)-1-i)
-
-
-        fit_f = interp1d(bot_y_fit, z[key])
-        z0  = fit_f(0)
-        s_bl = z0
-        s_bls_bot.append(s_bl)
- 
-        ax_trash.plot(z[key], bot_y_fit)
-    ax_trash.axvline(s_bls_bot[-1])
-    ax_trash.axvline(Lz - s_bls[-1], ls='--')
-
-    
-    ax_trash.plot(z[key], entropy_gradients[key])
-    ax_trash.plot(z[key], y_fit, c=sm.to_rgba(np.log10(ta)))
-    ax_trash.axhline(0)
-    ax_trash.set_ylim(-np.max(np.abs(entropy_gradients[key])), np.max(np.abs(entropy_gradients[key])))
-    fig_trash.savefig('{:s}.png'.format(key))
-    ax_trash.cla()
-    
+    s_std = np.mean(entropy_stds[key], axis=0)
+    ro    = np.mean(rossby_profiles[key], axis=0)
 
     half_z = z[key][int(len(z[key])/2):]
-    half_ro = rossby_profiles[key][int(len(rossby_profiles[key])    /2):] 
+    half_s = s_std[int(len(s_std)/2):]
+    half_ro = ro[int(len(ro)/2):]
     ro = interp1d(half_z, half_ro, fill_value='extrapolate')
+    s = interp1d(half_z, half_s, fill_value='extrapolate')
     big_z = np.linspace(Lz/2, Lz, 1e4)
     big_ro = ro(big_z)
+    big_s  = s(big_z)
 
-    ro_bl_guess_i = np.argmax(big_ro)
-    ro_bl = Lz - big_z[ro_bl_guess_i]
-    ro_bls.append(ro_bl)
 
-    #bot
-    half_z = z[key][:int(len(z[key])/2)]
-    half_ro = rossby_profiles[key][:int(len(rossby_profiles[key])    /2)] 
+    ro_bl = Lz - big_z[np.argmax(big_ro)]
+    max_place = big_z[np.argmax(big_s[:-100])]
+    s_bl  = Lz - max_place
+    mean_s_bl += s_bl
+    mean_ro_bl += ro_bl
+    n_calcs += 1
+
+    ro_bls.append(mean_ro_bl/n_calcs)
+    s_bls.append(mean_s_bl/n_calcs)
+
+
+#    ax_trash.axvline(Lz - ro_bls[-1], ls='--')
+#    ax_trash.axvline(Lz - s_bls[-1], ls='--')
+#    ax_trash.plot(z[key], rossby_profiles[key]/np.max(rossby_profiles[key]))
+#    ax_trash.plot(z[key], entropy_stds[key]/np.max(entropy_stds[key]))
+#    ax_trash.plot(z[key], entropy_gradients[key]/np.min(entropy_gradients[key]))
+#    fig_trash.savefig('ro_{:s}.png'.format(key))
+#    ax_trash.cla()
+
+
+    taylors.append(ta)
+    rayleighs.append(ra)
+
+ro_bls = np.array(ro_bls)
+s_bls = np.array(s_bls)
+ro_bls_bot = np.array(ro_bls_bot)
+s_bls_bot = np.array(s_bls_bot)
+rayleighs = np.array(rayleighs)
+
+ax3_2.plot(rayleighs/11, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', color=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1), **kwargs)
+ax3_2.set_yscale('log')
+ax3_2.set_xscale('log')
+ax3_2.set_ylabel(r'(f) $\delta_{\mathrm{s}}/\mathrm{H}_\rho$')
+p = np.polyfit(np.log10(rayleighs/11), np.log10(s_bls/0.66), deg=1)
+vert = (1/10**(p[1]))**(1/p[0])
+ax3_2.axvline(vert, c=BLUE, ls='--', lw=0.5)
+ax3.axvline(vert, c=BLUE, ls='--',  lw=0.5)
+
+
+
+
+
+ 
+ax3.plot(rayleighs/11, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', color=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1), **kwargs)
+#ax3.set_yscale('log')
+ax3_2.set_xlabel(r'Ra/Ra$_{\mathrm{crit}}$')
+ax3.set_ylabel(r'(e) $\delta_{\mathrm{Ro}}/\delta_{\mathrm{s}}$')
+
+ax2_2.set_xlabel('z')
+ax2_2.set_ylabel('(b) Ro')
+ax2_1.set_ylabel(r'(c) $\sigma_\mathrm{s} \times 10^{-5}$')
+ax2_1.set_yticks((0, 2e-5, 4e-5, 6e-5, 8e-5))
+ax2_1.set_yticklabels((0, 2, 4, 6, 8))
+ax2_1.set_xticks(())
+ax2_1.set_xlim(0, Lz)
+ax2_2.set_xlim(0, Lz)
+ax2_1.text(1.5, 6e-5, r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', ha='center', va='center')
+
+
+ax3.set_yticks((0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6))
+#ax3.text(1.2e2, 0.565, "(e)", ha="center", va="center", size=8)
+#ax3_2.text(2.2e6, 4.8, "(f)", ha="center", va="center", size=8)
+ 
+
+
+plt.colorbar(sm, cax=cax2, orientation='horizontal')
+cax2.annotate(r'$10^{2}$', xy=(0,1.2), annotation_clip=False)
+cax2.annotate(r'$10^{7}$', xy=(.9,1.2), annotation_clip=False)
+cax2.annotate('Ra', xy=(.45,1.2), annotation_clip=False)
+cax2.set_xticklabels([])
+
+
+#low rop
+s_bls = []
+ro_bls = []
+tylors = []
+rayleighs = []
+for key in sorted_keys:
+    rop, ta = key.split('_')
+    rop = float(rop[3:])
+    ta = float(ta[2:])
+    ra = rop**2 * ta**(3/4)
+
+    if rop != 0.6:
+        continue
+
+    print('rop {:.2f}, ra {:.4e}, ta {:.4e}'.format(rop,ra, ta))
+    n_calcs = 0
+    mean_s_bl = 0
+    mean_ro_bl = 0
+
+    s_std = np.mean(entropy_stds[key], axis=0)
+    ro    = np.mean(rossby_profiles[key], axis=0)
+
+    half_z = z[key][int(len(z[key])/2):]
+    half_s = s_std[int(len(s_std)/2):]
+    half_ro = ro[int(len(ro)/2):]
     ro = interp1d(half_z, half_ro, fill_value='extrapolate')
-    big_z = np.linspace(0, Lz/2, 1e4)
+    s = interp1d(half_z, half_s, fill_value='extrapolate')
+    big_z = np.linspace(Lz/2, Lz, 1e4)
     big_ro = ro(big_z)
+    big_s  = s(big_z)
 
-    ro_bl_guess_i = np.argmax(big_ro)
-    ro_bl = big_z[ro_bl_guess_i]
-    ro_bls_bot.append(ro_bl)
 
-    ax_trash.axvline(ro_bls_bot[-1])
+    ro_bl = Lz - big_z[np.argmax(big_ro)]
+    max_place = big_z[np.argmax(big_s[:-100])]
+    s_bl  = Lz - max_place
+    mean_s_bl += s_bl
+    mean_ro_bl += ro_bl
+    n_calcs += 1
+
+    ro_bls.append(mean_ro_bl/n_calcs)
+    s_bls.append(mean_s_bl/n_calcs)
+
     ax_trash.axvline(Lz - ro_bls[-1], ls='--')
-    ax_trash.plot(z[key], rossby_profiles[key])
-    ax_trash.set_xlim(0,1)
-    ax_trash.axvline(s_bls_bot[-1], ls='-.')
+    ax_trash.axvline(Lz - s_bls[-1], ls='--')
+    ax_trash.plot(z[key], np.mean(rossby_profiles[key], axis=0)/np.max(rossby_profiles[key][-1,:]))
+    ax_trash.plot(z[key], np.mean(entropy_stds[key], axis=0)/np.max(entropy_stds[key][-1,:]))
     fig_trash.savefig('ro_{:s}.png'.format(key))
     ax_trash.cla()
 
 
     taylors.append(ta)
     rayleighs.append(ra)
+
+rayleighs = np.array(rayleighs)
+
+  
 ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
-ro_bls_bot = np.array(ro_bls_bot)
-s_bls_bot = np.array(s_bls_bot)
 
-ax3_2.plot(rayleighs, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', lw=0, color='blue')
-ax3_2.set_yscale('log')
-ax3_2.set_xscale('log')
-ax3_2.set_ylabel(r'$\delta_{\mathrm{s}}/\mathrm{H}_\rho$')
-
+ax3_2.plot(rayleighs/7.924e4, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$', marker='o', color=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), **kwargs)
+p = np.polyfit(np.log10(rayleighs/7.924e4), np.log10(s_bls/0.66), deg=1)
+vert = (1/10**(p[1]))**(1/p[0])
+ax3_2.axvline(vert, c=GREEN, ls='--', lw=0.5)
+ax3.axvline(vert, c=GREEN, ls='--',  lw=0.5)
  
-ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', lw=0, color='blue')
-#ax3.plot(rayleighs, ro_bls_bot/s_bls_bot, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='v', lw=0, color='blue')
-#ax3.plot(rayleighs, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', lw=0, color='blue')
-ax3_2.set_xlabel('Ra')
-ax3.set_ylabel(r'$\delta_{\mathrm{Ro}}/\delta_{\mathrm{s}}$')
-
-ax2_2.set_xlabel('z')
-ax2_2.set_ylabel('Ro')
-ax2_1.set_ylabel(r'$(\partial_z\,s) \times 10^{-3}$')
-ax2_1.set_xticks(())
-ax2_1.set_yticks((0, -0.001, -0.002))
-ax2_1.set_yticklabels(('0', r'$-$1', r'$-$2'))
-ax2_1.set_xlim(0, Lz)
-ax2_2.set_xlim(0, Lz)
-ax2_1.text(2.2, -2.22e-3, r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', ha='center', va='center')
-ax2_1.text(0.4, -2.22e-3, "(c)", ha="center", va="center", size=8)
-ax2_2.text(0.4, 0.125, "(d)", ha="center", va="center", size=8)
+ax3.plot(rayleighs/7.924e4, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$', marker='o', color=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), **kwargs)
+ax3.set_xscale('log')
 
 
-ax3.set_yticks((0.6, 0.8, 1))
-ax3.text(1.2e2, 0.565, "(e)", ha="center", va="center", size=8)
-ax3_2.text(2.2e6, 4.8, "(f)", ha="center", va="center", size=8)
-ax3_2.legend(loc='lower left', frameon=False, borderpad=0.1, borderaxespad=0.05, handletextpad=0, fontsize=8, markerscale=1)
- 
-
-
-plt.colorbar(sm, cax=cax2, orientation='horizontal')
-cax2.annotate(r'$10^{2}$', xy=(0,1.2), annotation_clip=False)
-cax2.annotate(r'$10^{6.5}$', xy=(.9,1.2), annotation_clip=False)
-cax2.annotate('Ra', xy=(.45,1.2), annotation_clip=False)
-cax2.set_xticklabels([])
+ax3_2.legend(loc='upper right', frameon=True, borderpad=0.25, borderaxespad=0.1, handletextpad=0, fontsize=6, markerscale=1)
 
 
 fig.savefig('../tex/figs/boundary_layers.png', dpi=600, bbox_inches='tight')

@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from scipy.interpolate import griddata, interp2d
 from scipy.optimize import curve_fit, leastsq
+import scipy.optimize as scop
 matplotlib.rcParams['font.family'] = 'serif'
+def linear(x, a, b):
+    return a + b*x
 
 
 Pro_color= [1.        , 0.49803922, 0.05490196]
@@ -40,6 +43,7 @@ S  = runs_data[:,6]
 Ro_p = runs_data[:,7]
 Ro_c = runs_data[:,8]
 Ro_m = runs_data[:,9]
+Re = runs_data[:,11]
 
 
 
@@ -49,7 +53,7 @@ co03 = Ro_c == 0.3
 co01 = Ro_c == 0.1
 this_ta = np.logspace(1,7,100)
 this_ra = this_ta
-ax1.plot(this_ta, this_ra, c=Co_color, lw=2, label='Co = 1', dashes=(3,1), rasterized=True)
+ax1.plot(this_ta, this_ra, c=Co_color, lw=2, label=r'$\mathrm{Ro}_\mathrm{c} = 1$', dashes=(3,1), rasterized=True)
 
 S3 = S == 3
 S2 = S == 2
@@ -133,6 +137,7 @@ def run_analysis(ro_c, ro_m, ro_p):
     fit, cov, infodict, mesg, ier = leastsq(ro_m_func, x0, args=(ro_cp, ro_m), full_output=True)
     print(fit, cov)
     fit_str = 'Best fit: Ro_m = {:.2g}'.format(10**fit[0]) + ' $Ro_c^{' +  '{:.2g}'.format(fit[1]) + '} Ro_p^{' + '{:.2g}'.format(fit[2]) + '}$'
+    print(fit_str)
 
     ### PLOTTING
 
@@ -154,6 +159,21 @@ def run_analysis(ro_c, ro_m, ro_p):
     return ro_cc, ro_pp, ro_m_interp, ro_m_func, fit_str, fit, ro_b_cc, ro_b_pp
 
 #full data set
+low_ro = Ro_m < 0.2
+high_ro = Ro_m > 0.2
+high_Re = Re > 5
+good_ro_p = Ro_p[high_Re*low_ro]
+good_ro_m = Ro_m[high_Re*low_ro]
+(a, b), pcov = scop.curve_fit(linear, np.log10(good_ro_p), np.log10(good_ro_m))
+(a_err, b_err) = np.sqrt(np.diag(pcov))
+p = [b, a]
+perr = [b_err, a_err]
+str2 = '10^({:.2f} +/- {:.2f})'.format(p[1], perr[1]) + 'Ro_p$^{' + '{:.2f} \pm {:.2f}'.format(p[0], perr[0]) + '}$'
+print(str2)
+
+
+run_analysis(np.log10(Ro_c[high_Re*low_ro]), np.log10(Ro_m[high_Re*low_ro]), np.log10(Ro_p[high_Re*low_ro]))
+run_analysis(np.log10(Ro_c[high_Re*high_ro]), np.log10(Ro_m[high_Re*high_ro]), np.log10(Ro_p[high_Re*high_ro]))
 ro_cc, ro_pp, ro_m_interp, ro_m_func, fit_str, fit, ro_b_cc, ro_b_pp = run_analysis(np.log10(Ro_c), np.log10(Ro_m), np.log10(Ro_p))
 
 

@@ -4,7 +4,18 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib.legend import Legend
+import scipy.optimize as scop
 matplotlib.rcParams['font.family'] = 'serif'
+
+ORANGE   = [1.        , 0.5, 0]
+GREEN    = [0, 0.398, 0]
+BLUE     = [0, 0.5, 1]
+kwargs = {'lw' : 0, 'ms' : 3, 'markeredgewidth' : 0.5}
+
+
+
+def linear(x, a, b):
+    return a + b*x
 
 
 
@@ -63,9 +74,9 @@ ax1.add_artist(leg)
 
 
 lines, labels = [], []
-lines += ax1.plot(ra06_full, nu06_full, c='green', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.6$')
-lines += ax1.plot(ra957_full, nu957_full, c='orange', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax1.plot(ra158_full, nu158_full, c='blue', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
+lines += ax1.plot(ra06_full, nu06_full, c=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1),  marker='o',   **kwargs)
+lines += ax1.plot(ra957_full, nu957_full, c=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1),  marker='o', **kwargs)
+lines += ax1.plot(ra158_full, nu158_full, c=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1),  marker='o',  **kwargs)
 
 #labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$']
 #labels += [r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$']
@@ -79,26 +90,38 @@ for xlabel_i in ax1.get_xticklabels():
 
 print('Nu fit, rop_0.6')
 p = np.polyfit(np.log10(ra06), np.log10(nu06), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+(a, b), pcov = scop.curve_fit(linear, np.log10(ra06), np.log10(nu06))
+(a_err, b_err) = np.sqrt(np.diag(pcov))
+p = [b, a]
+perr = [b_err, a_err]
+str2 = 'Ra$^{' + '{:.2f} \pm {:.2f}'.format(p[0], perr[0]) + '}$'
 print('nu', str2)
 labels += [r'{:s}'.format(str2)]
-lines += ax1.plot(ra06_full, 10**(p[1])*ra06_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='green', alpha=0.4)
+lines += ax1.plot(ra06_full, 10**(p[1])*ra06_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color=GREEN, alpha=0.4)
 
 
 
 print('Nu fit, rop_0.957')
 p = np.polyfit(np.log10(ra957), np.log10(nu957), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+(a, b), pcov = scop.curve_fit(linear, np.log10(ra957), np.log10(nu957))
+(a_err, b_err) = np.sqrt(np.diag(pcov))
+p = [b, a]
+perr = [b_err, a_err]
+str2 = 'Ra$^{' + '{:.2f} \pm {:.2f}'.format(p[0], perr[0]) + '}$'
 print('nu', str2)
 labels += [r'{:s}'.format(str2)]
-lines += ax1.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='orange', alpha=0.4)
+lines += ax1.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color=ORANGE, alpha=0.4)
 
 print('Nu fit, rop_1.58')
 p = np.polyfit(np.log10(ra158), np.log10(nu158), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+(a, b), pcov = scop.curve_fit(linear, np.log10(ra158), np.log10(nu158))
+(a_err, b_err) = np.sqrt(np.diag(pcov))
+p = [b, a]
+perr = [b_err, a_err]
+str2 = 'Ra$^{' + '{:.2f} \pm {:.2f}'.format(p[0], perr[0]) + '}$'
 print('nu', str2)
 labels += [r'{:s}'.format(str2)]
-lines += ax1.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='blue', alpha=0.4)
+lines += ax1.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color=BLUE, alpha=0.4)
 print('\n\n')
 
 
@@ -108,8 +131,8 @@ ax1.legend(lines[:3], labels[:3], loc='lower right', frameon=False, fontsize=8, 
 ax1.add_artist(leg)
 ax1.set_xscale('log')
 ax1.set_yscale('log')
-ax1.set_ylabel('Nu')
-ax1.text(3e-2, 2.5e1, "(a)", ha="center", va="center", size=8)
+ax1.set_ylabel('(a) Nu')
+#ax1.text(3e-2, 7e1, "(a)", ha="center", va="center", size=8)
 ax1.set_yticks([1e1, 1e2])
 
 
@@ -144,60 +167,80 @@ ax2.add_artist(leg)
 
 
 
-
-lines += ax2.plot(ra06_full, re06_full, c='green', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax2.plot(ra06_full, re_perp06_full, c='green', lw=0, marker='s', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax2.plot(ra957_full, re957_full, c='orange', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax2.plot(ra957_full, re_perp957_full, c='orange', lw=0, marker='s', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 0.96$')
-lines += ax2.plot(ra158_full, re158_full, c='blue', lw=0, marker='o', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
-lines += ax2.plot(ra158_full, re_perp158_full, c='blue', lw=0, marker='s', ms=3, label=r'$\mathcal{P}_{\mathrm{Ro}} = 1.58$')
+lines += ax2.plot(ra06_full, re06_full, c=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), marker='o', **kwargs)
+lines += ax2.plot(ra06_full, re_perp06_full, c=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), marker='s', **kwargs)
+lines += ax2.plot(ra957_full, re957_full, c=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), marker='o', **kwargs)
+lines += ax2.plot(ra957_full, re_perp957_full, c=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), marker='s',  **kwargs)
+lines += ax2.plot(ra158_full, re158_full, c=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1),  marker='o', **kwargs)
+lines += ax2.plot(ra158_full, re_perp158_full, c=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1), marker='s', **kwargs)
 
 
 leg = Legend(ax2, lines[-2:], (r'$\mathrm{Re}_{\parallel}$', r'$\mathrm{Re}_{\perp}$'),
-             loc='lower right', frameon=False, fontsize=8, borderpad=0.05, borderaxespad=0.05, handletextpad=0)
+             loc='lower right', frameon=False, fontsize=8, borderpad=0.05, borderaxespad=0.5, handletextpad=0)
 ax2.add_artist(leg)
 
 print('Re fits, rop_0.6')
 p = np.polyfit(np.log10(ra06), np.log10(re06), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+(a, b), pcov = scop.curve_fit(linear, np.log10(ra06), np.log10(re06))
+(a_err, b_err) = np.sqrt(np.diag(pcov))
+p = [b, a]
+perr = [b_err, a_err]
+str2 = 'Ra$^{' + '{:.2f} \pm {:.2f}'.format(p[0], perr[0]) + '}$'
 print('para', str2)
-lines += ax2.plot(ra06_full, 10**(p[1])*ra06_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='green', alpha=0.4)
+lines += ax2.plot(ra06_full, 10**(p[1])*ra06_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color=GREEN, alpha=0.4)
 p = np.polyfit(np.log10(ra06), np.log10(re_perp06), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+(a, b), pcov = scop.curve_fit(linear, np.log10(ra06), np.log10(re_perp06))
+(a_err, b_err) = np.sqrt(np.diag(pcov))
+p = [b, a]
+perr = [b_err, a_err]
+str2 = 'Ra$^{' + '{:.2f} \pm {:.2f}'.format(p[0], perr[0]) + '}$'
 print('perp', str2)
-lines += ax2.plot(ra06_full, 10**(p[1])*ra06_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='green', alpha=0.4)
+lines += ax2.plot(ra06_full, 10**(p[1])*ra06_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color=GREEN, alpha=0.4)
 
 print('Re fits, rop_0.957')
 p = np.polyfit(np.log10(ra957), np.log10(re957), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+(a, b), pcov = scop.curve_fit(linear, np.log10(ra957), np.log10(re957))
+(a_err, b_err) = np.sqrt(np.diag(pcov))
+p = [b, a]
+perr = [b_err, a_err]
+str2 = 'Ra$^{' + '{:.2f} \pm {:.2f}'.format(p[0], perr[0]) + '}$'
 print('para', str2)
-lines += ax2.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='orange', alpha=0.4)
+lines += ax2.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color=ORANGE, alpha=0.4)
 p = np.polyfit(np.log10(ra957), np.log10(re_perp957), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+(a, b), pcov = scop.curve_fit(linear, np.log10(ra957), np.log10(re_perp957))
+(a_err, b_err) = np.sqrt(np.diag(pcov))
+p = [b, a]
+perr = [b_err, a_err]
+str2 = 'Ra$^{' + '{:.2f} \pm {:.2f}'.format(p[0], perr[0]) + '}$'
 print('perp', str2)
-lines += ax2.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='orange', alpha=0.4, dashes=(5,1))
+lines += ax2.plot(ra957_full, 10**(p[1])*ra957_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color=ORANGE, alpha=0.4, dashes=(5,1))
 
 print('Re fits, rop_1.58')
 p = np.polyfit(np.log10(ra158), np.log10(re158), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+p = np.polyfit(np.log10(ra957), np.log10(re_perp957), deg=1)
+(a, b), pcov = scop.curve_fit(linear, np.log10(ra158), np.log10(re158))
+(a_err, b_err) = np.sqrt(np.diag(pcov))
+p = [b, a]
+perr = [b_err, a_err]
+str2 = 'Ra$^{' + '{:.2f} \pm {:.2f}'.format(p[0], perr[0]) + '}$'
 print('para', str2)
-lines += ax2.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='blue', alpha=0.4)
+lines += ax2.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color=BLUE, alpha=0.4)
 p = np.polyfit(np.log10(ra158), np.log10(re_perp158), deg=1)
-str2 = 'Ra$^{' + '{:.2f}'.format(p[0]) + '}$'
+(a, b), pcov = scop.curve_fit(linear, np.log10(ra158), np.log10(re_perp158))
+(a_err, b_err) = np.sqrt(np.diag(pcov))
+p = [b, a]
+perr = [b_err, a_err]
+str2 = 'Ra$^{' + '{:.2f} \pm {:.2f}'.format(p[0], perr[0]) + '}$'
 print('perp', str2)
-lines += ax2.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color='blue', alpha=0.4, dashes=(5,1))
-
-
-#ax2.legend(lines[:2], labels[:2], loc='upper left', frameon=False, fontsize=8, handletextpad=0)
-from matplotlib.legend import Legend
+lines += ax2.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.format(str2), lw=0.5, color=BLUE, alpha=0.4, dashes=(5,1))
 
 
 
 ax2.set_xscale('log')
 ax2.set_yscale('log')
 ax2.set_xlabel(r'Ra/Ra$_{\mathrm{crit}}$')
-ax2.set_ylabel('Re')
-ax2.text(3e-2, 2e3, "(b)", ha="center", va="center", size=8)
+ax2.set_ylabel('(b) Re')
+#ax2.text(3e-2, 2e3, "(b)", ha="center", va="center", size=8)
 ax2.set_yticks([1e1, 1e2, 1e3])
 
 
