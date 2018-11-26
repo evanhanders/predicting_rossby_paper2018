@@ -262,7 +262,8 @@ set constant a ratio which we call the ``Predictive Rossby number,''
 \frac{1}{(2 \Omega)^{3/4}} \sqrt{\frac{g \, \Delta  S}{c_{p} \edit1{\chi}^{1/2}}}
 \end{equation}
 \explain{Replaced Pr with Pr$^{1/2}$; this makes \pro$\,$ a function of $\chi$,
-rather than $\nu$, which better fits the boundary layer theory}
+rather than $\nu$, which better fits the descriptions of thermal boundary layer
+comparisons that occur later.}
 \replaced{Paths along constant \con$\,$are sensitive to the depth of the domain, 
 but are blind to changes in diffusivities with increasing Ra and Ta. 
 On the other hand,}{Unlike paths through parameter space which hold \con$\,$ constant,}
@@ -278,7 +279,7 @@ analysis. We compare our results to their theory in Section \ref{sec:discussion}
 \section{Results}
 \label{sec:results}
 \added{In our stratified domains, for sufficiently large $\text{Ta} \geq 10^5$, 
-a best-fit to results from a linear instability
+a best-fit to results from a linear stability
 analysis provides $\text{Ra}_{\text{crit}} = 1.459\text{Ta}^{2/3}$ 
 and $k_{\text{crit}} = 0.414\text{Ta}^{1/6}$.}
 In figure~\ref{fig:parameter_space}a, the value of Ra$_{\text{crit}}$
@@ -399,14 +400,7 @@ changes in the thermal boundary layer structure with increasing Ra.}
 for $\pro = \{0.6, 0.957, 1.58\}$. These scalings are in line with classic 2/7 power law scalings
 in \RB convection \citep{ahlers&all2009}, and approach a $\text{Ra}^{1/3}$ scaling, 
 which has been predicted when \pro$\,$ is held constant
-\pro$\,$\citep[see][and section \ref{sec:discussion}]{king&all2012}.}
-
-\begin{equation}
-\text{Re}_{\parallel} = \frac{|u| L_z}{\nu}, \qquad
-\text{Re}_{\perp}     = \frac{|u|}{\nu}\frac{2\pi}{k_{\text{crit}}}.
-\label{eqn:re_defn}
-\end{equation}
-
+\citep[see][and section \ref{sec:discussion}]{king&all2012}.}
 
 \added{In rotating convection, the nature of flows is distinctly different parallel
 to the rotation vector from perpendicular to the rotation vector. As a result, we
@@ -447,7 +441,7 @@ As Ra increases at a constant value of
 \pro, both the thermal ($\edit1{\sigma_{\text{s}}}$) and dynamical (Ro) boundary layers become thinner. 
 We measure the
 thickness of the thermal boundary layer ($\delta_{s}$) at the top of the domain by 
-\added{finding the location of its first maxima away from the boundary.}
+\added{finding the location of the first maxima of $\sigma_{\text{s}}$ away from the boundary.}
 \deleted{measuring where a linear fit within the boundary layer crosses through $\partial_z s = 0$.
 We ensure by-eye for each profile that this is a reasonable measure of the boundary
 layer thickness}. We measure
@@ -493,9 +487,13 @@ scale as $\delta_{S} \propto \text{Ra}^{-1/3}$, and that rotational Ekman bounda
 should scale as $\delta_{\text{Ro}} \propto \text{Ta}^{-1/4} = \text{Ek}^{1/2}$, and thus
 when a ``transition parameter,'' $\text{Ra}/\text{Ta}^{3/4} \sim 1$, 
 these boundary layers should cross one another.
-They demonstrate that the value of $\text{Ra}/\text{Ta}^{3/4}$ seems to determine
-whether a flow is rotationally constrained or not. \cite{king&all2013} continued their
-work, and showed how numerous convective flow properties scale with this transition parameter,
+They demonstrate that when $2 \lesssim\text{Ra}/\text{Ta}^{3/4} \lesssim 20$ flows are in the
+transitional regime, and for $\text{Ra}/\text{Ta}^{3/4} \lesssim 2$, flows are rotationally
+constrained. While our inclusion of stratification changes the precise values of Ra and Ta,
+the values of \pro$\,$ studied here seem to fall in the rotationally constrained
+($\pro = 0.6$) or near-constrained transitional regime ($\pro = \{0.957, 1.58\}$). 
+\cite{king&all2013} continued the work of \cite{king&all2012} 
+and showed how numerous convective flow properties scale with this transition parameter,
 including the ratio of the thermal to viscous boundary layer. In our current work, we find that
 despite the added complexity of stratification and despite our using stress-free rather than
 no-slip boundaries, the boundary layer scaling arguments put forth in \cite{king&all2012} seem

@@ -166,13 +166,13 @@ leg = Legend(ax2, lines[-2:], labels[-2:],
 ax2.add_artist(leg)
 
 
-
+marker2 = 'd'
 lines += ax2.plot(ra06_full, re06_full, c=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), marker='o', **kwargs)
-lines += ax2.plot(ra06_full, re_perp06_full, c=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), marker='s', **kwargs)
+lines += ax2.plot(ra06_full, re_perp06_full, c=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), marker=marker2, **kwargs)
 lines += ax2.plot(ra957_full, re957_full, c=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), marker='o', **kwargs)
-lines += ax2.plot(ra957_full, re_perp957_full, c=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), marker='s',  **kwargs)
+lines += ax2.plot(ra957_full, re_perp957_full, c=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), marker=marker2,  **kwargs)
 lines += ax2.plot(ra158_full, re158_full, c=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1),  marker='o', **kwargs)
-lines += ax2.plot(ra158_full, re_perp158_full, c=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1), marker='s', **kwargs)
+lines += ax2.plot(ra158_full, re_perp158_full, c=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1), marker=marker2, **kwargs)
 
 
 leg = Legend(ax2, lines[-2:], (r'$\mathrm{Re}_{\parallel}$', r'$\mathrm{Re}_{\perp}$'),
