@@ -31,10 +31,10 @@ ax4 = plt.subplot(gs.new_subplotspec(*gs_info[3]))
 
 #lowF = h5py.File('../data/slices/pro0.96_ra9.16e5_ta1e8_slices_s60.h5', 'r')
 very_lowF = h5py.File('../data/slices/pro0.6_ra1.24e9_ta5.2e12_slices_s230.h5', 'r')
-lowF = h5py.File('../data/slices/pro0.96_ra7.67e7_ta3.66e10_slices_s58.h5', 'r')
+lowF = h5py.File('../data/slices/pro0.96_ra4.76e6_ta9.00e8_slices_s130.h5', 'r')
 #highF = h5py.File('../data/slices/pro1.58_ra2.49e5_ta4.64e6_slices_s60.h5', 'r')
-highF = h5py.File('../data/slices/pro1.58_ra1.40e6_ta4.64e7.h5', 'r')
-coF = h5py.File('../data/slices/co1_ta1e5.h5', 'r')
+highF = h5py.File('../data/slices/pro1.58_ra7.89e4_ta1.00e6_slices_s80.h5', 'r')
+coF = h5py.File('../data/slices/co1_ta4.39e3.h5', 'r')
 
 highres_n = 1024
 
@@ -60,7 +60,7 @@ for f, ax in zip( [very_lowF, lowF, highF, coF], [ax4, ax3, ax2, ax1] ):
     s_field.set_scales(big_scale, keep_data=True)
     big_s = s_field['g']
     mn, mx = big_s.min(), big_s.max()
-    mn *= 0.9
+    mn *= 0.8
     mx *= 0.9
     
     yy, xx = np.meshgrid(big_y, big_x)
@@ -87,10 +87,10 @@ cax.annotate(r'$S_{\mathrm{min}} \times 10^{-5}$', fontsize=8,  xy=(-0.35, 0.25)
 cax.annotate(r'$S_{\mathrm{max}} \times 10^{-5}$', fontsize=8,  xy=(1.02, 0.25), annotation_clip=False)
 
 bbox_props = dict(boxstyle="round", fc="w", ec="0.5", alpha=0.9)
-ax4.text(0.23, 0.93, "Ro = 0.03", ha="center", va="center", size=8, bbox=bbox_props)
+ax4.text(0.26, 0.93, "Ro = 0.026", ha="center", va="center", size=8, bbox=bbox_props)
 ax3.text(0.23, 0.93, "Ro = 0.13", ha="center", va="center", size=8, bbox=bbox_props)
 ax2.text(0.23, 0.93, "Ro = 0.42", ha="center", va="center", size=8, bbox=bbox_props)
-ax1.text(0.23, 0.93, "Ro = 2.01", ha="center", va="center", size=8, bbox=bbox_props)
+ax1.text(0.23, 0.93, "Ro = 1.21", ha="center", va="center", size=8, bbox=bbox_props)
 
 print('saving png')
 fig.savefig('../tex/figs/dynamics_plot.png', dpi=600, bbox_inches='tight')

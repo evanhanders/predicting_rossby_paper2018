@@ -25,6 +25,7 @@ entropy_gradients = dict()
 entropy_stds = dict()
 rossby_profiles   = dict()
 z   = dict()
+lines = []
 for fname in glob.glob('../profile_data/*.h5'):
     key = ''
     pieces = fname.split('.h5')[0].split('/')[-1].split('_')
@@ -162,15 +163,16 @@ ro_bls_bot = np.array(ro_bls_bot)
 s_bls_bot = np.array(s_bls_bot)
 rayleighs = np.array(rayleighs)
 
-ax3_2.plot(rayleighs/234.8, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.957$', marker='o', color=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), **kwargs)
-p = np.polyfit(np.log10(rayleighs/234.8), np.log10(s_bls/0.66), deg=1)
+lines += ax3_2.plot(rayleighs/270, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', zorder=2, marker='o', color=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), **kwargs)
+label096 = r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$'
+p = np.polyfit(np.log10(rayleighs/270), np.log10(s_bls/0.66), deg=1)
 vert = (1/10**(p[1]))**(1/p[0])
 ax3_2.axvline(vert, c=ORANGE, ls='--', lw=0.5)
 ax3.axvline(vert, c=ORANGE, ls='--',  lw=0.5)
 
 
  
-ax3.plot(rayleighs/234.8, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.957$', marker='o', color=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), **kwargs)
+ax3.plot(rayleighs/270, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', zorder=2, marker='o', color=(*ORANGE, 0.4), markeredgecolor=(*ORANGE, 1), **kwargs)
 ax3.set_xscale('log')
 
 ax1_2.set_xlabel('z')
@@ -182,7 +184,7 @@ ax1_1.set_yticklabels((0, 1, 2, 3, 4))
 ax1_1.set_xlim(0, Lz)
 ax1_2.set_xlim(0, Lz)
 
-ax1_1.text(1.7, 3e-5, r'$\mathrm{Ro}_{\mathrm{p}} = 0.957$', ha='center', va='center')
+ax1_1.text(1.7, 3e-5, r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', ha='center', va='center')
     
 
 plt.colorbar(sm, cax=cax1, orientation='horizontal')
@@ -266,11 +268,12 @@ ro_bls_bot = np.array(ro_bls_bot)
 s_bls_bot = np.array(s_bls_bot)
 rayleighs = np.array(rayleighs)
 
-ax3_2.plot(rayleighs/11, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', color=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1), **kwargs)
+lines += ax3_2.plot(rayleighs/25, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', zorder=1, marker='o', color=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1), **kwargs)
+label158 = r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$'
 ax3_2.set_yscale('log')
 ax3_2.set_xscale('log')
 ax3_2.set_ylabel(r'(f) $\delta_{\mathrm{s}}/\mathrm{H}_\rho$')
-p = np.polyfit(np.log10(rayleighs/11), np.log10(s_bls/0.66), deg=1)
+p = np.polyfit(np.log10(rayleighs/25), np.log10(s_bls/0.66), deg=1)
 vert = (1/10**(p[1]))**(1/p[0])
 ax3_2.axvline(vert, c=BLUE, ls='--', lw=0.5)
 ax3.axvline(vert, c=BLUE, ls='--',  lw=0.5)
@@ -280,14 +283,14 @@ ax3.axvline(vert, c=BLUE, ls='--',  lw=0.5)
 
 
  
-ax3.plot(rayleighs/11, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', marker='o', color=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1), **kwargs)
+ax3.plot(rayleighs/25, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', zorder=1, marker='o', color=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1), **kwargs)
 #ax3.set_yscale('log')
 ax3_2.set_xlabel(r'Ra/Ra$_{\mathrm{crit}}$')
 ax3.set_ylabel(r'(e) $\delta_{\mathrm{Ro}}/\delta_{\mathrm{s}}$')
 
 ax2_2.set_xlabel('z')
 ax2_2.set_ylabel('(b) Ro')
-ax2_1.set_ylabel(r'(c) $\sigma_\mathrm{s} \times 10^{-5}$')
+ax2_1.set_ylabel(r'(a) $\sigma_\mathrm{s} \times 10^{-5}$')
 ax2_1.set_yticks((0, 2e-5, 4e-5, 6e-5, 8e-5))
 ax2_1.set_yticklabels((0, 2, 4, 6, 8))
 ax2_1.set_xticks(())
@@ -367,19 +370,22 @@ rayleighs = np.array(rayleighs)
   
 ro_bls = np.array(ro_bls)
 s_bls = np.array(s_bls)
-
-ax3_2.plot(rayleighs/7.924e4, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$', marker='o', color=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), **kwargs)
+lines  += ax3_2.plot(rayleighs/7.924e4, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$', zorder=3, marker='o', color=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), **kwargs)
+label06 = r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$'
 p = np.polyfit(np.log10(rayleighs/7.924e4), np.log10(s_bls/0.66), deg=1)
 vert = (1/10**(p[1]))**(1/p[0])
 ax3_2.axvline(vert, c=GREEN, ls='--', lw=0.5)
 ax3.axvline(vert, c=GREEN, ls='--',  lw=0.5)
  
-ax3.plot(rayleighs/7.924e4, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$', marker='o', color=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), **kwargs)
+ax3.plot(rayleighs/7.924e4, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$', zorder=3, marker='o', color=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), **kwargs)
 ax3.set_xscale('log')
 
+leg_lines = [lines[2], lines[0], lines[1]]
 
-ax3_2.legend(loc='upper right', frameon=True, borderpad=0.25, borderaxespad=0.1, handletextpad=0, fontsize=6, markerscale=1)
-
+from matplotlib.legend import Legend
+leg = Legend(ax3_2, leg_lines, [label06, label096, label158],
+             loc='upper right', frameon=False, fontsize=6, borderpad=0.25, borderaxespad=0.1, handletextpad=0)
+ax3_2.add_artist(leg)
 
 fig.savefig('../tex/figs/boundary_layers.png', dpi=600, bbox_inches='tight')
 fig.savefig('../tex/figs/boundary_layers.pdf', dpi=600, bbox_inches='tight')

@@ -43,9 +43,9 @@ Rop957 = Ro_p == 0.957
 Rop158 = Ro_p == 1.58
 
 start_pt = 3
-ra957_full = Ra[Rop957]/234.8
+ra957_full = Ra[Rop957]/270
 nu957_full = Nu[Rop957]
-ra158_full = Ra[Rop158]/11
+ra158_full = Ra[Rop158]/25
 nu158_full = Nu[Rop158]
 ra06_full = Ra[Rop06]/7.924e4
 nu06_full = Nu[Rop06]

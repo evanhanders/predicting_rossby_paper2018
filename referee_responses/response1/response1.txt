@@ -1,0 +1,45 @@
+Dear Rekha,
+
+We thank you and the anonymous referee for taking the time to consider and review our manuscript, "Predicting the Rossby number in convective experiments." We have reviewed the comments of the referee report and updated our manuscript in response to them, including the addition of a small suite of additional simulations. We have chosen to resubmit this updated manuscript, as we believe that the results found within will be greatly beneficial to fluid modelers in the astrophysics community, particularly dynamo modelers. As such, we find The Astrophysical Journal Letters to be an ideal outlet for the work, both in terms of the paper's audience and timeliness.
+
+Below we lay out the significant changes to the manuscript since the previous draft, and include inline responses to each of the referee's comments. In order to make the review process easier for both you and the referee, we are emailing a PDF copy of a "redlined" version of the manuscript to make it easier to find where changes in the manuscript text have occurred.
+
+Best wishes,
+Evan Anders, Katie Manduca, Ben Brown, Jeff Oishi, and Geoff Vasil
+
+_____________________________________________________________________-
+FULL RESPONSE TO REFEREE REPORT: (Referee comments begin with ">>")
+
+>> The manuscript presents scaling laws for the Rossby number in rotating compressible convection obtained from planar numerical simulations. Although a large body of literature already exists on scaling laws of global quantities in rotating Boussinesq convection, much less work has been done in the compressible case (e.g. Yadav, Gastine, Christensen & Duarte 2013) so this study is of interest. However I cannot recommend the present manuscript for publication in ApJ Letters because the importance of the results is limited for the following reasons.
+ 
+We have modified the draft in some fairly significant ways, as we will summarize briefly here. Major changes include the following:
+1. We have included another path through parameter space at Ro_p = 0.6, in order to probe increasingly rotationally constrained dynamics. Data from this run is now included in Figs. 1, 2, 3, and 4. 
+2. The results section has been expanded in a few ways. 
+ (a) Measured scaling laws are more precisely reported for future authors to compare to. 
+ (b) We have added a new eqn. 6 with two measures of the Reynolds numbers. Re_parallel uses a length scale set by stratification. Re_perp uses a length scale set by rotation.
+ (c) We include some discussion of our expectations for various scaling laws. 
+ (d) We have changed our prescription for thermal boundary layer measurements to better align with the measurements in the Rayleigh-Benard literature, and we explain why it is difficult to compare our boundary layer measurements to those in the literature, due to our stress-free boundary conditions.
+3. The discussion has been vastly expanded to include some detailed comparison of our work with past work that has explored parameters similar to the predictive Rossby number.
+4. Each of the figures has been updated:
+  (Fig 1) Fig 1a now displays all 3 Ro_p paths explored in this work, as well as (Ta_crit, Ra_crit) for each path. We normalize by Ra_crit in later figures, and wanted to visualize this here. Fig 1b&c now contain new data points from our new runs.
+  (Fig 2) Fig 2 now contains a fourth panel at lower Ro from our new set of simulations. All simulations shown are now at roughly the same Re_perp instead of Re_parallel, as before, in order to better compare dynamics.
+  (Fig 3) Fig 3's x-axis has now been normalized by Ra_crit for each Ro_p path (where Ra_crit is visualized in Fig. 1). Fig 3b now contains measurements of Re_parallel and Re_perp for each run at constant Ro_p. Reference scaling laws are now included in each figure panel.
+  (Fig 4) Figure 4 has a new panel (Fig. 4f) in which we compare the thickness of the thermal boundary layer to the size of the density scale height at the top of the atmosphere. Figs. 4e&f include data from our new runs. We have adjusted the manner in which we measure the thermal boundary layer thickness to be a more industry-standarded procedure, and Fig. 4a&c reflect this new measurement by displaying the standard-deviation of entropy.
+
+We present more specific inline responses to the report below.
+ 
+>> The authors describe some of their results as being in the "rotationally constrained regime". However a comparison with studies on the transition between non-rotating and rapidly-rotating convection (e.g. Schmitz & Tilgner 2009; King, Stellmach & Aurnou 2012; Ecke & Niemela 2014; Gastine, Wicht & Aubert 2016) indicates that the regime studied here is within the transition regime. In this context, the interpretation of the results through power law dependence doesn't seem particularly appropriate. 
+ 
+Upon further consideration, we agree that the Ro_p = (0.96, 1.58) paths do seem to be in the transition regime, with Ro_p = 0.96 being on the rotationally-constrained end of that regime. The new track through parameter space at Ro_p = 0.6 seems to be truly rotationally constrained. We say this specifically in the second paragraph of the discussion section. We also note in the last paragraph of the results section that the boundary layer ratios we present in Fig. 4e are hard to compare to much of the previous literature (e.g., Fig. 5 in King, Stellmach, & Buffett 2013) due to differences in our mechanical boundaries (stress free) compared to their no-slip boundaries. 
+
+We find the presentation of power laws, as in Fig. 3, to be appropriate for our Ro_p tracks. In Figs 3 & 4, we now plot measured values vs. Ra/Ra_crit instead of just Ra on the x-axis. Here, Ra_crit is the value of Ra at which the constant Ro_p curve crosses the critical curve (as denoted in the updated Fig. 1a). The Nusselt number scalings of all three Ro_p paths collapse surprisingly well. When we conducted the new experiments at Ro_p = 0.6, we found a problem with the RMS Reynolds number: that is, its value at Ra_crit increased with decreasing Ro_p and rotational constraint, despite scaling similarly with increasing Ra. We have now also included a measurement of the RMS Reynolds number which uses the wavelength of convective onset as the length scale in the Reynolds number definition, and we discuss differences between the two in section 3, paragraph 4.
+ 
+>> Scaling behaviours for the Rossby number have been proposed in earlier studies (e.g. King, Stellmach & Buffett 2013; Barker, Dempsey & Lithwick 2014; Gastine, Wicht & Aubert 2016, where scalings of the Rossby number can be directly deduced from the scalings of the Reynolds number and the flow lengthscale). However no attempt is made here to compare the proposed scaling to these earlier studies. It is therefore difficult to properly assess the novelty of the results and, in particular, the effect of the stratification which is not often included in earlier studies.
+ 
+In our discussion section, paragraph 5, we now make a direct comparison to the scaling law of King, Stellmach, and Buffett 2013. They offer a direct comparison of a Re-and-length-scale based Rossby number as a function of, essentially, Ro_p, and seem the most appropriate comparison point.
+
+We have expanded Fig. 4 to show when the thermal boundary layer becomes thinner than the density scale height at the top of the atmosphere. We find no significant dynamical change across this transition. In general, in Anders & Brown 2017, we found that despite compressibility and stratification, volume average fluid quantities tended to behave in a very Boussinesq manner. We briefly mention this explicitly in the discussion section, paragraph 3. 
+ 
+>> Finally no theoretical argument is offered to explain the empirical scaling obtained for the Rossby number.
+
+Our work here was experimental. We arrived at the Ra and Ta scaling of the predictive Rossby number by interpolating between various simulations through parameter space. Based on the sources that this report and collaborators have pointed us towards, we now have some understanding of why a parameter like Ra/Ta^(3/4) should be important (which we describe briefly in our updated discussion). However, a precise understanding of how Ro scales with Ro_p is beyond the scope of this letter.

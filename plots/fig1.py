@@ -51,36 +51,54 @@ original_co = np.genfromtxt('../data/constant_co.csv', skip_header=1, delimiter=
 co1 = Ro_c == 1
 co03 = Ro_c == 0.3
 co01 = Ro_c == 0.1
-this_ta = np.logspace(1,7,100)
+this_ta = np.logspace(1,10,100)
 this_ra = this_ta
-ax1.plot(this_ta, this_ra, c=Co_color, lw=2, label=r'$\mathrm{Ro}_\mathrm{c} = 1$', dashes=(3,1), rasterized=True)
+#ax1.plot(this_ta, this_ra, c=Co_color, lw=2, label=r'$\mathrm{Ro}_\mathrm{c}$', dashes=(3,1), rasterized=True)
+ax1.plot(this_ta, this_ra, c=Co_color, lw=1.5, label=r'$\mathrm{Ro}_\mathrm{c} = 1$', dashes=(3,1), rasterized=True)
 
 S3 = S == 3
 S2 = S == 2
 
 x, y = Ta[S3], Ra[S3]
 x, y = zip(*sorted(zip(x, y)))
-ax1.plot(x, y, c=S_color, dashes=(3,0.5,0.5,0.5), lw=2, label=r'$\mathcal{S}=3$', rasterized=True)
+#ax1.plot(x, y, c=S_color, dashes=(3,0.5,0.5,0.5), lw=2, label=r'$\mathcal{S}$', rasterized=True)
+ax1.plot(x, y, c=S_color, dashes=(3,0.5,0.5,0.5), lw=1.5, label=r'$\mathcal{S}=3$', rasterized=True)
 
 Rop06  = Ro_p == 0.6
 Rop957 = Ro_p == 0.957
 Rop158 = Ro_p == 1.58
-this_ta = np.logspace(1,7)
+this_ta = np.logspace(1,10)
+
 this_ra = 1.58**2*this_ta**(3/4)
-ax1.plot(this_ta, this_ra, c=Pro_color, lw=3, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', rasterized=True)
+ax1.plot(this_ta, this_ra, c=Pro_color, lw=1.5, label=r'$\mathrm{Ro}_{\mathrm{p}}$', rasterized=True)
+racrit = 25
+ax1.plot((racrit/(1.58**2))**(4/3), racrit, markeredgecolor=(*Pro_color, 1), markerfacecolor=(*Pro_color, 0.2), lw=0, marker='o', markersize=5)
+
+this_ra = 0.957**2*this_ta**(3/4)
+ax1.plot(this_ta, this_ra, c=Pro_color, lw=1, rasterized=True)
+racrit = 270
+ax1.plot((racrit/(0.957**2))**(4/3), racrit, markeredgecolor=(*Pro_color, 1), markerfacecolor=(*Pro_color, 0.2), lw=0, marker='o', markersize=5)
+
+this_ra = 0.6**2*this_ta**(3/4)
+ax1.plot(this_ta, this_ra, c=Pro_color, lw=0.5, rasterized=True)
+racrit = 7.924e4
+ax1.plot((racrit/(0.6**2))**(4/3), racrit, markeredgecolor=(*Pro_color, 1), markerfacecolor=(*Pro_color, 0.2), lw=0, marker='o', markersize=5)
+#ax1.plot(this_ta, this_ra, c=Pro_color, lw=3, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', rasterized=True)
 
 
-ax1.set_xlim(1e1, 1e7)
-ax1.set_ylim(1e1, 1e6)
+ax1.set_xlim(1e1, 1e10)
+ax1.set_ylim(1e1, 1e8)
 ax1.set_xscale('log')
 ax1.set_yscale('log')
 ax1.legend(loc='upper left', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0.4)
 
 ax1.set_xlabel('Ta')
 ax1.set_ylabel('Ra')
-ax1.text(4e6, 1.5e1, "(a)", ha="center", va="center", size=8)
-ax1.text(3e5, 2e2, "stable", ha="center", va="center", rotation=0, size=10, alpha=0.7)
-ax1.set_xticks((1e1, 1e3, 1e5, 1e7))
+ax1.text(1e3, 3e1, "0.6", ha='center', va='center', size=8, color=Pro_color, rotation=50)
+ax1.text(7e8, 3e7, "1.58", ha='center', va='center', size=8, color=Pro_color, rotation=50)
+ax1.text(3e9, 2e1, "(a)", ha="center", va="center", size=8)
+ax1.text(9e6, 2e2, "stable", ha="center", va="center", rotation=0, size=10, alpha=0.7)
+ax1.set_xticks((1e1, 1e3, 1e5, 1e7, 1e9))
 
 
 #PLOT 2
@@ -109,8 +127,8 @@ ax2.text(3e1, 1.2e-2, "(b)", ha="center", va="center", size=8)
 ax2.text(7e6, 5.2e-2, "2", ha="center", va="center", size=8, color=S_color)
 ax2.text(4e7, 7.8e-2, "3", ha="center", va="center", size=8, color=S_color)
 ax2.text(1.5e5, 1.15e-2, "0.6", ha="center", va="center", size=8, color=Pro_color)
-ax2.text(8e2, 6e-2, "0.96", ha="center", va="center", size=8, color=Pro_color)
-ax2.text(7e1, 2.2e-1, "1.58", ha="center", va="center", size=8, color=Pro_color)
+ax2.text(5e2, 5e-2, "0.96", ha="center", va="center", size=8, color=Pro_color)
+ax2.text(6e1, 2.2e-1, "1.58", ha="center", va="center", size=8, color=Pro_color)
 ax2.text(2e7, 3.4e0, "1.0", ha="center", va="center", size=8, color=Co_color)
 ax2.text(8e6, 8e-1, "0.3", ha="center", va="center", size=8, color=Co_color)
 ax2.text(1.6e7, 2.6e-1, "0.1", ha="center", va="center", size=8, color=Co_color)
