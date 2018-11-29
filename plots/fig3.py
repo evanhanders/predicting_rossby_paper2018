@@ -57,18 +57,20 @@ ra06       = ra06_full[start_pt:]
 nu06       = nu06_full[start_pt:]
 
 lines, labels = [], []
-ra = np.logspace(0.5, 9, 100)
-str2 = 'Ra$^{1/3}$'# + '{:.2f}'.format(1/3) + '}$'
-lines += ax1.plot(ra, 1.1*ra**(1/3), label=r'{:s}'.format(str2), color='k', lw=0.5)
+ra = np.logspace(-1, 9, 100)
+str2 = 'Ra$^{1/3}$'
+lines += ax1.plot(ra, 1.7*ra**(2/7), label=r'{:s}'.format(str2), color='k', lw=0.5)
+#lines += ax1.plot(ra, 1.5*ra**(1/3), label=r'{:s}'.format(str2), color='k', lw=0.5)
 labels += [r'{:s}'.format(str2)]
+ax1.text(1e1, 4e0, r'$\mathrm{Ra}^{2/7}$', ha='center', va='center', size=8, rotation=30)
 #str2 = 'Ra$^{2/7}$'# + '{:.2f}'.format(2/7) + '}$'
 #ra = np.logspace(0.5, 9, 100)
 #lines += ax1.plot(ra, 1.5*ra**(2/7), label=r'{:s}'.format(str2), color='k', lw=0.5, dashes=(5,1))
 #labels += [r'{:s}'.format(str2)]
 
-leg = Legend(ax1, lines[-2:], labels[-2:],
-             loc='upper left', frameon=False, fontsize=8)
-ax1.add_artist(leg)
+#leg = Legend(ax1, lines[-2:], labels[-2:],
+#             loc='upper left', frameon=False, fontsize=8)
+#ax1.add_artist(leg)
 
 
 
@@ -128,7 +130,7 @@ print('\n\n')
 ax1.legend(lines[:3], labels[:3], loc='lower right', frameon=False, fontsize=8, handletextpad=0)
 #leg = Legend(ax1, lines[2:], labels[2:],
 #             loc='lower right', frameon=False, fontsize=8)
-ax1.add_artist(leg)
+#ax1.add_artist(leg)
 ax1.set_xscale('log')
 ax1.set_yscale('log')
 ax1.set_ylabel('(a) Nu')
@@ -152,18 +154,20 @@ re158 = re158_full[start_pt:]
 re_perp158 = re_perp158_full[start_pt:]
 
 
-ra = np.logspace(0.5, 9, 100)
+ra = np.logspace(-1, 9, 100)
 str2 = 'Ra$^{1/2}$'# + '{:.2f}'.format(0.5) + '}$'
-lines += ax2.plot(ra, 6*ra**(1/2), label=r'{:s}'.format(str2), color='k', lw=0.5)
+lines += ax2.plot(ra, 30*ra**(1/2), label=r'{:s}'.format(str2), color='k', lw=0.5)
 labels += [r'{:s}'.format(str2)]
 str2 = 'Ra$^{5/18}$'# + '{:.2f}'.format(5/18) + '}$'
-ra = np.logspace(0.5, 9, 100)
-lines += ax2.plot(ra, 1.8*ra**(5/18), label=r'{:s}'.format(str2), color='k', lw=0.5, dashes=(5,1))
+lines += ax2.plot(ra, 1.2*ra**(5/18), label=r'{:s}'.format(str2), color='k', lw=0.5, dashes=(5,1))
 labels += [r'{:s}'.format(str2)]
 
-leg = Legend(ax2, lines[-2:], labels[-2:],
-             loc='upper left', frameon=False, fontsize=8)
-ax2.add_artist(leg)
+ax2.text(1e1, 1.5e2, r'$\mathrm{Ra}^{1/2}$', ha='center', va='center', size=8, rotation=27)
+ax2.text(2e2, 2.4e0, r'$\mathrm{Ra}^{5/18}$', ha='center', va='center', size=8, rotation=17)
+
+#leg = Legend(ax2, lines[-2:], labels[-2:],
+#             loc='upper left', frameon=False, fontsize=8)
+#ax2.add_artist(leg)
 
 
 marker2 = 'd'
