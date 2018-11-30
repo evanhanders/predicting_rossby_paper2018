@@ -63,6 +63,7 @@ lines += ax1.plot(ra, 1.7*ra**(2/7), label=r'{:s}'.format(str2), color='k', lw=0
 #lines += ax1.plot(ra, 1.5*ra**(1/3), label=r'{:s}'.format(str2), color='k', lw=0.5)
 labels += [r'{:s}'.format(str2)]
 ax1.text(1e1, 4e0, r'$\mathrm{Ra}^{2/7}$', ha='center', va='center', size=8, rotation=30)
+ax1.text(2.2e0, 7.2e1, '(a)', ha='center', va='center', size=8, rotation=0)
 #str2 = 'Ra$^{2/7}$'# + '{:.2f}'.format(2/7) + '}$'
 #ra = np.logspace(0.5, 9, 100)
 #lines += ax1.plot(ra, 1.5*ra**(2/7), label=r'{:s}'.format(str2), color='k', lw=0.5, dashes=(5,1))
@@ -133,7 +134,7 @@ ax1.legend(lines[:3], labels[:3], loc='lower right', frameon=False, fontsize=8, 
 #ax1.add_artist(leg)
 ax1.set_xscale('log')
 ax1.set_yscale('log')
-ax1.set_ylabel('(a) Nu')
+ax1.set_ylabel('Nu')
 #ax1.text(3e-2, 7e1, "(a)", ha="center", va="center", size=8)
 ax1.set_yticks([1e1, 1e2])
 
@@ -163,7 +164,8 @@ lines += ax2.plot(ra, 1.2*ra**(5/18), label=r'{:s}'.format(str2), color='k', lw=
 labels += [r'{:s}'.format(str2)]
 
 ax2.text(1e1, 1.5e2, r'$\mathrm{Ra}^{1/2}$', ha='center', va='center', size=8, rotation=27)
-ax2.text(2e2, 2.4e0, r'$\mathrm{Ra}^{5/18}$', ha='center', va='center', size=8, rotation=17)
+ax2.text(1e2, 2.2e0, r'$\mathrm{Ra}^{5/18}$', ha='center', va='center', size=8, rotation=16)
+ax2.text(2.2e0, 5.2e3, '(b)', ha='center', va='center', size=8, rotation=0)
 
 #leg = Legend(ax2, lines[-2:], labels[-2:],
 #             loc='upper left', frameon=False, fontsize=8)
@@ -243,7 +245,7 @@ lines += ax2.plot(ra158_full, 10**(p[1])*ra158_full**(p[0]), label=r'{:s}'.forma
 ax2.set_xscale('log')
 ax2.set_yscale('log')
 ax2.set_xlabel(r'Ra/Ra$_{\mathrm{crit}}$')
-ax2.set_ylabel('(b) Re')
+ax2.set_ylabel('Re')
 #ax2.text(3e-2, 2e3, "(b)", ha="center", va="center", size=8)
 ax2.set_yticks([1e1, 1e2, 1e3])
 

@@ -176,15 +176,16 @@ ax3.plot(rayleighs/270, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$'
 ax3.set_xscale('log')
 
 ax1_2.set_xlabel('z')
-ax1_2.set_ylabel('(d) Ro')
-ax1_1.set_ylabel(r'(c) $\sigma_\mathrm{s} \times 10^{-5}$')
+ax1_2.set_ylabel('Ro')
+ax1_1.set_ylabel(r'$\sigma_\mathrm{s} \times 10^{-5}$', labelpad=15)
 ax1_1.set_xticks(())
-ax1_1.set_yticks((0, 1e-5, 2e-5, 3e-5, 4e-5))
-ax1_1.set_yticklabels((0, 1, 2, 3, 4))
+ax1_1.set_ylim(0, 4e-5)
+ax1_1.set_yticks((1e-5, 2e-5, 3e-5, 4e-5))
+ax1_1.set_yticklabels((1, 2, 3, 4))
 ax1_1.set_xlim(0, Lz)
 ax1_2.set_xlim(0, Lz)
 
-ax1_1.text(1.7, 3e-5, r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', ha='center', va='center')
+ax1_1.text(1.55, 3e-5, r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', ha='center', va='center')
     
 
 plt.colorbar(sm, cax=cax1, orientation='horizontal')
@@ -272,7 +273,7 @@ lines += ax3_2.plot(rayleighs/25, s_bls/0.66, label=r'$\mathrm{Ro}_{\mathrm{p}} 
 label158 = r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$'
 ax3_2.set_yscale('log')
 ax3_2.set_xscale('log')
-ax3_2.set_ylabel(r'(f) $\delta_{\mathrm{s}}/\mathrm{H}_\rho$')
+ax3_2.set_ylabel(r'$\delta_{\mathrm{s}}/\mathrm{H}_\rho$')
 p = np.polyfit(np.log10(rayleighs/25), np.log10(s_bls/0.66), deg=1)
 vert = (1/10**(p[1]))**(1/p[0])
 ax3_2.axvline(vert, c=BLUE, ls='--', lw=0.5)
@@ -286,22 +287,28 @@ ax3.axvline(vert, c=BLUE, ls='--',  lw=0.5)
 ax3.plot(rayleighs/25, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', zorder=1, marker='o', color=(*BLUE, 0.4), markeredgecolor=(*BLUE, 1), **kwargs)
 #ax3.set_yscale('log')
 ax3_2.set_xlabel(r'Ra/Ra$_{\mathrm{crit}}$')
-ax3.set_ylabel(r'(e) $\delta_{\mathrm{Ro}}/\delta_{\mathrm{s}}$')
+ax3.set_ylabel(r'$\delta_{\mathrm{Ro}}/\delta_{\mathrm{s}}$', labelpad=15)
 
 ax2_2.set_xlabel('z')
-ax2_2.set_ylabel('(b) Ro')
-ax2_1.set_ylabel(r'(a) $\sigma_\mathrm{s} \times 10^{-5}$')
-ax2_1.set_yticks((0, 2e-5, 4e-5, 6e-5, 8e-5))
-ax2_1.set_yticklabels((0, 2, 4, 6, 8))
+ax2_2.set_ylabel('Ro')
+ax2_1.set_ylabel(r'$\sigma_\mathrm{s} \times 10^{-5}$', labelpad=15)
+ax2_1.set_ylim(0, 7e-5)
+ax2_1.set_yticks(( 2e-5, 4e-5, 6e-5))
+ax2_2.set_yticks(( 0.2, 0.4, 0.6, 0.8))
+ax2_1.set_yticklabels((2, 4, 6))
 ax2_1.set_xticks(())
 ax2_1.set_xlim(0, Lz)
 ax2_2.set_xlim(0, Lz)
-ax2_1.text(1.5, 6e-5, r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', ha='center', va='center')
+ax2_1.text(1.55, 5.3e-5, r'$\mathrm{Ro}_{\mathrm{p}} = 1.58$', ha='center', va='center')
 
 
 ax3.set_yticks((0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6))
-#ax3.text(1.2e2, 0.565, "(e)", ha="center", va="center", size=8)
-#ax3_2.text(2.2e6, 4.8, "(f)", ha="center", va="center", size=8)
+ax2_1.text(0.4, 6.3e-5,   "(a)", ha="center", va="center", size=8)
+ax2_2.text(0.4, 8.2e-1, "(b)", ha="center", va="center", size=8)
+ax1_1.text(0.4, 3.6e-5,   "(c)", ha="center", va="center", size=8)
+ax1_2.text(0.4, 2.5e-1, "(d)", ha="center", va="center", size=8)
+ax3.text(2.5e0, 0.41, "(e)", ha="center", va="center", size=8)
+ax3_2.text(2.3e0, 1.1e-1, "(f)", ha="center", va="center", size=8)
  
 
 

@@ -23,7 +23,7 @@ S_marker   = 's'
 
 fig = plt.figure(figsize=(8.5, 3))
 gs     = gridspec.GridSpec(*(1000,1000))
-gs_info = (((50,0), 950, 250), ((50, 340), 950, 250), ((50, 680), 950, 250), ((50, 950), 950, 50))
+gs_info = (((50,0), 950, 250), ((50, 350), 950, 250), ((50, 700), 950, 250), ((50, 970), 950, 30))
 ax1 = plt.subplot(gs.new_subplotspec(*gs_info[0]))
 ax2 = plt.subplot(gs.new_subplotspec(*gs_info[1]))
 ax3 = plt.subplot(gs.new_subplotspec(*gs_info[2]))
@@ -90,12 +90,12 @@ ax1.set_xlim(1e1, 1e10)
 ax1.set_ylim(1e1, 1e8)
 ax1.set_xscale('log')
 ax1.set_yscale('log')
-ax1.legend(loc='upper left', fontsize=8, frameon=False, borderpad=0.1, handletextpad=0.4)
+ax1.legend(loc='upper left', fontsize=10, frameon=False, borderpad=0.1, handletextpad=0.4)
 
 ax1.set_xlabel('Ta')
 ax1.set_ylabel('Ra')
-ax1.text(1e3, 3e1, "0.6", ha='center', va='center', size=8, color=Pro_color, rotation=50)
-ax1.text(7e8, 3e7, "1.58", ha='center', va='center', size=8, color=Pro_color, rotation=50)
+ax1.text(1e3, 2.6e1, "0.6", ha='center', va='center', size=9, color=Pro_color, rotation=50)
+ax1.text(7e8, 3e7, "1.58", ha='center', va='center', size=9, color=Pro_color, rotation=50)
 ax1.text(3e9, 2e1, "(a)", ha="center", va="center", size=8)
 ax1.text(9e6, 2e2, "stable", ha="center", va="center", rotation=0, size=10, alpha=0.7)
 ax1.set_xticks((1e1, 1e3, 1e5, 1e7, 1e9))
@@ -121,17 +121,17 @@ ax2.set_yscale('log')
 ax2.set_xscale('log')
 ax2.set_xlabel('Ra')
 ax2.set_ylabel('Ro', labelpad=0)
-ax2.set_ylim(1e-2, 6)
+ax2.set_ylim(9e-3, 6)
 ax2.set_xticks((1e1, 1e3, 1e5, 1e7, 1e9))
-ax2.text(3e1, 1.2e-2, "(b)", ha="center", va="center", size=8)
-ax2.text(7e6, 5.2e-2, "2", ha="center", va="center", size=8, color=S_color)
-ax2.text(4e7, 7.8e-2, "3", ha="center", va="center", size=8, color=S_color)
-ax2.text(1.5e5, 1.15e-2, "0.6", ha="center", va="center", size=8, color=Pro_color)
-ax2.text(5e2, 5e-2, "0.96", ha="center", va="center", size=8, color=Pro_color)
-ax2.text(6e1, 2.2e-1, "1.58", ha="center", va="center", size=8, color=Pro_color)
-ax2.text(2e7, 3.4e0, "1.0", ha="center", va="center", size=8, color=Co_color)
-ax2.text(8e6, 8e-1, "0.3", ha="center", va="center", size=8, color=Co_color)
-ax2.text(1.6e7, 2.6e-1, "0.1", ha="center", va="center", size=8, color=Co_color)
+ax2.text(3e1, 1.15e-2, "(b)", ha="center", va="center", size=8)
+ax2.text(7e6, 5.2e-2, "2", ha="center", va="center", size=9, color=S_color)
+ax2.text(4e7, 7.8e-2, "3", ha="center", va="center", size=9, color=S_color)
+ax2.text(1.5e5, 1.08e-2, "0.6", ha="center", va="center", size=9, color=Pro_color)
+ax2.text(5e2, 5e-2, "0.96", ha="center", va="center", size=9, color=Pro_color)
+ax2.text(6e1, 2e-1, "1.58", ha="center", va="center", size=9, color=Pro_color)
+ax2.text(2e7, 3.4e0, "1.0", ha="center", va="center", size=9, color=Co_color)
+ax2.text(8e6, 8e-1, "0.3", ha="center", va="center", size=9, color=Co_color)
+ax2.text(1.6e7, 2.6e-1, "0.1", ha="center", va="center", size=9, color=Co_color)
 
 
 
@@ -208,18 +208,18 @@ for i in range(len(Ro_m)):
         marker = Co_marker
     elif Rop06[i] or Rop957[i] or Rop158[i]:
         marker = Pro_marker
-    ax3.plot(Ro_c[i], Ro_p[i], markerfacecolor=sm.to_rgba(np.log10(Ro_m[i])), markeredgecolor='black', markersize=3, lw=0, marker=marker, markeredgewidth=0.5, rasterized=True)
+    ax3.plot(Ro_c[i], Ro_p[i], markerfacecolor=sm.to_rgba(np.log10(Ro_m[i])), markeredgecolor='black', markersize=4, lw=0, marker=marker, markeredgewidth=0.5, rasterized=True)
 
 
 ax3.set_yscale('log')
 ax3.set_xscale('log')
 ax3.set_xticks((1e-2, 1e-1, 1, 1e1))
 ax3.set_xlabel(r'Ro$_\mathrm{c}$')
-ax3.set_ylabel(r'Ro$_\mathrm{p}$')
+ax3.set_ylabel(r'Ro$_\mathrm{p}$', labelpad=0)
 
 cb = plt.colorbar(plot, cax=cax, orientation='vertical', ticks=[-2, -1.5, -1, -0.5, 0, 0.5])
 cb.solids.set_rasterized(True)
-cax.annotate('Ro', xy=(.25,1.01), annotation_clip=False)
+cax.annotate('Ro', xy=(0,1.01), annotation_clip=False)
 cax.set_yticklabels((r'$10^{-2}$', r'$10^{-1.5}$', r'$10^{-1}$', r'$10^{-0.5}$', r'$10^0$', r'$10^{0.5}$'))
 cax.set_xticklabels([])
 
@@ -238,7 +238,8 @@ ax3.fill_between(onset_roc, 0, onset_rop, color='k', alpha=0.1, rasterized=True)
 
 ax3.set_ylim(0.5, 10)#np.min(ro_b_pp), np.max(ro_b_pp))
 ax3.set_xlim(np.min(ro_b_cc), np.max(ro_b_cc))
-ax3.text(4e0, 1e0, "stable", ha="center", va="center", rotation=0, size=10, alpha=0.7)
+ax3.text(2.6e0, 9e-1, "stable", ha="center", va="center", rotation=0, size=10, alpha=0.7)
+ax3.text(8.5e0, 5.7e-1, "(c)", ha="center", va="center", size=8)
 
 
 
