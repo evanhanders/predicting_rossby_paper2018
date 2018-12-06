@@ -1,5 +1,8 @@
 import numpy as np
 import matplotlib
+matplotlib.rcParams['font.family'] = 'serif'
+#matplotlib.rcParams['mathtext.default'] = 'regular'
+matplotlib.rcParams['mathtext.fontset'] = 'dejavuserif'
 #matplotlib settings
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -8,7 +11,6 @@ import h5py
 import scipy.optimize as scop
 from scipy.optimize import fmin
 from scipy.interpolate import interp1d
-matplotlib.rcParams['font.family'] = 'serif'
 
 ORANGE   = [1.        , 0.5, 0]
 GREEN    = [0, 0.398, 0]
@@ -44,8 +46,9 @@ for fname in glob.glob('../profile_data/*.h5'):
     rossby_profiles[key]  = f['Rossby'].value[-int(n_profiles/3)-1:-1,:]
     z[key]  = f['z'].value
 keys = rossby_profiles.keys()
-ta = [float(k.split('_ta')[-1]) for k in keys]
+ta = [-float(k.split('_ta')[-1]) for k in keys]
 tas, sorted_keys = zip(*sorted(zip(ta, keys)))
+tas = -np.array(tas)
 
 maxminta = dict()
 for ta, k in zip(tas, sorted_keys):
@@ -190,9 +193,9 @@ ax1_1.text(1.55, 3e-5, r'$\mathrm{Ro}_{\mathrm{p}} = 0.96$', ha='center', va='ce
 
 plt.colorbar(sm, cax=cax1, orientation='horizontal')
 cax1.set_xticklabels(())
-cax1.annotate(r'$10^{2.75}$', xy=(0,1.2), annotation_clip=False)
-cax1.annotate(r'$10^{7.75}$', xy=(.9,1.2), annotation_clip=False)
-cax1.annotate('Ra', xy=(.45,1.2), annotation_clip=False)
+cax1.annotate(r'$10^{0}$', xy=(0,1.2), annotation_clip=False)
+cax1.annotate(r'$10^{6}$', xy=(.9,1.2), annotation_clip=False)
+cax1.annotate(r'$\mathrm{Ra}/\mathrm{Ra}_{\mathrm{crit}}$', xy=(.35,1.3), annotation_clip=False, style='normal')
 
 
 #COLUMN 2
@@ -313,9 +316,9 @@ ax3_2.text(2.3e0, 1.1e-1, "(f)", ha="center", va="center", size=8)
 
 
 plt.colorbar(sm, cax=cax2, orientation='horizontal')
-cax2.annotate(r'$10^{2}$', xy=(0,1.2), annotation_clip=False)
-cax2.annotate(r'$10^{7}$', xy=(.9,1.2), annotation_clip=False)
-cax2.annotate('Ra', xy=(.45,1.2), annotation_clip=False)
+cax2.annotate(r'$10^{0}$', xy=(0,1.2), annotation_clip=False)
+cax2.annotate(r'$10^{6}$', xy=(.9,1.2), annotation_clip=False)
+cax2.annotate(r'$\mathrm{Ra}/\mathrm{Ra}_{\mathrm{crit}}$', xy=(.35,1.3), annotation_clip=False)
 cax2.set_xticklabels([])
 
 
@@ -386,6 +389,7 @@ ax3.axvline(vert, c=GREEN, ls='--',  lw=0.5)
  
 ax3.plot(rayleighs/7.924e4, ro_bls/s_bls, label=r'$\mathrm{Ro}_{\mathrm{p}} = 0.6$', zorder=3, marker='o', color=(*GREEN, 0.4), markeredgecolor=(*GREEN, 1), **kwargs)
 ax3.set_xscale('log')
+ax3.set_xticks([])
 
 leg_lines = [lines[2], lines[0], lines[1]]
 

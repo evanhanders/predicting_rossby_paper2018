@@ -34,6 +34,7 @@ very_lowF = h5py.File('../data/slices/pro0.6_ra1.24e9_ta5.2e12_slices_s230.h5', 
 lowF = h5py.File('../data/slices/pro0.96_ra4.76e6_ta9.00e8_slices_s130.h5', 'r')
 #highF = h5py.File('../data/slices/pro1.58_ra2.49e5_ta4.64e6_slices_s60.h5', 'r')
 highF = h5py.File('../data/slices/pro1.58_ra7.89e4_ta1.00e6_slices_s80.h5', 'r')
+#coF = h5py.File('../data/slices/rop6_ra6.77e2_slices_s80.h5', 'r')
 coF = h5py.File('../data/slices/co1_ta4.39e3.h5', 'r')
 
 highres_n = 1024
@@ -50,8 +51,9 @@ for f, ax in zip( [very_lowF, lowF, highF, coF], [ax4, ax3, ax2, ax1] ):
     big_scale=int(highres_n/len(x))
     s_field = domain.new_field()
         
-
-    s = f['tasks']['s near top'][0,:,:,0]
+    w_num = 10
+#    s = f['tasks']['s midplane'][w_num,:,:,0]
+    s = f['tasks']['s near top'][w_num,:,:,0]
     s -= s.mean()
     s_field.set_scales(base_scale, keep_data=False)
     s_field['g'] = s
@@ -60,8 +62,13 @@ for f, ax in zip( [very_lowF, lowF, highF, coF], [ax4, ax3, ax2, ax1] ):
     s_field.set_scales(big_scale, keep_data=True)
     big_s = s_field['g']
     mn, mx = big_s.min(), big_s.max()
-    mn *= 0.8
+    mn *= 0.9
     mx *= 0.9
+
+#    max_abs = np.max([np.abs(mn), np.abs(mx)])
+#    min_abs = np.min([np.abs(mn), np.abs(mx)])
+#    mx = min_abs + (max_abs-min_abs)*0.1
+#    mn = -min_abs - (max_abs - min_abs)*0.1
     
     yy, xx = np.meshgrid(big_y, big_x)
     c = ax.pcolormesh(xx, yy, big_s, cmap='RdBu_r', rasterized=True, vmin=mn, vmax=mx)

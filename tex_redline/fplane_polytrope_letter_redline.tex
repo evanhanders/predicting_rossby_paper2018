@@ -140,7 +140,7 @@ of convection in a simple stratified system.}
 In \cite{anders&brown2017} (hereafter \AB), we studied non-rotating compressible convection without magnetic fields in polytropic atmospheres. 
 In this work, we extend \AB$\,$ to rotationally-influenced, $f$-plane
 atmospheres 
-\cite[e.g.][]{brummell&all1996, brummell&all1998, calkins&all2015a}. 
+\cite[e.g.,][]{brummell&all1996, brummell&all1998, calkins&all2015a}. 
 We determine how the input parameters we studied previously, which controlled the Mach and
 Reynolds numbers of the evolved flows, couple with the Taylor number \citep[Ta, ][]{julien&all1996}, which sets the magnitude of the rotational vector. 
 
@@ -169,7 +169,7 @@ of the momentum equation.
 We impose impenetrable, stress-free, fixed-temperature boundary conditions at the top and bottom of the domain.
 
 
-We set the kinematic viscosity ($\nu$), thermal diffusivity ($\chi$), and strength of
+We specify the kinematic viscosity ($\nu$), thermal diffusivity ($\chi$), and strength of
 rotation ($\Omega$) at the top of the domain by choosing the Rayleigh number 
 (Ra), Prandtl number (Pr), and Taylor number (Ta),
 \begin{equation}
@@ -184,17 +184,24 @@ and $\gamma = 5/3$.
 Throughout this work we set Pr = 1. The Taylor number relates to the often-quoted
 Ekman number by the equality $\text{Ek} \equiv \text{Ta}^{-1/2}$.
 
-The \textit{convective} Rossby number has provided \citep[e.g., ][]{julien&all1996, brummell&all1996} 
+\deleted{
+The \textit{convective} Rossby number has provided %\citep[e.g.,][]{julien&all1996, brummell&all1996} 
 a common proxy (based on input parameters) for the degree of rotational constraint,
-\begin{equation}
-\con \ = \   \sqrt{ \frac{\text{Ra}}{\text{Pr}\, \text{Ta} } } \ 
+%\begin{equation*}
+\\
+$
+\con \ = \   \sqrt{ \frac{\text{Ra}}{\text{Pr}\, \text{Ta} } }  
 = \  \frac{1}{2 \Omega } \sqrt{\frac{g \, \Delta  S}{c_{p} L_{z}}}.
-\end{equation}
+$
+%\end{equation*}
 This parameter measures the importance of buoyancy relative to rotation without 
-involving dissipation. \replaced{We show}{In section \ref{sec:results}, we empirically
-demonstrate} that \added{the} true Rossby number defined in equation \ref{eqn:rossby-def} 
-depends nonlinearly on $\con$.  
-
+involving dissipation. We show that true Rossby number defined in equation \ref{eqn:rossby-def}
+depends nonlinearly on \con.
+%\replaced{We show}{In section \ref{sec:results}, we empirically
+%demonstrate} that \added{the} true Rossby number defined in equation \ref{eqn:rossby-def} 
+%depends nonlinearly on \con.
+}
+\explain{Moved later in section, just above \pro$\,$ definition.}
 
 The wavenumber of convective onset increases such that, $k_{\text{crit}} \propto \text{Ta}^{1/6}$
 \citep{Chandrasekhar,calkins&all2015a}.
@@ -213,16 +220,20 @@ in \AB.
     is plotted as a solid black line. The grey shaded region is subcritical, and rotation
     supresses convection there. Paths of constant Convective Rossby number
     ($\con$, green dashed line), constant supercriticality ($\mathcal{S}$, blue dash-dot line), and 
-    constant Predictive Rossby number (\pro, orange solid line) are shown. \added{The three orange
-	lines are plotted for $\pro = [1.58, 0.96, 0.6]$ from thickest to thinnest, and the value of
-	($\text{Ta}_{\text{crit}}, \text{Ra}_{\text{crit}}$) for each line is denoted by a
+    constant Predictive Rossby number (\pro, orange solid lines) are shown. 
+	\added{
+	From thickest to thinnest, paths with $\pro = [1.58, 0.96, 0.6]$ are plotted,
+	and the value of
+	($\text{Ta}_{\text{crit}}, \text{Ra}_{\text{crit}}$) for each path is denoted by a
 	circular marker.}
     (b) Evolved Ro is plotted vs. Ra along paths of \pro = [1.58, 0.96\added{, 0.6}] for [big, \added{medium,} small] orange circles.
     For comparison, paths of constant $\mathcal{S}$ (blue squares, $\mathcal{S} = [3,2]$ 
     for [big, small] squares)
     and constant $\con$ (green triangles, $\con$ = [1, 0.3, 0.1] for [big, medium, small] triangles) are shown.
-    Ro is roughly constant for a constant \pro\deleted{, particularly for the low-Ro, $\pro=0.96$ case,} 
-    but changes drastically at constant $\con$ or $\mathcal{S}$.
+    \deleted{Ro is roughly constant for a constant \pro, particularly for the low-Ro, $\pro=0.96$ case, 
+    but changes drastically at constant $\con$ or $\mathcal{S}$.}
+%    Ro is roughly constant for a constant \pro\deleted{, particularly for the low-Ro, $\pro=0.96$ case,} 
+%    but changes drastically at constant $\con$ or $\mathcal{S}$.
     (c) The evolved value of Ro is shown as a function of $\pro$ and $\con$. 
 	Each of the experiments in (b) is outlined by a black (circle, triangle, square)
 	for points along constant (\pro, \con, $\mathcal{S}$) paths.
@@ -257,8 +268,20 @@ We will explore three paths through Ra-Ta space:
 Paths on constraint I are at constant supercriticality, 
 $\mathcal{S} \equiv \text{Ra}/\text{Ra}_{\text{crit}}$
 (blue dash-dot line in figure \ref{fig:parameter_space}a).
-Paths on constraint II are at a constant value of the classic $\con$ (green dashed line in figure \ref{fig:parameter_space}a). Paths on constraint
-III (e.g., orange solid line in figure \ref{fig:parameter_space}a) 
+Paths on constraint II
+\added{(green dashed line in figure \ref{fig:parameter_space}a)
+are at a constant value of the classic
+\textit{convective} Rossby number, \con, which has provided \citep[e.g., ][]{julien&all1996, brummell&all1996} 
+a common proxy for the degree of rotational constraint,
+\begin{equation}
+\con \ = \   \sqrt{ \frac{\text{Ra}}{\text{Pr}\, \text{Ta} } } \ 
+= \  \frac{1}{2 \Omega } \sqrt{\frac{g \, \Delta  S}{c_{p} L_{z}}}.
+\end{equation}
+This parameter measures the importance of buoyancy relative to rotation without 
+involving dissipation.}
+\deleted{II are at a constant value of the classic $\con$ (green dashed line in figure \ref{fig:parameter_space}a).}
+Paths on constraint
+III (e.g., orange solid lines in figure \ref{fig:parameter_space}a) 
 set constant a ratio which we call the ``Predictive Rossby number,'' 
 \begin{equation}
 \pro = \sqrt{\frac{\text{Ra}}{\text{Pr}^{\edit1{1/2}}\,\text{Ta}^{3/4}}} \ = \    
@@ -281,15 +304,15 @@ analysis. We compare our results to their theory in Section \ref{sec:discussion}
 %% RESULTS SECTION
 \section{Results}
 \label{sec:results}
-\added{In our stratified domains, for sufficiently large $\text{Ta} \geq 10^5$, 
+\added{In our stratified domains, for $\text{Ta} \geq 10^5$, 
 a best-fit to results from a linear stability
 analysis provides $\text{Ra}_{\text{crit}} = 1.459\text{Ta}^{2/3}$ 
 and $k_{\text{crit}} = 0.414\text{Ta}^{1/6}$.}
-In figure~\ref{fig:parameter_space}a, the value of Ra$_{\text{crit}}$
-is shown as a function of Ta.
-A sample path for
+In figure~\ref{fig:parameter_space}a, the value of Ra$_{\text{crit}}\edit1{(\text{Ta})}$
+is shown\deleted{ as a function of Ta}.
+Sample paths for
 each criterion in equation~\ref{eqn:paths} through
-this parameter space is shown.
+this parameter space are also shown.
 In figure \ref{fig:parameter_space}b, we display the evolution of Ro
 with increasing Ra along various paths through parameter space.
 We find that Ro increases on constant \con$\,$paths, decreases on constant $\mathcal{S}$
@@ -302,7 +325,7 @@ $\text{Re}_{\perp} > 5$ (see Eqn. \ref{eqn:re_defn}),
 we find $\alpha = -0.02$, and $\text{Ro}$ can be said to be a function
 of $\pro$ alone. Under this assumption, we report a scaling of $\text{Ro} = (0.148 \pm 0.003) \pro^{3.34 \pm 0.07}$.
 In the less rotationally dominated regime of $\text{Ro} > 0.2$ and $\text{Re}_{\perp} > 5$, 
-the scaling is less clear, and we find $\{C, \alpha, \beta\} = \{0.2, -0.19, 1.5\}$.}
+we find $\{C, \alpha, \beta\} = \{0.2, -0.19, 1.5\}$.}
 \deleted{
 where $\alpha \approx 3.5$ in the rotationally constrained, low-Ro regime and
 \mbox{$\alpha \approx 1.5$} in the unconstrained, high-Ro regime. 
@@ -316,14 +339,16 @@ evolved Ro can be approximately determined through specification of \pro$\,$alon
 %% DYNAMICS FIGURE
 \begin{figure*}[t]
     \includegraphics[width=\textwidth]{dynamics_plot.pdf}
-    \caption{ A horizontal slice of the evolved entropy field is plotted at $z = 0.95L_z$
-    for select simulations. The mean value of entropy at this height has been removed in all
-    cases. All runs displayed here have an evolved volume-averaged $\text{Re}\edit1{_\perp \approx 50}$. 
+    \caption{ Horizontal slice of the evolved entropy \added{deviation from the mean}
+	\deleted{field is plotted} at $z = 0.95L_z$
+    \added{are shown} for select simulations. \deleted{The mean value of entropy at this height has been removed in all
+    cases.} All runs displayed here have an evolved volume-averaged $\text{Re}\edit1{_\perp \approx 32}$. 
     As Ro decreases from O(1) on the left to O(\edit1{0.03}) on the right, and thus the rotational
     constraint on the flow increases, significant changes in flow morphology are observed.
-    At Ro = 2.01 ($\con = 1$), convective dynamics are not hugely dissimilar from the non-rotating
-    case where there are large upflows and narrow, fast downflow lanes (see e.g., \AB).
-    As the rotational constraint increases, the granular convective pattern gives way
+    At Ro = 1.21 ($\con = 1$), convective dynamics are similar to the non-rotating
+    case where there are large upflows and narrow, fast downflow lanes.\deleted{ (see e.g., \AB)}
+    As the rotational constraint increases, \added{Coriolis forces more effectively
+	deflect the convective flows, and} the granular convective pattern gives way
     to vortical columns.
     \label{fig:dynamics_plot} }
 \end{figure*}
@@ -342,17 +367,17 @@ evolved Ro can be approximately determined through specification of \pro$\,$alon
     The scaling seen here is nearly identical to scalings in nonrotating convection (\AB).
 }\added{
 	Scaling laws for paths at $\pro = 1.58$ ($\text{Ro} \approx 0.4$),
-    $\pro = 0.96$ ($\text{Ro} \approx 0.1$), and $\pro = 0.6$ ($\text{Ro} \approx 0.3$) are shown. 
+    $\pro = 0.96$ ($\text{Ro} \approx 0.1$), and $\pro = 0.6$ ($\text{Ro} \approx 0.03$) are shown. 
     Numbers are plotted vs. Ra/Ra$_{\text{crit}}$, where Ra$_{\text{crit}}$ is the value at which
-	a given $\pro$ path crosses the supercriticality curve (e.g., where the solid orange line 
-	crosses the black line in Fig.~\ref{fig:parameter_space}a).
-	(a) The evolved scaling law of Nu approaches $\text{Ra}^{1/3}$, as expected from
-	boundary layer theory \citep{king&all2012}.
+	a given $\pro$ path crosses the supercriticality curve 
+	(e.g., orange circles in Fig.~\ref{fig:parameter_space}a).
+	(a) Nu, as defined in \AB, is shown.
+%	The evolved scaling law of Nu approaches $\text{Ra}^{2/7}\sim \text{Ra}^{1/3}$, 
+%	as expected from
+%	boundary layer theory \citep{king&all2012}.
     (b) $\text{Re}_\parallel$ and $\text{Re}_{\perp}$, as defined in equation \ref{eqn:re_defn},
-	are shown. All values of $\pro$ trace out similar $\text{Re}_{\perp}$ tracks which scale
-	roughly as $\text{Ra}^{5/18}$, as expected. $\text{Re}_\parallel$ tracks experience a constant
-	offset for each different value of \pro, but otherwise scale roughly as $\text{Ra}^{1/2}$,
-	as anticipated.
+	are shown. All values of $\pro$ trace out similar Nu and $\text{Re}_{\perp}$ tracks,
+	whereas $\text{Re}_\parallel$ tracks shift upwards as Ro decreases.
 	}
     \label{fig:nu_and_re} }
 \end{figure}
@@ -365,16 +390,18 @@ evolved Ro can be approximately determined through specification of \pro$\,$alon
     the specific entropy profile}{standard deviation of entropy} ($\edit1{\sigma_{\text{s}}}$, a) and Rossby number (Ro, b) 
     are shown vs. height for $\pro = 1.58$ ($\text{Ro} \approx 0.4$). 
     Similar profiles are shown in (c) and (d) for $\pro = 0.96$ ($\text{Ro} \approx 0.1$). The color of the profiles
-    denotes the value of Ra, with yellow profiles being at very low Ra and purple at the highest
-    values of Ra studied here.
-    (e) The ratio of the thicknesses of the dynamical (Ro) boundary layers and 
-    thermal ($\edit1{\sigma_{\text{s}}}$) boundary layers is shown for all values of \pro$\,$at each value of Ra.
+    denotes the value of Ra\added{/Ra$_{\text{crit}}$, where Ra$_\text{crit}$ is denoted by
+	an orange circle for each \pro$\,$ path in Fig. \ref{fig:parameter_space}a.}
+\deleted{	, with yellow profiles being at very low Ra and purple at the highest
+    values of Ra studied here.}
+    (e) The ratio of the thicknesses of the dynamical boundary layers \added{($\delta_{\text{Ro}}$)} and 
+    thermal boundary layers ($\edit1{\delta_{\text{s}}}$) boundary layers is shown
+	\added{vs. $\text{Ra}/\text{Ra}_{\text{crit}}$ for fixed \pro.}\deleted{for all values of \pro$\,$at each value of Ra.
     This ratio, and thus the relative importance of both thermal and rotational dynamics,
-	\added{seems to remain}\deleted{remains} roughly constant across orders of magnitude of Ra.
-	\added{(f) We plot the size of the entropy boundary layer divided by the size of the density
-	scale height at the top of the atmosphere. Vertical lines denote when these two length
-	scales become equal, and we find that the size of the boundary layer compared to an important
-	dynamical length scale does not predict any measurable change in system behavior.
+	remains roughly constant across orders of magnitude of Ra.}
+	\added{(f) (f) $\delta_{\text{s}}$ is plotted vs. $\text{Ra}/\text{Ra}_{\text{crit}}$ in units of the density
+	scale height at the top of the atmosphere ($H_\rho$). Vertical lines denote when $\delta_\text{s}/H_\rho = 1$
+	for each value of \pro.
 	}
     \label{fig:profiles_and_bls} }
 \end{figure*}
@@ -387,7 +414,7 @@ As Ro decreases, the
 classic granular structure of convection (see e.g., figure~2 in \AB) gives way to vortical
 columns of convection, as seen in rapidly rotating \RB convection \citep{stellmach&all2014}.
 The select cases displayed in figure~\ref{fig:dynamics_plot} each have an evolved volume-averaged
-\replaced{$\text{Re} \approx 200$}{$\text{Re}_{\perp} = 50 \pm 20$ (defined below in equation \ref{eqn:re_defn})}.
+\replaced{$\text{Re} \approx 200$}{$\text{Re}_{\perp} = 32$ (defined below in equation \ref{eqn:re_defn})}.
 
 
 
@@ -431,13 +458,13 @@ and $\text{Re}_\perp \propto \{\text{Ra}^{0.22 \pm 0.01}, \text{Ra}^{0.23 \pm 0.
 $\pro = \{0.6, 0.957, 1.58\}$. These scalings are similar to but slightly weaker than our
 predictions in all cases. Furthermore, $\text{Re}_{\perp}$ collapses for each $\pro\,$ track,
 while $\text{Re}_{\parallel}$ experiences an offset
-to larger values as $\pro$ shrinks. The offset in $\text{Re}_{\text{parallel}}$ is unsurprising, 
+to larger values as $\pro$ shrinks. The offset in $\text{Re}_{\parallel}$ is unsurprising, 
 because more rotationally constrained flows result in smaller boundary layers relative to the 
 vertical extent of our stratified domain. The horizontal extent of our domain scales with the
-strength of rotation, and so regardless of the degree of rotational constraint, flows perpendicular
+strength of rotation, and so regardless of \pro, flows perpendicular
 to the rotational and buoyant direction are comparably turbulent at the same 
 $\text{Ra}/\text{Ra}_\text{crit}$.
-We find $\text{Re}_{\perp}$ and $\text{Re}_{\parallel}$ are respectively good proxies for
+We find $\text{Re}_{\perp}$ and $\text{Re}_{\parallel}$ are, respectively, good proxies for
 the horizontal and perpendicular resolution required to run an experiment.}
 
 Figure \ref{fig:profiles_and_bls} shows time- and horizontally-averaged profiles of
@@ -450,7 +477,7 @@ profile.
 As Ra increases at a constant value of
 \pro, both the thermal ($\edit1{\sigma_{\text{s}}}$) and dynamical (Ro) boundary layers become thinner. 
 We measure the
-thickness of the thermal boundary layer ($\delta_{s}$) at the top of the domain by 
+thickness of the thermal boundary layer ($\delta_{\text{s}}$) at the top of the domain by 
 \added{finding the location of the first maxima of $\sigma_{\text{s}}$ away from the boundary.}
 \deleted{measuring where a linear fit within the boundary layer crosses through $\partial_z s = 0$.
 We ensure by-eye for each profile that this is a reasonable measure of the boundary
@@ -458,9 +485,9 @@ layer thickness}. We measure
 the thickness of the Ro boundary layer ($\delta_{\text{Ro}}$) 
 \added{in the same manner.}\deleted{as the height of the peak value of Ro within the
 upper half of the domain.}
-In figure \ref{fig:profiles_and_bls}e, we plot $\delta_{\text{Ro}}/\delta_{s}$, the ratio
+In figure \ref{fig:profiles_and_bls}e, we plot $\delta_{\text{Ro}}/\delta_{\text{s}}$, the ratio
 of the sizes of these two boundary layers. As anticipated, the dynamical boundary layer ($\delta_{\text{Ro}}$)
-becomes relatively thinner with respect to the thermal boundary layer ($\delta_{s}$)
+becomes relatively thinner with respect to the thermal boundary layer ($\delta_{\text{s}}$)
 as Ro and \pro$\,$ decrease. \deleted{At $\pro = 1.58$, both boundary layers are approximately equally
 thick, and so both rotational and advective effects are equally important. On the other hand,
 at $\pro = 0.96$, the dynamical boundary layer is only 60\% the size of the thermal boundary
@@ -471,10 +498,10 @@ literature, such as Fig. 5 of \cite{king&all2013}. They measure the dynamical bo
 thickness as the peak location of the horizontal velocities, but our horizontal velocities
 are subject to stress-free boundary conditions, and we find that the maxima of horizontal 
 velocities occur precisely at the boundaries.
-In figure \ref{fig:profiles_and_bls}f, we plot $\delta_s$ in units of the density
+In figure \ref{fig:profiles_and_bls}f, we plot $\delta_\text{s}$ in units of the density
 scale height at the top of the atmosphere, and we plot vertical lines when this crosses 1.
-We find no systematic change in behavior as a result of this stratification-based, important
-length scale.}
+We find no systematic change in behavior when $\delta_{\text{s}}$ is smaller than the
+local density scale height.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% CONCLUSION SECTION
@@ -485,7 +512,7 @@ under the influence of rotation.
 We examined three paths through Ra-Ta space, and showed that \deleted{in the rotationally
 constrained regime at low-Ro, }the newly-defined 
 Predictive Rossby number, $\pro = \text{Ra}/(\text{Pr }\edit1{^{1/2}}\text{Ta}^{3/4})$, determines the value of
-the evolved Ro. \deleted{While increasing Ra and holding \pro$\,$ constant,
+the evolved Rossby number. \deleted{While increasing Ra and holding \pro$\,$ constant,
 we find scaling laws of heat transport (Nu) and turbulence (Re) that are nearly identical
 to scaling laws seen in nonrotational convection.}
 
@@ -504,13 +531,6 @@ the values of \pro$\,$ studied here seem to fall in the rotationally constrained
 value of Ro (Fig.~\ref{fig:parameter_space}) and the observed dynamics (Fig.~\ref{fig:dynamics_plot})
 seem to agree with this interpretation.}
 
-\added{Despite the added complexity of stratification and despite our using stress-free rather than
-no-slip boundaries, the boundary layer scaling arguments put forth in \cite{king&all2012} seem
-to hold up in our systems. This is reminiscent of what we found in \AB, in which
-convection in stratified domains, regardless of Mach number, produced boundary-layer
-dominated scaling laws of Nu that were nearly identical to the scaling laws found in
-Boussinesq \RB convection.}
-
 We note briefly that the scaling $\text{Ra} \propto \text{Ta}^{3/4}$ is very similar to
 \replaced{the}{another} theorized boundary between fully rotationally constrained convection and 
 partially constrained convection predicted in Boussinesq theory, of 
@@ -525,7 +545,7 @@ also maintain proper force balances within the boundary layers.
 Our results suggest that by choosing the desired value of \pro, experimenters
 can select the degree of rotational constraint present in their simulations. 
 \added{We find that $\text{Ro} \propto \text{Ro}_\text{p}^{3.34 \pm 0.07}$, which is within
-the 2$\sigma$ of the estimate in \cite{king&all2013}, who although defining
+2$\sigma$ of the estimate in \cite{king&all2013}, who although defining
 Ro very differently from our vorticity-based definition here, find 
 $\text{Ro} \propto \text{Ro}_\text{p}^{3.84 \pm 0.28}$. We note briefly that they
 claim that the value of $\text{Ro}$ is strongly dependent upon the Prandtl number studied, and
@@ -533,6 +553,13 @@ that low Ro can be achieved at high Pr without achieving a rotationally constrai
 We studied only $\text{Pr} = 1$ here, and leave it to future work to determine if
 the scaling of $\text{Ro}_{\text{p}} \propto \text{Pr}^{-1/4}$ is the correct scaling to
 predict the evolved Rossby number.}
+
+\added{Despite the added complexity of stratification and despite our using stress-free rather than
+no-slip boundaries, the boundary layer scaling arguments put forth in \cite{king&all2012} seem
+to hold up in our systems. This is reminiscent of what we found in \AB, in which
+convection in stratified domains, regardless of Mach number, produced boundary-layer
+dominated scaling laws of Nu that were nearly identical to the scaling laws found in
+Boussinesq \RB convection.}
 
 \added{We close by noting that once \pro$\,$ is chosen such that a convective system has the same
 Rossby number as an astrophysical object of choice,} it is straightforward to increase the 

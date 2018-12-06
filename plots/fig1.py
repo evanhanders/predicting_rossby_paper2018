@@ -7,6 +7,7 @@ from scipy.interpolate import griddata, interp2d
 from scipy.optimize import curve_fit, leastsq
 import scipy.optimize as scop
 matplotlib.rcParams['font.family'] = 'serif'
+matplotlib.rcParams['mathtext.fontset'] = 'dejavuserif'
 def linear(x, a, b):
     return a + b*x
 

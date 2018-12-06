@@ -6,6 +6,7 @@ import matplotlib.gridspec as gridspec
 from matplotlib.legend import Legend
 import scipy.optimize as scop
 matplotlib.rcParams['font.family'] = 'serif'
+matplotlib.rcParams['mathtext.fontset'] = 'dejavuserif'
 
 ORANGE   = [1.        , 0.5, 0]
 GREEN    = [0, 0.398, 0]
