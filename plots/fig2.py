@@ -20,14 +20,19 @@ def nice_exp(number):
     
 
 
-fig = plt.figure(figsize=(8, 2))
+fig = plt.figure(figsize=(8, 4.5))
 gs     = gridspec.GridSpec(*(1000,1000))
 #gs_info = (((100, 0), 900, 320), ((100, 340), 900, 320), ((100, 680),900, 320))
-gs_info = (((100, 0), 900, 230), ((100, 250), 900, 230), ((100, 500),900, 230), ((100, 750), 900, 230))
+gs_info = (((100, 0), 400, 230), ((100, 250), 400, 230), ((100, 500), 400, 230), ((100, 750), 400, 230),
+           ((580, 0), 400, 230), ((580, 250), 400, 230), ((580, 500), 400, 230), ((580, 750), 400, 230))
 ax1 = plt.subplot(gs.new_subplotspec(*gs_info[0]))
 ax2 = plt.subplot(gs.new_subplotspec(*gs_info[1]))
 ax3 = plt.subplot(gs.new_subplotspec(*gs_info[2]))
 ax4 = plt.subplot(gs.new_subplotspec(*gs_info[3]))
+ax5 = plt.subplot(gs.new_subplotspec(*gs_info[4]))
+ax6 = plt.subplot(gs.new_subplotspec(*gs_info[5]))
+ax7 = plt.subplot(gs.new_subplotspec(*gs_info[6]))
+ax8 = plt.subplot(gs.new_subplotspec(*gs_info[7]))
 
 #lowF = h5py.File('../data/slices/pro0.96_ra9.16e5_ta1e8_slices_s60.h5', 'r')
 very_lowF = h5py.File('../data/slices/pro0.6_ra1.24e9_ta5.2e12_slices_s230.h5', 'r')
@@ -40,8 +45,8 @@ coF = h5py.File('../data/slices/co1_ta4.39e3.h5', 'r')
 highres_n = 1024
 
 count = 0
-for f, ax in zip( [very_lowF, lowF, highF, coF], [ax4, ax3, ax2, ax1] ):
-    print('plotting {}/3'.format(count+1))
+for i, f, ax in zip( range(8), [very_lowF, lowF, highF, coF]*2, [ax4, ax3, ax2, ax1, ax8, ax7, ax6, ax5] ):
+    print('plotting {}/8'.format(count+1))
     x, y = f['scales']['x']['1.0'], f['scales']['y']['1.0']
     x_basis = de.Fourier(  'x', len(x), interval=[0., 1], dealias=3/2)
     y_basis = de.Fourier(  'y', len(y), interval=[0., 1], dealias=3/2)
@@ -52,8 +57,10 @@ for f, ax in zip( [very_lowF, lowF, highF, coF], [ax4, ax3, ax2, ax1] ):
     s_field = domain.new_field()
         
     w_num = 10
-#    s = f['tasks']['s midplane'][w_num,:,:,0]
-    s = f['tasks']['s near top'][w_num,:,:,0]
+    if i < 4:
+        s = f['tasks']['s near top'][w_num,:,:,0]
+    else:
+        s = f['tasks']['s midplane'][w_num,:,:,0]
     s -= s.mean()
     s_field.set_scales(base_scale, keep_data=False)
     s_field['g'] = s
@@ -94,12 +101,16 @@ cax.annotate(r'$S_{\mathrm{min}} \times 10^{-5}$', fontsize=8,  xy=(-0.35, 0.25)
 cax.annotate(r'$S_{\mathrm{max}} \times 10^{-5}$', fontsize=8,  xy=(1.02, 0.25), annotation_clip=False)
 
 bbox_props = dict(boxstyle="round", fc="w", ec="0.5", alpha=0.9)
-ax4.text(0.26, 0.93, "Ro = 0.026", ha="center", va="center", size=8, bbox=bbox_props)
-ax3.text(0.23, 0.93, "Ro = 0.13", ha="center", va="center", size=8, bbox=bbox_props)
-ax2.text(0.23, 0.93, "Ro = 0.42", ha="center", va="center", size=8, bbox=bbox_props)
-ax1.text(0.23, 0.93, "Ro = 1.21", ha="center", va="center", size=8, bbox=bbox_props)
+ax4.text(0.26, 0.91, "Ro = 0.026", ha="center", va="center", size=8, bbox=bbox_props)
+ax3.text(0.24, 0.91, "Ro = 0.13", ha="center", va="center", size=8, bbox=bbox_props)
+ax2.text(0.24, 0.91, "Ro = 0.42", ha="center", va="center", size=8, bbox=bbox_props)
+ax1.text(0.24, 0.91, "Ro = 1.21", ha="center", va="center", size=8, bbox=bbox_props)
+ax8.text(0.26, 0.91, "Ro = 0.026", ha="center", va="center", size=8, bbox=bbox_props)
+ax7.text(0.24, 0.91, "Ro = 0.13", ha="center", va="center", size=8, bbox=bbox_props)
+ax6.text(0.24, 0.91, "Ro = 0.42", ha="center", va="center", size=8, bbox=bbox_props)
+ax5.text(0.24, 0.91, "Ro = 1.21", ha="center", va="center", size=8, bbox=bbox_props)
 
 print('saving png')
-fig.savefig('../tex/figs/dynamics_plot.png', dpi=600, bbox_inches='tight')
+fig.savefig('../tex/figs/dynamics_plot.png', dpi=400, bbox_inches='tight')
 print('saving pdf')
-fig.savefig('../tex/figs/dynamics_plot.pdf', dpi=600, bbox_inches='tight')
+fig.savefig('../tex/figs/dynamics_plot.pdf', dpi=400, bbox_inches='tight')
