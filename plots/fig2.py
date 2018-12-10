@@ -114,6 +114,8 @@ ax1.text(0.24, 0.91, "Ro = 1.21", ha="center", va="center", size=8, bbox=bbox_pr
 #ax7.text(0.24, 0.91, "Ro = 0.13", ha="center", va="center", size=8, bbox=bbox_props)
 #ax6.text(0.24, 0.91, "Ro = 0.42", ha="center", va="center", size=8, bbox=bbox_props)
 #ax5.text(0.24, 0.91, "Ro = 1.21", ha="center", va="center", size=8, bbox=bbox_props)
+ax1.text(0.11, 0.09, "top", ha="center", va="center", size=8, bbox=bbox_props)
+ax5.text(0.23, 0.91, "midplane", ha="center", va="center", size=8, bbox=bbox_props)
 
 print('saving png')
 fig.savefig('../tex/figs/dynamics_plot.png', dpi=400, bbox_inches='tight')
