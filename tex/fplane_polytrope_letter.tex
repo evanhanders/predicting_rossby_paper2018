@@ -141,7 +141,7 @@ In this work, we extend \AB$\,$ to rotationally-influenced, $f$-plane
 atmospheres 
 \cite[e.g.,][]{brummell&all1996, brummell&all1998, calkins&all2015a}. 
 We determine how the input parameters we studied previously, which controlled the Mach and
-Reynolds numbers of the evolved flows, couple with the Taylor number \citep[Ta, ][]{julien&all1996}, which sets the magnitude of the rotational vector. 
+Reynolds numbers of the evolved flows, couple with the Taylor number \citep[Ta,][]{julien&all1996}, which sets the magnitude of the rotational vector. 
 
 In section  \ref{sec:experiment}, we describe our experiment and paths through parameter space. 
 In section \ref{sec:results}, we present the results of our experiments and in section \ref{sec:discussion} we offer concluding remarks.
@@ -175,18 +175,19 @@ rotation ($\Omega$) at the top of the domain by choosing the Rayleigh number
     \text{Ra} = \frac{g L_z^3 \Delta S / c_P}{\nu \chi}, \,\,\,
     \text{Pr} = \frac{\nu}{\chi}, \,\,\,
     \text{Ta} = \left(\frac{2 \Omega L_z^2}{\nu}\right)^2,
+	\label{eqn:input_parameters}
 \end{equation}
 where $L_z$ is the depth of the domain as defined in \AB, 
 $\Delta S \propto \epsilon n_\rho$ is the specific entropy difference between
-\mbox{$z = 0$} and $z = L_z$, and the specific heat at constant pressure is $c_P = \gamma/(\gamma-1)$
-and $\gamma = 5/3$.
+the top and bottom of the atmosphere, and the specific heat at constant pressure is $c_P = \gamma/(\gamma-1)$
+with $\gamma = 5/3$.
 Throughout this work we set Pr = 1. The Taylor number relates to the often-quoted
 Ekman number by the equality $\text{Ek} \equiv \text{Ta}^{-1/2}$.
 
 
-The wavenumber of convective onset increases such that, $k_{\text{crit}} \propto \text{Ta}^{1/6}$
+The wavenumber of convective onset increases according to $k_{\text{crit}} \propto \text{Ta}^{1/6}$
 \citep{Chandrasekhar,calkins&all2015a}.
-We study horizontally-periodic, 3D Cartesian convective domains with extents of
+We study horizontally-periodic, 3D Cartesian domains with extents of
 $x, y = [0, 4(2\pi/k_{\text{crit}})]$ and $z = [0, L_z]$. At large values of Ta, these
 domains are tall and skinny, as in \cite{stellmach&all2014}.
 We evolve our simulations using the Dedalus\footnote{\url{http://dedalus-project.org/}} 
@@ -224,9 +225,9 @@ in \AB.
 
 The critical value of Ra at which convection onsets also depends on Ta (see the black line in figure \ref{fig:parameter_space}a),
 roughly according to $\text{Ra}_{\text{crit}} \sim \text{Ta}^{2/3}$ \citep{Chandrasekhar,calkins&all2015a}.
-We have confirmed these scalings of $\text{Ra}_{\text{crit}}(\text{Ta})$ and 
-$k_{\text{crit}}(\text{Ta})$ in our atmospheres using a linear
-stability analysis.
+%We have confirmed these scalings of $\text{Ra}_{\text{crit}}(\text{Ta})$ and 
+%$k_{\text{crit}}(\text{Ta})$ in our atmospheres using a linear
+%stability analysis.
 Even taking account of linear theory, the dependence of the evolved nonlinear fluid 
 flows on the input parameters makes predicting the rotational constraint very challenging. 
 We will explore three paths through Ra-Ta space:
@@ -305,11 +306,8 @@ we find $\{C, \alpha, \beta\} = \{0.2, -0.19, 1.5\}$.
 	All runs displayed here have an evolved volume-averaged $\text{Re}_\perp \approx 32$. 
     As Ro decreases from O(1) on the left to O(0.03) on the right, and thus the rotational
     constraint on the flow increases, significant changes in flow morphology are observed.
-    At Ro = 1.21 ($\con = 1$), convective dynamics are similar to the non-rotating
-    case where there are large upflows and narrow, fast downflow lanes.
-	%(see e.g., \AB).
-    As the rotational constraint increases, Coriolis forces more effectively
-    deflect the convective flows, and the granular convective pattern gives way
+    As Ro decreases, Coriolis forces more effectively
+    deflect the convective flows, and the classic granular convective pattern gives way
     to vortical columns.
     \label{fig:dynamics_plot} }
 \end{figure*}
@@ -336,7 +334,7 @@ we find $\{C, \alpha, \beta\} = \{0.2, -0.19, 1.5\}$.
 %% BOUNDARY LAYER FIGURE
 \begin{figure*}[ht!]
     \includegraphics[width=\textwidth]{boundary_layers.pdf}
-    \caption{Horizontally-averaged profiles of the standard deviation of entropy($\sigma_{\text{s}}$, a) and Rossby number (Ro, b) 
+    \caption{Horizontally-averaged profiles of the standard deviation of entropy ($\sigma_{\text{s}}$, a) and Rossby number (Ro, b) 
     are shown vs. height for $\pro = 1.58$ ($\text{Ro} \approx 0.4$). 
     Similar profiles are shown in (c) and (d) for $\pro = 0.96$ ($\text{Ro} \approx 0.1$). The color of the profiles
     denotes the value of Ra/Ra$_{\text{crit}}$, where Ra$_\text{crit}$ is denoted by
@@ -349,28 +347,27 @@ we find $\{C, \alpha, \beta\} = \{0.2, -0.19, 1.5\}$.
     \label{fig:profiles_and_bls} }
 \end{figure*}
 
-In figure~\ref{fig:dynamics_plot}, sample snapshots
-of the evolved entropy field in the $x$-$y$ plane near the top and at the middle of the domain are shown. 
-In the left panel is a rotationally unconstrained flow at moderately high
-Ro, and Ro decreases into the rotationally constrained regime from left to right.
-As Ro decreases, the
-classic granular structure of convection (see e.g., figure~2 in \AB) gives way to vortical
-columns of convection, as seen in rapidly rotating \RB convection \citep{stellmach&all2014}.
+In figure~\ref{fig:dynamics_plot}, sample snapshots of the evolved entropy field 
+in the $x$-$y$ plane near the top and at the middle of the domain are shown. 
+In the left column, flows are at $\text{Ro} \sim 1$ and resemble the classic granular structure 
+of nonrotating convection (see e.g., figure~2 in \AB), where intense narrow downflow lanes 
+punctuate broad upwellings. Ro decreases from left to right into the rotationally constrained 
+regime ($\text{Ro} \sim 0.03$), in which we observe dynamically persistent, warm upflow columns 
+surrounded by bulk weak downflow regions. These dynamics are similar to those seen in rapidly 
+rotating \RB convection \citep[e.g.,][]{stellmach&all2014}. 
 The select cases displayed in figure~\ref{fig:dynamics_plot} each have an evolved volume-averaged
-$\text{Re}_{\perp} \approx 32$ (defined below in equation \ref{eqn:re_defn}).
-
-
+$\text{Re}_{\perp} \approx 32$ (defined below in equation~\ref{eqn:re_defn}).
 
 We measure the Nusselt number (Nu), which quantifies heat transport in a convective
 solution, as defined in \AB.
-In figure~\ref{fig:nu_and_re}a, we show how Nu scales as a function
-of Ra at fixed \pro. We find that $\text{Nu} \propto \{\text{Ra}^{0.29 \pm 0.01}, \text{Ra}^{0.29 \pm 0.01}, \text{Ra}^{0.24}\}$
+In figure~\ref{fig:nu_and_re}a, we plot Nu as a function
+of $\text{Ra}/\text{Ra}_\text{crit}$ at fixed \pro. We find that $\text{Nu} \propto \{\text{Ra}^{0.29 \pm 0.01}, \text{Ra}^{0.29 \pm 0.01}, \text{Ra}^{0.24}\}$
 for $\pro = \{0.6, 0.957, 1.58\}$. These scalings are in line with classic 2/7 power law scalings
 in \RB convection \citep{ahlers&all2009}, and approach a $\text{Ra}^{1/3}$ scaling, 
 which has been predicted when \pro$\,$ is held constant
 \citep[see][and section \ref{sec:discussion}]{king&all2012}.
 
-In our rotating domains, flows are distinctly different parallel to and perpendicular
+Flows are distinctly different parallel to and perpendicular
 from the rotation vector, which aligns with gravity and stratification.
 We measure two forms of the RMS Reynolds number,
 \begin{equation}
@@ -385,9 +382,10 @@ By definition, $\nu \propto \sqrt{\text{Ra}/(\text{Pr }\Delta S)}$, and $L_z$ is
 set by the stratification while $k_{\text{crit}} \propto \text{Ta}^{1/6}$. Along paths of
 constant \pro, we thus expect $\text{Re}_{\parallel} \propto \text{Ra}^{1/2}$ and
 $\text{Re}_{\perp} \propto \text{Ra}^{5/18}$ when $\text{Pr}$ is held constant.
+
 In figure \ref{fig:nu_and_re}b, we plot $\text{Re}_{\parallel}$ and $\text{Re}_{\perp}$
 as a function of Ra$/\text{Ra}_{\text{crit}}$ at fixed \pro. We find that $\text{Re}_\parallel \propto \{\text{Ra}^{0.44 \pm 0.01}, \text{Ra}^{0.45 \pm 0.01}, \text{Ra}^{0.44}\}$
-and $\text{Re}_\perp \propto \{\text{Ra}^{0.22 \pm 0.01}, \text{Ra}^{0.23 \pm 0.01}, \text{Ra}^{0.21}\}$ for
+and $\text{Re}_\perp \propto \{\text{Ra}^{0.22 \pm 0.01}, \\ \text{Ra}^{0.23 \pm 0.01}, \text{Ra}^{0.21}\}$ for
 $\pro = \{0.6, 0.957, 1.58\}$. These scalings are similar to but slightly weaker than our
 predictions in all cases. Furthermore, $\text{Re}_{\perp}$ collapses for each $\pro\,$ track,
 while $\text{Re}_{\parallel}$ experiences an offset
@@ -398,7 +396,7 @@ strength of rotation, and so regardless of \pro, flows perpendicular
 to the rotational and buoyant direction are comparably turbulent at the same 
 $\text{Ra}/\text{Ra}_\text{crit}$.
 We find $\text{Re}_{\perp}$ and $\text{Re}_{\parallel}$ are, respectively, good proxies for
-the horizontal and perpendicular resolution required to run an experiment.
+the horizontal and perpendicular resolution required to resolve an experiment.
 
 Figure \ref{fig:profiles_and_bls} shows time- and horizontally-averaged profiles of
 Ro and the standard deviation of the entropy, $\sigma_{\text{s}}$.
