@@ -36,7 +36,7 @@
 \received{October 19, 2018}
 \revised{\today}
 \accepted{??}%\today}
-\submitjournal{ApJL}
+\submitjournal{ApJ}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% TITLE & AUTHORS
@@ -71,7 +71,9 @@
 However, it is not an input to computational models of convection but must be measured ex post facto. 
 Here, we report the discovery of a new quantity, the Predictive Rossby number, which is both tightly correlated with the Rossby number and specified in terms of common inputs to numerical models. 
 The Predictive Rossby number can be specified independent of Rayleigh number, allowing suites of numerical solutions to separate the degree of rotational constraint from the strength of the driving of convection.  
-We examine the scaling of convective transport in terms of the Nusselt number and the degree of turbulence in terms of the Reynolds number of the flow. 
+We examine the scaling of convective transport in terms of the Nusselt number and the degree of turbulence in terms of the Reynolds number of the flow
+\added{, and find scaling laws nearly identical to those in nonrotational convection at low
+Rossby number when the Predictive Rossby number is held constant}. 
 Finally, we describe the boundary layers as a function of increasing turbulence at constant Rossby number.
 \end{abstract}
 
@@ -101,7 +103,7 @@ many studies of rotating convection have investigated questions inspired by the 
 brown&all2010, brown&all2011, augustson&all2012, guerrero&all2013, kapyla&all2014}.
 Even when these simulations nominally rotate at the solar rate,
 they frequently produce distinctly different behaviors than the true Sun,
-such as anti-solar differential rotation profiles  \citep{gastine&all2014}.
+such as anti-solar differential rotation profiles  \citep{gastine&all2014, brun&all2017}.
 It seems that these differences occur because the simulations produce less rotationally 
 constrained states than the Sun. 
 The influence of rotation results from the local 
@@ -112,8 +114,11 @@ which can drastically affect flows throughout the solar convection zone
 In the planetary context, the balance between magnetic
 and rotational forces likely leads to the observed differences between ice
 giant and gas giant dynamos in our solar system \citep{soderlund&all2015}.
-In particular, \cite{aurnou&king2017} suggest that many studies of planetary systems
-have over-emphasized the importance of magnetism compared to rotation.
+\added{The work of \cite{aurnou&king2017} demonstrates the importance of studying a dynamical regime
+with the proper balance between Lorentz, Coriolis, and inertial forces when modeling
+astrophysical objects such as planetary dynamos.}
+\deleted{In particular, \cite{aurnou&king2017} suggest that many studies of planetary systems
+have over-emphasized the importance of magnetism compared to rotation.}
 
 In short, simulations must achieve the proper rotational balance if they are to explain 
 the behavior of astrophysical objects. 
@@ -184,8 +189,17 @@ with $\gamma = 5/3$.
 Throughout this work we set Pr = 1. The Taylor number relates to the often-quoted
 Ekman number by the equality $\text{Ek} \equiv \text{Ta}^{-1/2}$.
 
+\added{Due to stratification, Ra and Ta both grow with depth as (Ra,Ta)$\, \propto \rho^2$ (see \AB).
+We nondimensionalize our atmospheres at the top of the domain, and so all values of Ra and
+Ta quoted in this work are the minimal value of Ra and Ta in the domain at $z = L_z$.
+For direct comparison to Boussinesq studies, past work has found that the value of Ra 
+at the atmospheric midplane ($z = L_z/2$) varies minimally with increasing stratification 
+\citep{unnoetall1960}. For the atmospheres presented in this work, 
+midplane Ra and Ta values
+are larger than reported top-of-atmosphere values by a factor of $\sim$70, and should be used
+in comparisons to Boussinesq studies.}
 
-The wavenumber of convective onset increases according to $k_{\text{crit}} \propto \text{Ta}^{1/6}$
+\added{When Ta is large,} the wavenumber of convective onset increases according to $k_{\text{crit}} \propto \text{Ta}^{1/6}$
 \citep{Chandrasekhar,calkins&all2015a}.
 We study horizontally-periodic, 3D Cartesian domains with extents of
 $x, y = [0, 4(2\pi/k_{\text{crit}})]$ and $z = [0, L_z]$. At large values of Ta, these
@@ -206,13 +220,11 @@ in \AB.
 	From thickest to thinnest, paths with $\pro = [1.58, 0.96, 0.6]$ are plotted,
 	and the value of
 	($\text{Ta}_{\text{crit}}, \text{Ra}_{\text{crit}}$) for each path is denoted by a
-	circular marker.
+	circular marker \added{(see Table \ref{table:ra_ta_bounds})}.
     (b) Evolved Ro is plotted vs. Ra along paths of \pro = [1.58, 0.96, 0.6] for [big, medium, small] orange circles.
     For comparison, paths of constant $\mathcal{S}$ (blue squares, $\mathcal{S} = [3,2]$ 
     for [big, small] squares)
     and constant $\con$ (green triangles, $\con$ = [1, 0.3, 0.1] for [big, medium, small] triangles) are shown.
-%    Ro is roughly constant for a constant \pro 
-%    but changes drastically at constant $\con$ or $\mathcal{S}$.
     (c) The evolved value of Ro is shown as a function of $\pro$ and $\con$. 
 	Each of the experiments in (b) is outlined by a black (circle, triangle, square)
 	for points along constant (\pro, \con, $\mathcal{S}$) paths.
@@ -223,11 +235,8 @@ in \AB.
 \end{figure*}
 
 
-The critical value of Ra at which convection onsets also depends on Ta (see the black line in figure \ref{fig:parameter_space}a),
+The critical value of Ra at which \added{rapidly rotating} convection onsets also depends on Ta (see the black line in figure \ref{fig:parameter_space}a),
 roughly according to $\text{Ra}_{\text{crit}} \sim \text{Ta}^{2/3}$ \citep{Chandrasekhar,calkins&all2015a}.
-%We have confirmed these scalings of $\text{Ra}_{\text{crit}}(\text{Ta})$ and 
-%$k_{\text{crit}}(\text{Ta})$ in our atmospheres using a linear
-%stability analysis.
 Even taking account of linear theory, the dependence of the evolved nonlinear fluid 
 flows on the input parameters makes predicting the rotational constraint very challenging. 
 We will explore three paths through Ra-Ta space:
@@ -267,6 +276,24 @@ To our knowledge, these paths have not been reported in the literature,
 although the importance of $\text{Ra}/\text{Ta}^{3/4} = \text{Ra Ek}^{3/2}$
 has been independently found by \cite{king&all2012} using a boundary layer
 analysis. We compare our results to their theory in Section \ref{sec:discussion}. 
+
+\added{In this work, we study three values of \pro$\,$ in depth. These values are shown in
+Fig.~\ref{fig:parameter_space}a and Table \ref{table:ra_ta_bounds}. Table \ref{table:ra_ta_bounds}
+lists the values of (Ra$_{\text{crit}}$, Ta$_{\text{crit}}$) for each value of \pro, and also
+the maximum value of (Ra, Ta) studied in this work for each path. }
+
+\begin{deluxetable}{c c c}
+\caption{ \added{Values of the critical Ra and Ta for each \pro$\,$ track are reported, as well as the
+maximal values of Ra and Ta studied on each track. All values reported are for the top of
+the atmosphere.} \label{table:ra_ta_bounds}
+}
+\startdata
+\tablehead{\pro & (Ra$_{\text{crit}}$, Ta$_{\text{crit}}$) & (Ra$_{\text{max}}$, Ta$_{\text{max}}$)}
+1.58 & ($10^{1.39}, 10^{1.33}$) & ($10^{7.14}, 10^{8.99}$)\\
+0.96 & ($10^{2.44}, 10^{3.30}$) & ($10^{8.58}, 10^{11.49}$)\\
+0.60 & ($10^{4.88}, 10^{7.10}$) & ($10^{9.09}, 10^{12.72}$)\\
+\enddata
+\end{deluxetable}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% RESULTS SECTION
@@ -319,11 +346,10 @@ we find $\{C, \alpha, \beta\} = \{0.2, -0.19, 1.5\}$.
     \caption{
 	Scaling laws for paths at $\pro = 1.58$ ($\text{Ro} \approx 0.4$),
     $\pro = 0.96$ ($\text{Ro} \approx 0.1$), and $\pro = 0.6$ ($\text{Ro} \approx 0.03$) are shown. 
-    Numbers are plotted vs. Ra/Ra$_{\text{crit}}$, where Ra$_{\text{crit}}$ is the value at which
-	a given $\pro$ path crosses the supercriticality curve (e.g., orange circles in Fig.~\ref{fig:parameter_space}a).
+    Numbers are plotted vs. Ra/Ra$_{\text{crit}}$, where Ra$_{\text{crit}}$ is \added{given in Table \ref{table:ra_ta_bounds}.}
+    \deleted{the value at which
+	a given $\pro$ path crosses the supercriticality curve (e.g., orange circles in Fig.~\ref{fig:parameter_space}a).}
 	(a) Nu, as defined in \AB, is shown.
-%	The evolved scaling law of Nu approaches $\text{Ra}^{2/7}\sim \text{Ra}^{1/3}$, as expected from
-%	boundary layer theory \citep{king&all2012}.
     (b) $\text{Re}_\parallel$ and $\text{Re}_{\perp}$, as defined in equation \ref{eqn:re_defn},
 	are shown. All values of $\pro$ trace out similar Nu and $\text{Re}_{\perp}$ tracks,
 	whereas $\text{Re}_\parallel$ tracks shift upwards as Ro decreases.
@@ -337,8 +363,9 @@ we find $\{C, \alpha, \beta\} = \{0.2, -0.19, 1.5\}$.
     \caption{Horizontally-averaged profiles of the standard deviation of entropy ($\sigma_{\text{s}}$, a) and Rossby number (Ro, b) 
     are shown vs. height for $\pro = 1.58$ ($\text{Ro} \approx 0.4$). 
     Similar profiles are shown in (c) and (d) for $\pro = 0.96$ ($\text{Ro} \approx 0.1$). The color of the profiles
-    denotes the value of Ra/Ra$_{\text{crit}}$, where Ra$_\text{crit}$ is denoted by
-	an orange circle for each \pro$\,$ path in Fig. \ref{fig:parameter_space}a.
+    denotes the value of Ra/Ra$_{\text{crit}}$, where Ra$_\text{crit}$ is \added{given in Table \ref{table:ra_ta_bounds}.}
+    \deleted{denoted by
+	an orange circle for each \pro$\,$ path in Fig. \ref{fig:parameter_space}a.}
     (e) The ratio of the thicknesses of the dynamical boundary layers ($\delta_{\text{Ro}}$) and 
     thermal boundary layers ($\delta_{\text{s}}$) is shown vs. $\text{Ra}/\text{Ra}_{\text{crit}}$ for fixed \pro.
 	(f) $\delta_{\text{s}}$ is plotted vs. $\text{Ra}/\text{Ra}_{\text{crit}}$ in units of the density
@@ -362,10 +389,19 @@ We measure the Nusselt number (Nu), which quantifies heat transport in a convect
 solution, as defined in \AB.
 In figure~\ref{fig:nu_and_re}a, we plot Nu as a function
 of $\text{Ra}/\text{Ra}_\text{crit}$ at fixed \pro. We find that $\text{Nu} \propto \{\text{Ra}^{0.29 \pm 0.01}, \text{Ra}^{0.29 \pm 0.01}, \text{Ra}^{0.24}\}$
-for $\pro = \{0.6, 0.957, 1.58\}$. These scalings are in line with classic 2/7 power law scalings
-in \RB convection \citep{ahlers&all2009}, and approach a $\text{Ra}^{1/3}$ scaling, 
-which has been predicted when \pro$\,$ is held constant
-\citep[see][and section \ref{sec:discussion}]{king&all2012}.
+for $\pro = \{0.6, 0.957, 1.58\}$. \added{In the regime of $\text{Ro} \lesssim 0.1$, these scaling laws are indistinguishable
+from a classic Ra$^{2/7}$ power law scaling,
+which is observed in nonrotating \RB and stratified convection \citep[][\AB]{ahlers&all2009}.
+Our results seem consistent with the stress-free, rotating \RB convection results of
+\cite{schmitz&tilgner2009}, whose re-arranged Eqn.~7 returns a best-fit of
+$\text{Nu} \propto \text{Ra}^{0.26}$ at fixed \pro$\,$. Their work primarily spans the transition
+regime between rotationally constrained and unconstrained convection, and so it is perhaps not
+surprising that their power law is a blend of our rotationally-constrained $\text{Ra}^{2/7}$ power
+law and the fairly rotationally unconstrained $\text{Ra}^{0.24}$ at $\pro = 1.58$.}
+%\deleted{These scalings are in line with classic 2/7 power law scalings
+%in \RB convection \citep{ahlers&all2009}, and approach a $\text{Ra}^{1/3}$ scaling, 
+%which has been predicted when \pro$\,$ is held constant
+%\citep[see][and section \ref{sec:discussion}]{king&all2012}.}
 
 Flows are distinctly different parallel to and perpendicular
 from the rotation vector, which aligns with gravity and stratification.
@@ -387,7 +423,9 @@ In figure \ref{fig:nu_and_re}b, we plot $\text{Re}_{\parallel}$ and $\text{Re}_{
 as a function of Ra$/\text{Ra}_{\text{crit}}$ at fixed \pro. We find that $\text{Re}_\parallel \propto \{\text{Ra}^{0.44 \pm 0.01}, \text{Ra}^{0.45 \pm 0.01}, \text{Ra}^{0.44}\}$
 and $\text{Re}_\perp \propto \{\text{Ra}^{0.22 \pm 0.01}, \\ \text{Ra}^{0.23 \pm 0.01}, \text{Ra}^{0.21}\}$ for
 $\pro = \{0.6, 0.957, 1.58\}$. These scalings are similar to but slightly weaker than our
-predictions in all cases. Furthermore, $\text{Re}_{\perp}$ collapses for each $\pro\,$ track,
+predictions in all cases. \added{However, the scaling of $\text{Re}_{\parallel} \propto \text{Ra}^{0.45}$, 
+is once again a power law observed frequently in nonrotating convection \citep[][\AB]{ahlers&all2009}.
+We also observe that}\deleted{Furthermore,} $\text{Re}_{\perp}$ collapses for each $\pro\,$ track,
 while $\text{Re}_{\parallel}$ experiences an offset
 to larger values as $\pro$ shrinks. The offset in $\text{Re}_{\parallel}$ is unsurprising, 
 because more rotationally constrained flows result in smaller boundary layers relative to the 
@@ -435,7 +473,19 @@ In this letter, we studied low-Mach-number, stratified, compressible convection
 under the influence of rotation.
 We examined three paths through Ra-Ta space, and showed that the newly-defined 
 Predictive Rossby number, $\pro = \text{Ra}/(\text{Pr }^{1/2}\text{Ta}^{3/4})$, determines the value of
-the evolved Rossby number.
+the evolved Rossby number. 
+
+\added{Shockingly, when $\text{Ro} \lesssim 0.1$, 
+we find $\text{Nu} \propto \text{Ra}^{2/7}$ and $\text{Re}_\parallel \propto \text{Ra}^{0.45}$ 
+when $\pro$ is held constant. These scalings are indistinguishable from the scalings of
+Re and Nu with Ra in non-rotating convection \citep{ahlers&all2009}. The Nu scaling here
+is particularly surprising, as \citet{julien&all2012} theorized that in the rapidly rotating
+asymptotic limit, $(\text{Nu} - 1) \propto \text{Ra}^{3/2}/\text{Ta} = \pro^{8/3}\text{Ra}^{1/6}$,
+which is much weaker than the $\text{Ra}^{2/7}$ law we find here.
+At a fixed Ta = $10^{14}$, \cite{stellmach&all2014} found that the Ra$^{3/2}$ scaling described
+the results of stress-free DNS in Boussinesq cylinders very well.  We leave it to future
+work to explain this discrepancy between
+Boussinesq theory and our observed Nu vs.~Ra scaling.}
 
 In this work, we experimentally arrived at the 
 $\text{Ra}/\text{Ta}^{3/4} = \text{Ra}\,\text{Ek}^{3/2}$
@@ -446,8 +496,9 @@ should scale as $\delta_{\text{Ro}} \propto \text{Ta}^{-1/4} = \text{Ek}^{1/2}$,
 expect these boundary layers to be equal in size when $\text{Ra}/\text{Ta}^{3/4} \sim 1$.
 They demonstrate that when $2 \lesssim\text{Ra}/\text{Ta}^{3/4} \lesssim 20$ flows are in the
 transitional regime, and for $\text{Ra}/\text{Ta}^{3/4} \lesssim 2$, flows are rotationally
-constrained. We note that Boussinesq values of $\text{Ra}$ and $\text{Ta}$ are not the same as their
-values in our stratified domains here, as diffusivities change with depth (see \AB). 
+constrained. We remind the reader that Boussinesq values of $\text{Ra}$ and $\text{Ta}$ are 
+not the same as their
+values in our stratified domains here, as diffusivities change with depth (see section \ref{sec:experiment}). 
 Taking into account this change with depth,
 our simulations fall in \cite{king&all2012}'s rotationally constrained
 ($\pro = 0.6$) and near-constrained transitional regime ($\pro = \{0.957, 1.58\}$).
@@ -492,7 +543,6 @@ Although all the results reported here are for a Cartesian geometry with
 antiparallel gravity and rotation, preliminary 3D spherical simulations suggest that 
 \pro$\,$ also specifies Ro in more complex geometries (Brown et al. 2019 in prep).
 
-
 \begin{acknowledgements}
 We thank Jon Aurnou and the anonymous referee who independently directed
 us to the work of \citet{king&all2012} during the review process, which greatly
@@ -508,6 +558,55 @@ with support by the NASA High End Computing (HEC) Program through the NASA
 Advanced Supercomputing (NAS) Division at Ames Research Center on Pleiades
 with allocation GID s1647.
 \end{acknowledgements}
+
+
+\appendix
+\section{Table of Simulations}
+\label{appendix:table}
+\added{
+Information for select simulations in this work are shown in Table \ref{table:simulation_info}.
+The simulation at minimum (Ra, Ta) and maximum (Ra, Ta) for each of the \pro, \con, and $\mathcal{S}$
+paths in Fig.~\ref{fig:parameter_space}b are shown. This information for the displayed simulations
+and all other simulations in this work is included as a .csv file in the supplemental materials.
+}
+
+\begin{deluxetable*}{c c c c c c c c c c c c c c c}
+\caption{\added{Input parameters and output parameters for select simulations are shown. For each of
+the eight paths in Fig. \ref{fig:parameter_space}b, we show information for the lowest and
+highest (Ra, Ta) point on that path. The first six rows show information for constant
+$\pro\,$ paths, the next six for constant \con$\,$ paths, and the last four for constant $\mathcal{S}$ paths.
+We show the input Ra, Ta, and \pro$\,$ at the top of the atmosphere, as well as their
+stratification-weighted values at the midplane of the atmosphere, which provide a more direct
+comparison to Boussinesq values \citep{unnoetall1960}. We also provide the input \con$\,$ at the
+top of the atmosphere, $\mathcal{S}$, aspect ratio ($L_x/L_z$), and coefficient resolution
+(nz, nx, ny). Output values of Ro, Re$_{\parallel}$, Re$_{\perp}$, and Nu are also provided.
+\label{table:simulation_info}}
+}
+\startdata
+\tablehead{																																															
+Ra$_{\text{top}}$	&	Ta$_{\text{top}}$	&	Ro$_{\text{p, top}}$	&	Ra$_{\text{mid}}$	&	Ta$_{\text{mid}}$	&	Ro$_{\text{p, mid}}$	&	\con	&	$\mathcal{S}$	&	$L_x/L_z$	&	(nz,	nx,	ny)	&					Ro      	&	Re$_{\parallel}$ 	&	Re$_{\perp}$	&	Nu      	}														
+1.8	$\times 10^{	5	}$	&	4.1	$\times 10^{	7	}$	&	0.60	&	1.4	$\times 10^{	7	}$	&	3.0	$\times 10^{	9	}$	&	1.03	&	0.067	&	1.1	&	0.51	&	(256,		32,		32)	&	0.015	&	19.4	&	2.5	&	1.2	\\				
+1.2	$\times 10^{	9	}$	&	5.2	$\times 10^{	12	}$	&	0.60	&	9.2	$\times 10^{	10	}$	&	3.8	$\times 10^{	14	}$	&	1.03	&	0.015	&	3.0	&	0.07	&	(2048,		64,		64)	&	0.026	&	1771.0	&	32.0	&	15.4	\\				
+5.2	$\times 10^{	2	}$	&	4.6	$\times 10^{	3	}$	&	0.96	&	3.8	$\times 10^{	4	}$	&	3.4	$\times 10^{	5	}$	&	1.64	&	0.333	&	1.13	&	2.28	&	(64,		64,		64)	&	0.074	&	4.2	&	2.5	&	1.2	\\				
+3.8	$\times 10^{	8	}$	&	3.1	$\times 10^{	11	}$	&	0.96	&	2.8	$\times 10^{	10	}$	&	2.3	$\times 10^{	13	}$	&	1.64	&	0.035	&	6.0	&	0.12	&	(2048,		64,		64)	&	0.129	&	3906.0	&	112.8	&	66.9	\\				
+7.9	$\times 10^{	1	}$	&	1.0	$\times 10^{	2	}$	&	1.58	&	5.8	$\times 10^{	3	}$	&	7.4	$\times 10^{	3	}$	&	2.70	&	0.888	&	1.56	&	4.44	&	(64,		64,		64)	&	0.303	&	4.4	&	4.9	&	1.7	\\				
+1.4	$\times 10^{	7	}$	&	9.7	$\times 10^{	8	}$	&	1.58	&	1.0	$\times 10^{	9	}$	&	7.2	$\times 10^{	10	}$	&	2.70	&	0.119	&	10.0	&	0.30	&	(512,		128,		128)	&	0.376	&	1257.0	&	94.9	&	40.1	\\				
+\hline																																															
+8.6	$\times 10^{	4	}$	&	8.6	$\times 10^{	6	}$	&	0.74	&	6.3	$\times 10^{	6	}$	&	6.3	$\times 10^{	8	}$	&	1.26	&	0.1	&	1.47	&	0.68	&	(128,		128,		128)	&	0.051	&	40.2	&	6.7	&	2.2	\\				
+2.6	$\times 10^{	6	}$	&	2.6	$\times 10^{	8	}$	&	1.13	&	1.9	$\times 10^{	8	}$	&	1.9	$\times 10^{	10	}$	&	1.93	&	0.1	&	4.64	&	0.39	&	(256,		512,		512)	&	0.27	&	565.1	&	53.2	&	33.3	\\				
+1.4	$\times 10^{	3	}$	&	1.6	$\times 10^{	4	}$	&	1.01	&	1.1	$\times 10^{	5	}$	&	1.2	$\times 10^{	6	}$	&	1.72	&	0.3	&	1.47	&	1.90	&	(64,		128,		128)	&	0.124	&	11.3	&	5.4	&	1.8	\\				
+1.1	$\times 10^{	6	}$	&	1.2	$\times 10^{	7	}$	&	2.29	&	7.8	$\times 10^{	7	}$	&	8.6	$\times 10^{	8	}$	&	3.93	&	0.3	&	14.7	&	0.65	&	(192,		384,		384)	&	0.808	&	529.6	&	83.5	&	27.3	\\				
+5.5	$\times 10^{	1	}$	&	5.5	$\times 10^{	1	}$	&	1.65	&	4.0	$\times 10^{	3	}$	&	4.0	$\times 10^{	3	}$	&	2.82	&	1.0	&	1.47	&	4.84	&	(64,		128,		128)	&	0.303	&	3.6	&	4.4	&	1.5	\\				
+2.8	$\times 10^{	6	}$	&	2.8	$\times 10^{	6	}$	&	6.39	&	2.0	$\times 10^{	8	}$	&	2.0	$\times 10^{	8	}$	&	10.93	&	1.0	&	100	&	0.82	&	(256,		512,		512)	&	3.357	&	1099.0	&	220.2	&	46.6	\\				
+\hline																																															
+1.9	$\times 10^{	1	}$	&	1.1	$\times 10^{	-1	}$	&	10.00	&	1.4	$\times 10^{	3	}$	&	7.9	$\times 10^{		}$	&	17.12	&	13.224	&	2.0	&	9.91	&	(64,		64,		64)	&	3.668	&	3.0	&	10.2	&	1.7	\\				
+3.0	$\times 10^{	6	}$	&	1.1	$\times 10^{	9	}$	&	0.70	&	2.2	$\times 10^{	8	}$	&	8.1	$\times 10^{	10	}$	&	1.20	&	0.052	&	2.0	&	0.30	&	(512,		128,		128)	&	0.053	&	242.3	&	17.9	&	6.0	\\				
+3.0	$\times 10^{	1	}$	&	2.0	$\times 10^{	-1	}$	&	10.00	&	2.2	$\times 10^{	3	}$	&	1.5	$\times 10^{	1	}$	&	17.12	&	12.211	&	3.0	&	9.48	&	(64,		64,		64)	&	4.418	&	5.0	&	15.5	&	2.1	\\				
+1.3	$\times 10^{	7	}$	&	5.6	$\times 10^{	9	}$	&	0.80	&	9.7	$\times 10^{	8	}$	&	4.2	$\times 10^{	11	}$	&	1.37	&	0.048	&	3.0	&	0.23	&	(512,		128,		128)	&	0.08	&	592.3	&	33.4	&	13.6	\\				
+\enddata																																															
+\end{deluxetable*}
+
+
 
 \bibliography{../tex/biblio.bib}
 
