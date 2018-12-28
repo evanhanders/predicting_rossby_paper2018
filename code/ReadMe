@@ -1,0 +1,37 @@
+_____________________________________________________________
+Title: Polytrope Repository
+Authors: Ben Brown, Evan Anders, the exoweather team
+_____________________________________________________________
+
+-----
+Description of contents:
+This tarball contains a stripped down version of the Exoweather team's
+polytrope repository. The code contained herein is the code that was used
+to run the simulations in this paper, but the repository is living and
+is constantly being updated. It is open source and can be found online at
+https://bitbucket.org/exoweather/polytrope
+
+We have only included the files necessary to run our polytrope simulations,
+namely:
+
+FC_poly.py (the python3 run script for the simulations)
+stratified_dynamics/atmospheres.py (logic and class definitions)
+stratified_dynamics/equations.py (logic and class definitions)
+stratified_dynamics/polytropes.py (logic and class definitions)
+tools/analysis.py  (misc)
+tools/checkpointing.py (checkpointing logic for restarting simulations)
+
+An example run script for the NASA Pleiades supercomputer is found in
+the file `sample_run_script'. Lines 19-36 of that file provide an example
+of how to run the code in a terminal.
+
+-----
+System requirements:
+This code must be run using python3 on a computer with the open-source
+Dedalus pseudospectral framework installed. See http://dedalus-project.org/
+for more information.
+
+-----
+Additional comments:
+For basic post-processing scripts, see the up-to-date polytrope repository,
+or contact the first author, Evan Anders, for other tools.
